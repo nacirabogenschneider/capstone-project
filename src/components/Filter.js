@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
+import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from 'react-google-maps'
 
-export default function Filter() {
-  const schoolsDataAll = schoolsData.schools
+export default function Filter({ schoolsDataAll }) {
   const primarySchools = filterSchoolsByPrimarySchool()
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [selectMarker, setSelectMarker] = useState(null)
+  const [selectedSingleMarker, setSelectedSingleMarker] = useState(null)
+
   let primarySchoolByState = ''
 
   function filterSchoolsByPrimarySchool() {
@@ -40,7 +35,7 @@ export default function Filter() {
       .filter(school => school.state === selectedState)
       .map(sortedSchool => (
         <Marker
-          key={sortedSchool.official_id}
+          key={sortedSchool.id}
           position={{
             lat: sortedSchool.lat,
             lng: sortedSchool.lon,
@@ -52,10 +47,12 @@ export default function Filter() {
       ))
     return primarySchoolMarker
   }
+
   return (
     <>
       <SelectSection>
         <Select
+          key={selectedState.name}
           onClick={selectedState => {
             setSelectedState(selectedState.target.value)
           }}
@@ -65,9 +62,10 @@ export default function Filter() {
           {renderMarker()}
         </Select>
         <Select
-          onClick={selectedPrimarySchool => {
+          key={selectedPrimarySchool.id}
+          onClick={selectedPrimarySchool =>
             setSelectedPrimarySchool(selectedPrimarySchool.target.value)
-          }}
+          }
         >
           <Option>Wähle deine Schule</Option>
           {setPrimarySchoolSelectorByState()}
