@@ -9,8 +9,9 @@ import {
   Marker,
   InfoWindow,
 } from 'react-google-maps'
-import * as schoolsData from './data/schools.json'
-import Content from './components/Content'
+
+import Filter from './components/Filter'
+
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {
   return (
@@ -24,17 +25,13 @@ function App() {
           mapElement={<div style={{ height: `100%` }} />}
         />
       </MapContainer>
-      <Content />
+      <Filter />
       {/* <Navigation /> */}
     </AppGrid>
   )
 }
 
 export default App
-
-//import logo from './logo.svg';
-
-/* <img src={logo} className="App-logo" alt="logo" /> */
 
 const AppGrid = styled.div`
   width: auto;
