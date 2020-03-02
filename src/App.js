@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Map from './components/Maps'
 
@@ -25,8 +25,6 @@ function App() {
           mapElement={<div style={{ height: `100%` }} />}
         />
       </MapContainer>
-      <Filter />
-      {/* <Navigation /> */}
     </AppGrid>
   )
 }

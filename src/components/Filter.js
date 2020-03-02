@@ -1,37 +1,79 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker,
+  InfoWindow,
+} from 'react-google-maps'
 
 export default function Filter() {
   const schoolsDataAll = schoolsData.schools
   const primarySchools = filterSchoolsByPrimarySchool()
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
+  const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
+  const [selectMarker, setSelectMarker] = useState(null)
+  let primarySchoolByState = ''
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
       .filter(school => school.school_type === 'Grundschule')
-      .map(school => school.name + ', ' + school.address)
       .sort()
-    // .map(sortedPrimarySchool => <option>{sortedPrimarySchool}</option>)
   }
   function setStateSelector() {
     return schoolStates.map(state => <option>{state.name}</option>)
   }
-  function filterSchoolByState() {
-    return
-  }
 
+  function setPrimarySchoolSelectorByState() {
+    primarySchoolByState = primarySchools
+      .filter(school => school.state === selectedState)
+      .map(school => school.name + ', ' + school.address)
+      .sort()
+      .map(sortedSchool => <option>{sortedSchool}</option>)
+    return primarySchoolByState
+  }
+  function renderMarker() {
+    const primarySchoolMarker = primarySchools
+      .filter(school => school.state === selectedState)
+      .map(sortedSchool => (
+        <Marker
+          key={sortedSchool.official_id}
+          position={{
+            lat: sortedSchool.lat,
+            lng: sortedSchool.lon,
+          }}
+          onClick={() => {
+            setSelectMarker(sortedSchool)
+          }}
+        />
+      ))
+    return primarySchoolMarker
+  }
   return (
-    <SelectSection>
-      <Select>
-        <option>Wähle dein Bundesland</option>
-        {setStateSelector()}
-      </Select>
-      <Select>
-        <option>Filter 2</option>
-      </Select>
-    </SelectSection>
+    <>
+      <SelectSection>
+        <Select
+          onClick={selectedState => {
+            setSelectedState(selectedState.target.value)
+          }}
+        >
+          <Option>Wähle dein Bundesland</Option>
+          {setStateSelector()}
+          {renderMarker()}
+        </Select>
+        <Select
+          onClick={selectedPrimarySchool => {
+            setSelectedPrimarySchool(selectedPrimarySchool.target.value)
+          }}
+        >
+          <Option>Wähle deine Schule</Option>
+          {setPrimarySchoolSelectorByState()}
+        </Select>
+      </SelectSection>
+    </>
   )
 }
 
@@ -53,7 +95,11 @@ const SelectSection = styled(ContentWrapper)`
   bottom: 54px;
   width: 100%;
 `
+const Option = styled.option`
+  font-size: 20px;
+`
 const Select = styled.select`
+  font-family: 'Arial';
   height: 48px;
   width: 95vw;
   block-size: inline;
