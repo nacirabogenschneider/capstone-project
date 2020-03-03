@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Map from './components/Maps'
 
@@ -9,32 +9,28 @@ import {
   Marker,
   InfoWindow,
 } from 'react-google-maps'
-import * as schoolsData from './data/schools.json'
-import Content from './components/Content'
+
+import Filter from './components/Filter'
+
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {
   return (
     <AppGrid>
       <Header />
-      <MapContainer>
+      <MapContainer key={Math.random()}>
         <MapWrapped
+          key={Math.random()}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBU3q3eaMPCjRMHD-2E6Z7-qWhSyHFe3-E`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </MapContainer>
-      <Content />
-      {/* <Navigation /> */}
     </AppGrid>
   )
 }
 
 export default App
-
-//import logo from './logo.svg';
-
-/* <img src={logo} className="App-logo" alt="logo" /> */
 
 const AppGrid = styled.div`
   width: auto;
