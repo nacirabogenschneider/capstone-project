@@ -8,10 +8,14 @@ export default function Filter({ schoolsDataAll }) {
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
+  const [
+    selectedPrimarySchoolObject,
+    setSelectedPrimarySchoolObject,
+  ] = useState('')
   const [selectMarker, setSelectMarker] = useState(null)
   const [selectedSingleMarker, setSelectedSingleMarker] = useState(null)
-
-  let primarySchoolByState = ''
+  const meetpoint = [selectedPrimarySchool]
+  const [buttonIsSet, setButtonIsSet] = useState(false)
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
@@ -22,13 +26,25 @@ export default function Filter({ schoolsDataAll }) {
     return schoolStates.map(state => <option>{state.name}</option>)
   }
 
+  function filterPrimarySchoolByState() {
+    const primarySelectedByState = primarySchools.filter(
+      school => school.state === selectedState
+    )
+    return primarySelectedByState
+  }
+
   function setPrimarySchoolSelectorByState() {
-    primarySchoolByState = primarySchools
-      .filter(school => school.state === selectedState)
+    return filterPrimarySchoolByState()
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <option>{sortedSchool}</option>)
-    return primarySchoolByState
+  }
+  function renderSchoolCard() {
+    return (
+      <SchoolCard>
+        <h2>{selectedPrimarySchool}</h2>
+      </SchoolCard>
+    )
   }
   function renderMarker() {
     const primarySchoolMarker = primarySchools
@@ -47,20 +63,26 @@ export default function Filter({ schoolsDataAll }) {
       ))
     return primarySchoolMarker
   }
-
+  function renderSelectButton() {
+    return <AddPointButton>&#10003;</AddPointButton>
+  }
   return (
     <>
       <SelectSection>
-        <Select
-          key={selectedState.name}
-          onClick={selectedState => {
-            setSelectedState(selectedState.target.value)
-          }}
-        >
-          <Option>Wähle dein Bundesland</Option>
-          {setStateSelector()}
-          {renderMarker()}
-        </Select>
+        {selectedPrimarySchool && <div>{renderSchoolCard()}</div>}
+        {selectedPrimarySchool === '' && (
+          <Select
+            key={selectedState.name}
+            onClick={selectedState => {
+              setSelectedState(selectedState.target.value)
+            }}
+          >
+            <Option>Wähle dein Bundesland</Option>
+            {setStateSelector()}
+            {renderMarker()}
+          </Select>
+        )}
+
         <Select
           key={selectedPrimarySchool.id}
           onClick={selectedPrimarySchool =>
@@ -70,6 +92,8 @@ export default function Filter({ schoolsDataAll }) {
           <Option>Wähle deine Schule</Option>
           {setPrimarySchoolSelectorByState()}
         </Select>
+
+        {selectedPrimarySchool && renderSelectButton()}
       </SelectSection>
     </>
   )
@@ -107,4 +131,30 @@ const Select = styled.select`
   font-size: 1.1rem;
   background: white;
   box-shadow: 0 0 10px 2px #a4b0af;
+`
+const SchoolCard = styled.div`
+  font-family: 'Arial';
+  height: auto;
+  width: auto;
+  block-size: inline;
+  border-radius: 12px;
+  border: none;
+  padding: 10px;
+  margin: 5px 8px;
+  font-size: 1.1rem;
+  background: white;
+  box-shadow: 0 0 10px 2px #a4b0af;
+`
+const AddPointButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  height: 48px;
+  width: 48px;
+  border: none;
+  margin: 4px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  background: white;
 `
