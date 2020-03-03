@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
-import Geocode from 'react-geocode'
+import currentSchool from '../img/solid-sm/sm-location-marker.svg'
+import schoolBuilding from '../img/solid-sm/sm-office-building.svg'
 
+//#CD1076
 export default function Filter({ schoolsDataAll }) {
   const primarySchools = filterSchoolsByPrimarySchool()
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
-  const [
-    selectedPrimarySchoolObject,
-    setSelectedPrimarySchoolObject,
-  ] = useState('')
   const [selectMarker, setSelectMarker] = useState(null)
+  const [singleMarler, setSingleMarker] = useState(null)
   const [getLocation, setGetLocation] = useState({})
 
   function filterSchoolsByPrimarySchool() {
@@ -22,7 +21,7 @@ export default function Filter({ schoolsDataAll }) {
       .sort()
   }
   function setStateSelector() {
-    return schoolStates.map(state => <option>{state.name}</option>)
+    return schoolStates.map(state => <Option>{state.name}</Option>)
   }
 
   function filterPrimarySchoolByState() {
@@ -36,12 +35,15 @@ export default function Filter({ schoolsDataAll }) {
     return filterPrimarySchoolByState()
       .map(school => school.name + ', ' + school.address)
       .sort()
-      .map(sortedSchool => <option>{sortedSchool}</option>)
+      .map(sortedSchool => <Option>{sortedSchool}</Option>)
   }
   function renderSchoolCard() {
+    const schoolValues = selectedPrimarySchool.split(',')
+    const selectedValueName = schoolValues[0]
     return (
       <SchoolCard>
-        <h2>{selectedPrimarySchool}</h2>
+        <h2>{selectedValueName}</h2>
+        <p>{getPositionOfSelectedSchool()}</p>
       </SchoolCard>
     )
   }
@@ -55,7 +57,6 @@ export default function Filter({ schoolsDataAll }) {
 
     return selectedSchoolAddress
   }
-  console.log(getPositionOfSelectedSchool())
 
   function renderMarker() {
     const primarySchoolMarker = primarySchools
@@ -70,49 +71,51 @@ export default function Filter({ schoolsDataAll }) {
           onClick={() => {
             setSelectMarker(sortedSchool)
           }}
+          icon={{
+            url: schoolBuilding,
+          }}
         />
       ))
     return primarySchoolMarker
   }
 
-  function getSchoolLocation() {
-    if (
-      selectedState &&
-      selectedPrimarySchool &&
-      selectedPrimarySchool !== 'Wähle deine Schule'
-    ) {
-      Geocode.fromAddress(getPositionOfSelectedSchool()).then(
-        response => {
-          const { lat, lng } = response.results[0].geometry.location
-          const location = { lat, lng }
-          return setGetLocation(location)
-        },
-        error => {
-          console.error(error)
-        }
-      )
-    }
+  function renderSingleMarker() {
+    return (
+      <Marker
+        key={Math.random()}
+        position={{
+          lat: 53.62036,
+          lng: 9.89396,
+          draggable: true,
+          title: 'Drag me!',
+        }}
+        icon={{
+          url: currentSchool,
+        }}
+      />
+    )
   }
+
   function renderSelectButton() {
     return <AddPointButton>&#10003;</AddPointButton>
   }
   return (
     <>
       <SelectSection>
-        {selectedPrimarySchool && <div>{renderSchoolCard()}</div>}
-        {selectedPrimarySchool === '' && (
-          <Select
-            key={selectedState.name}
-            onClick={selectedState => {
-              setSelectedState(selectedState.target.value)
-            }}
-          >
-            <Option>Wähle dein Bundesland</Option>
-            {setStateSelector()}
-            {renderMarker()}
-          </Select>
-        )}
-
+        {selectedPrimarySchool &&
+          selectedPrimarySchool !== 'Wähle deine Schule' && (
+            <div>{renderSchoolCard()}</div>
+          )}
+        <Select
+          key={selectedState.name}
+          onClick={selectedState => {
+            setSelectedState(selectedState.target.value)
+          }}
+        >
+          <Option>Wähle dein Bundesland</Option>
+          {setStateSelector()}
+          {renderMarker()}
+        </Select>
         <Select
           key={selectedPrimarySchool.id}
           onClick={selectedPrimarySchool =>
@@ -122,8 +125,12 @@ export default function Filter({ schoolsDataAll }) {
           <Option>Wähle deine Schule</Option>
           {setPrimarySchoolSelectorByState()}
         </Select>
-
-        {selectedPrimarySchool && renderSelectButton()}
+        {selectedPrimarySchool && renderSingleMarker()}
+        {selectedPrimarySchool &&
+          selectedPrimarySchool !== 'Wähle deine Schule' &&
+          renderSelectButton &&
+          console.log(selectedPrimarySchool)}
+        {renderSelectButton()}
       </SelectSection>
     </>
   )
@@ -153,19 +160,23 @@ const Option = styled.option`
 const Select = styled.select`
   font-family: 'Arial';
   height: 48px;
-  width: 95vw;
-  block-size: inline;
+  width: 100vw;
+  min-width: 380px;
+  max-width: 380px;
   border-radius: 12px;
   border: none;
   margin: 5px 0;
   font-size: 1.1rem;
   background: white;
+  opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
 const SchoolCard = styled.div`
   font-family: 'Arial';
   height: auto;
-  width: auto;
+  width: 100vw;
+  min-width: 380px;
+  max-width: 380px;
   block-size: inline;
   border-radius: 12px;
   border: none;
@@ -173,6 +184,7 @@ const SchoolCard = styled.div`
   margin: 5px 8px;
   font-size: 1.1rem;
   background: white;
+  opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
 const AddPointButton = styled.button`
