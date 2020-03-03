@@ -1,12 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from 'react-google-maps'
+import React from 'react'
+import { GoogleMap } from 'react-google-maps'
 import mapStyles from './utils/mapStyles'
 import * as schoolsData from '../data/schools.json'
 import Filter from './Filter'
