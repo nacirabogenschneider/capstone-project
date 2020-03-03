@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Map from './components/Maps'
+import Geocode from 'react-geocode'
 
 import {
   withGoogleMap,
@@ -10,7 +11,8 @@ import {
   InfoWindow,
 } from 'react-google-maps'
 
-import Filter from './components/Filter'
+Geocode.setApiKey('AIzaSyBU3q3eaMPCjRMHD-2E6Z7-qWhSyHFe3-E')
+Geocode.setLanguage('en')
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {

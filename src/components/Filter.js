@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
+import Geocode from 'react-geocode'
 
 export default function Filter({ schoolsDataAll }) {
   const primarySchools = filterSchoolsByPrimarySchool()
@@ -46,6 +47,27 @@ export default function Filter({ schoolsDataAll }) {
       </SchoolCard>
     )
   }
+
+  function getPositionOfSelectedSchool() {
+    const schoolAddress = selectedPrimarySchool.split(',')
+    const selectedSchoolAddress =
+      schoolAddress[schoolAddress.length - 2] +
+      ',' +
+      schoolAddress[schoolAddress.length - 1]
+    return console.log(selectedSchoolAddress)
+  }
+
+  Geocode.fromAddress('Bei der Hammer Kirche 10, 20535 Hamburg').then(
+    response => {
+      const { lat, lng } = response.results[0].geometry.location
+      console.log(selectedPrimarySchool, lat, lng)
+      getPositionOfSelectedSchool()
+    },
+    error => {
+      console.error(error)
+    }
+  )
+
   function renderMarker() {
     const primarySchoolMarker = primarySchools
       .filter(school => school.state === selectedState)
