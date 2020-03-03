@@ -14,9 +14,7 @@ export default function Filter({ schoolsDataAll }) {
     setSelectedPrimarySchoolObject,
   ] = useState('')
   const [selectMarker, setSelectMarker] = useState(null)
-  const [selectedSingleMarker, setSelectedSingleMarker] = useState(null)
-  const meetpoint = [selectedPrimarySchool]
-  const [buttonIsSet, setButtonIsSet] = useState(false)
+  const [getLocation, setGetLocation] = useState({})
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
@@ -54,19 +52,10 @@ export default function Filter({ schoolsDataAll }) {
       schoolAddress[schoolAddress.length - 2] +
       ',' +
       schoolAddress[schoolAddress.length - 1]
-    return console.log(selectedSchoolAddress)
-  }
 
-  Geocode.fromAddress('Bei der Hammer Kirche 10, 20535 Hamburg').then(
-    response => {
-      const { lat, lng } = response.results[0].geometry.location
-      console.log(selectedPrimarySchool, lat, lng)
-      getPositionOfSelectedSchool()
-    },
-    error => {
-      console.error(error)
-    }
-  )
+    return selectedSchoolAddress
+  }
+  console.log(getPositionOfSelectedSchool())
 
   function renderMarker() {
     const primarySchoolMarker = primarySchools
@@ -84,6 +73,25 @@ export default function Filter({ schoolsDataAll }) {
         />
       ))
     return primarySchoolMarker
+  }
+
+  function getSchoolLocation() {
+    if (
+      selectedState &&
+      selectedPrimarySchool &&
+      selectedPrimarySchool !== 'Wähle deine Schule'
+    ) {
+      Geocode.fromAddress(getPositionOfSelectedSchool()).then(
+        response => {
+          const { lat, lng } = response.results[0].geometry.location
+          const location = { lat, lng }
+          return setGetLocation(location)
+        },
+        error => {
+          console.error(error)
+        }
+      )
+    }
   }
   function renderSelectButton() {
     return <AddPointButton>&#10003;</AddPointButton>
