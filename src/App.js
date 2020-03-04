@@ -1,21 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import styled from 'styled-components'
 import Map from './components/Maps'
-
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from 'react-google-maps'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {
   return (
     <AppGrid>
       <Header />
-
       <MapContainer key={Math.random()}>
         <MapWrapped
           key={Math.random()}
@@ -31,7 +23,7 @@ function App() {
 
 export default App
 
-const AppGrid = styled.div`
+const AppGrid = styled.section`
   width: auto;
   height: auto;
   display: grid;
