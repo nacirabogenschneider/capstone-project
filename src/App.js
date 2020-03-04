@@ -17,6 +17,9 @@ function App() {
           mapElement={<div style={{ height: `100%` }} />}
         />
       </MapContainer>
+      <Footer>
+        <AddPointButton>&#10003;</AddPointButton>
+      </Footer>
     </AppGrid>
   )
 }
@@ -42,10 +45,34 @@ const Header = styled.header`
   z-index: 100;
   box-shadow: 0 0 10px 3px grey;
 `
+const Footer = styled.header`
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: #fbfbfb;
+  border-bottom: 0.8px solid lightgray;
+  z-index: 100;
+  box-shadow: 0 0 10px 3px grey;
+`
 const MapContainer = styled.section`
   z-index: 0;
   margin: 0;
   padding: 0;
   width: 100%;
   height: calc(100vh - 96px);
+`
+const AddPointButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  height: 35px;
+  width: 35px;
+  border: none;
+  margin: 4px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  background: white;
 `

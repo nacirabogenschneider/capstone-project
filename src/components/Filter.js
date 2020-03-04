@@ -11,6 +11,7 @@ export default function Filter() {
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
+  const [schoolObject, setSchoolObject] = useState(null)
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
@@ -44,13 +45,13 @@ export default function Filter() {
 
     return selectedSchoolAddress
   }
-  function getLatLonOfSelectedSchool() {
-    const filter = getNameOfSelectedSchool()
-    const schools = primarySchools.filter(school => school.name === filter)[0]
-
-    return console.log(schools)
-  }
-  getLatLonOfSelectedSchool()
+  // function getLatLonOfSelectedSchool() {
+  //   const filter = getNameOfSelectedSchool()
+  //   const schools = primarySchools.filter(school => school.name === filter)[0]
+  //   return setSchoolObject(schools.lat)
+  // }
+  // getLatLonOfSelectedSchool()
+  // schoolObject && console.log(schoolObject)
 
   function renderMarker() {
     return primarySchools
@@ -102,9 +103,6 @@ export default function Filter() {
           {selectedState !== 'Wähle dein Bundesland' &&
             setPrimarySchoolSelectorByState()}
         </Select>
-        <Select key={Math.random()}>
-          <Option>Wähle einen Meetpoint</Option>
-        </Select>
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' && (
             <Marker
@@ -117,10 +115,6 @@ export default function Filter() {
                 url: currentSchool,
               }}
             />
-          )}
-        {selectedPrimarySchool &&
-          selectedPrimarySchool !== 'Wähle deine Schule' && (
-            <AddPointButton>&#10003;</AddPointButton>
           )}
       </SelectSection>
     </>
@@ -177,17 +171,4 @@ const SchoolCard = styled.section`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
-`
-const AddPointButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6rem;
-  height: 48px;
-  width: 48px;
-  border: none;
-  margin: 4px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px 2px #a4b0af;
-  background: white;
 `
