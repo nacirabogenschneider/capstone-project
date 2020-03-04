@@ -15,10 +15,11 @@ function App() {
   return (
     <AppGrid>
       <Header />
+
       <MapContainer key={Math.random()}>
         <MapWrapped
           key={Math.random()}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBU3q3eaMPCjRMHD-2E6Z7-qWhSyHFe3-E`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}

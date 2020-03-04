@@ -13,7 +13,8 @@ export default function Filter({ schoolsDataAll }) {
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [selectMarker, setSelectMarker] = useState(null)
   const [singleMarler, setSingleMarker] = useState(null)
-  const [getLocation, setGetLocation] = useState({})
+  const [latOfSelectedSchool, setLatOfSelectedSchool] = useState(null)
+  const [lonOfSelectedSchool, setLonOfSelectedSchool] = useState(null)
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
@@ -25,10 +26,7 @@ export default function Filter({ schoolsDataAll }) {
   }
 
   function filterPrimarySchoolByState() {
-    const primarySelectedByState = primarySchools.filter(
-      school => school.state === selectedState
-    )
-    return primarySelectedByState
+    return primarySchools.filter(school => school.state === selectedState)
   }
 
   function setPrimarySchoolSelectorByState() {
@@ -38,17 +36,20 @@ export default function Filter({ schoolsDataAll }) {
       .map(sortedSchool => <Option>{sortedSchool}</Option>)
   }
   function renderSchoolCard() {
-    const schoolValues = selectedPrimarySchool.split(',')
-    const selectedValueName = schoolValues[0]
     return (
       <SchoolCard>
-        <h2>{selectedValueName}</h2>
-        <p>{getPositionOfSelectedSchool()}</p>
+        <h2>{getNameOfSelectedSchool()}</h2>
+        <p>{getAddressOfSelectedSchool()}</p>
       </SchoolCard>
     )
   }
+  function getNameOfSelectedSchool() {
+    const schoolValues = selectedPrimarySchool.split(',')
+    const selectedValueName = schoolValues[0]
+    return selectedValueName
+  }
 
-  function getPositionOfSelectedSchool() {
+  function getAddressOfSelectedSchool() {
     const schoolAddress = selectedPrimarySchool.split(',')
     const selectedSchoolAddress =
       schoolAddress[schoolAddress.length - 2] +
@@ -57,9 +58,15 @@ export default function Filter({ schoolsDataAll }) {
 
     return selectedSchoolAddress
   }
+  function getLatLonOfSelectedSchool() {
+    const filter = getNameOfSelectedSchool()
+    const hope = primarySchools.filter(school => school.name === filter)
+    return console.log(hope)
+  }
+  getLatLonOfSelectedSchool()
 
   function renderMarker() {
-    const primarySchoolMarker = primarySchools
+    return primarySchools
       .filter(school => school.state === selectedState)
       .map(sortedSchool => (
         <Marker
@@ -76,29 +83,33 @@ export default function Filter({ schoolsDataAll }) {
           }}
         />
       ))
-    return primarySchoolMarker
   }
 
   function renderSingleMarker() {
     return (
-      <Marker
-        key={Math.random()}
-        position={{
-          lat: 53.62036,
-          lng: 9.89396,
-          draggable: true,
-          title: 'Drag me!',
-        }}
-        icon={{
-          url: currentSchool,
-        }}
-      />
+      <>
+        <Marker
+          key={Math.random()}
+          position={{
+            lat: 10,
+            lng: 9,
+          }}
+          icon={{
+            url: currentSchool,
+          }}
+        />
+      </>
     )
   }
 
   function renderSelectButton() {
     return <AddPointButton>&#10003;</AddPointButton>
   }
+  function handleStateClick(selectedState) {
+    console.log(selectedState.target.value)
+    return setSelectedState(selectedState.target.value)
+  }
+  console.log('selectedState im Hook: ' + selectedState)
   return (
     <>
       <SelectSection>
@@ -106,15 +117,10 @@ export default function Filter({ schoolsDataAll }) {
           selectedPrimarySchool !== 'Wähle deine Schule' && (
             <div>{renderSchoolCard()}</div>
           )}
-        <Select
-          key={selectedState.name}
-          onClick={selectedState => {
-            setSelectedState(selectedState.target.value)
-          }}
-        >
+        <Select key={selectedState.name} onClick={handleStateClick}>
           <Option>Wähle dein Bundesland</Option>
           {setStateSelector()}
-          {renderMarker()}
+          {selectedState !== 'Wähle dein Bundesland' && renderMarker()}
         </Select>
         <Select
           key={selectedPrimarySchool.id}
@@ -123,20 +129,21 @@ export default function Filter({ schoolsDataAll }) {
           }
         >
           <Option>Wähle deine Schule</Option>
-          {setPrimarySchoolSelectorByState()}
+          {selectedState !== 'Wähle dein Bundesland' &&
+            setPrimarySchoolSelectorByState()}
         </Select>
-        {selectedPrimarySchool && renderSingleMarker()}
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' &&
-          renderSelectButton &&
-          console.log(selectedPrimarySchool)}
-        {renderSelectButton()}
+          renderSingleMarker()}
+        {selectedPrimarySchool &&
+          selectedPrimarySchool !== 'Wähle deine Schule' &&
+          renderSelectButton}
       </SelectSection>
     </>
   )
 }
 
-const ContentWrapper = styled.section`
+const ContentWrapper = styled.main`
   position: absolute;
   display: flex;
   flex-direction: column;
