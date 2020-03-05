@@ -1,7 +1,7 @@
 import React from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import styled from 'styled-components'
-import Map from './components/Maps'
+import Map from './Components/Maps'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {

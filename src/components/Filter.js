@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
@@ -11,7 +11,16 @@ export default function Filter() {
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
-  const [schoolObject, setSchoolObject] = useState(null)
+  const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
+
+  // useEffect(() => {
+  //   primarySchools.length > 0 && getLatLonOfSelectedSchool()
+  // }, [primarySchools])
+
+  useEffect(() => {
+    setLatLonOfSelectedSchool()
+  }, [selectedPrimarySchool])
+  console.log(schoolLatLon)
 
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
@@ -45,13 +54,23 @@ export default function Filter() {
 
     return selectedSchoolAddress
   }
+  function setLatLonOfSelectedSchool() {
+    const filterByName = getNameOfSelectedSchool()
+    const schools = primarySchools.filter(
+      school => school.name === filterByName
+    )
+    if (schools.length > 0) {
+      setSchoolLatLon({ lat: schools[0].lat, lon: schools[0].lon })
+    }
+  }
+
   // function getLatLonOfSelectedSchool() {
-  //   const filter = getNameOfSelectedSchool()
-  //   const schools = primarySchools.filter(school => school.name === filter)[0]
-  //   return setSchoolObject(schools.lat)
+  //   const filterByName = getNameOfSelectedSchool()
+  //   const schools = primarySchools.filter(
+  //     school => school.name === filterByName
+  //   )
+  //   return setSchoolLatLon({ lat: schools, lon: schools })
   // }
-  // getLatLonOfSelectedSchool()
-  // schoolObject && console.log(schoolObject)
 
   function renderMarker() {
     return primarySchools
@@ -70,7 +89,6 @@ export default function Filter() {
       ))
   }
 
-  console.log('selectedState im Hook: ' + selectedState)
   return (
     <>
       <SelectSection key={selectedPrimarySchool.name}>
