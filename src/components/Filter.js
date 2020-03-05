@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
-import currentSchool from '../img/solid-sm/sm-location-marker.svg'
-import schoolBuilding from '../img/solid-sm/sm-office-building.svg'
+import currentSchool from '../img/solid-sm/school-selected.svg'
+import schoolBuilding from '../img/solid-sm/school-all.svg'
 
 export default function Filter() {
   const schoolsDataAll = schoolsData.schools
@@ -12,10 +12,6 @@ export default function Filter() {
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
-
-  // useEffect(() => {
-  //   primarySchools.length > 0 && getLatLonOfSelectedSchool()
-  // }, [primarySchools])
 
   useEffect(() => {
     setLatLonOfSelectedSchool()
@@ -63,14 +59,6 @@ export default function Filter() {
       setSchoolLatLon({ lat: schools[0].lat, lon: schools[0].lon })
     }
   }
-
-  // function getLatLonOfSelectedSchool() {
-  //   const filterByName = getNameOfSelectedSchool()
-  //   const schools = primarySchools.filter(
-  //     school => school.name === filterByName
-  //   )
-  //   return setSchoolLatLon({ lat: schools, lon: schools })
-  // }
 
   function renderMarker() {
     return primarySchools
@@ -126,8 +114,8 @@ export default function Filter() {
             <Marker
               key={Math.random()}
               position={{
-                lat: 53.551086,
-                lng: 9.993682,
+                lat: schoolLatLon.lat,
+                lng: schoolLatLon.lon,
               }}
               icon={{
                 url: currentSchool,

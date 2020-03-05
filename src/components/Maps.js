@@ -8,7 +8,7 @@ export default function Maps() {
   return (
     <>
       <GoogleMap
-        defaultZoom={10}
+        defaultZoom={12}
         defaultCenter={{ lat: 53.551086, lng: 9.993682 }}
         defaultOptions={{ styles: mapStyles }}
       ></GoogleMap>
