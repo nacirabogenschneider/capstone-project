@@ -8,6 +8,7 @@ function App() {
   return (
     <AppGrid>
       <Header />
+
       <MapContainer key={Math.random()}>
         <MapWrapped
           key={Math.random()}
@@ -17,6 +18,7 @@ function App() {
           mapElement={<div style={{ height: `100%` }} />}
         />
       </MapContainer>
+
       <Footer>
         <AddPointButton>&#10003;</AddPointButton>
       </Footer>

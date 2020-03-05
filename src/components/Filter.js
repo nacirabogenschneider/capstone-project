@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
 import currentSchool from '../img/solid-sm/school-selected.svg'
 import schoolBuilding from '../img/solid-sm/school-all.svg'
+import Card from './Card'
 
 export default function Filter() {
   const schoolsDataAll = schoolsData.schools
@@ -52,9 +53,9 @@ export default function Filter() {
       schoolAddress[schoolAddress.length - 2] +
       ',' +
       schoolAddress[schoolAddress.length - 1]
-
     return selectedSchoolAddress
   }
+
   function setLatLonOfSelectedSchool() {
     const filterByName = getNameOfSelectedSchool()
     const schools = primarySchools.filter(
@@ -87,13 +88,11 @@ export default function Filter() {
       <SelectSection key={selectedPrimarySchool.name}>
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' && (
-            <SchoolCard>
-              <CardHeader>
-                <img src={currentSchool} />
-                <p>{getNameOfSelectedSchool()}</p>
-              </CardHeader>
-              <p>{getAddressOfSelectedSchool()}</p>
-            </SchoolCard>
+            <Card
+              currentSchool={currentSchool}
+              schoolName={getNameOfSelectedSchool()}
+              schoolAdress={getAddressOfSelectedSchool()}
+            />
           )}
         <Select
           key={selectedState.name}
@@ -128,6 +127,7 @@ export default function Filter() {
               icon={{
                 url: currentSchool,
               }}
+              zoom={20}
             />
           )}
       </SelectSection>
@@ -166,22 +166,16 @@ const Select = styled.select`
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
-const SchoolCard = styled.section`
-  display: flex;
-  width: 92vw;
-  flex-direction: column;
-  font-family: 'Arial';
-  border-radius: 12px;
-  padding: 10px;
-  margin: 5px 0;
-  font-size: 1.1rem;
-  background: white;
-  opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
-`
-const CardHeader = styled.section`
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  font-size: 20px;
-`
+// const SchoolCard = styled.section`
+//   display: flex;
+//   width: 92vw;
+//   flex-direction: column;
+//   font-family: 'Arial';
+//   border-radius: 12px;
+//   padding: 10px;
+//   margin: 5px 0;
+//   font-size: 1.1rem;
+//   background: white;
+//   opacity: 0.94;
+//   box-shadow: 0 0 10px 2px #a4b0af;
+// `
