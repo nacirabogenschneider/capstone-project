@@ -9,9 +9,14 @@ export default function Filter() {
   const schoolsDataAll = schoolsData.schools
   const primarySchools = filterSchoolsByPrimarySchool()
   const schoolStates = schoolsData.states
+
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
+
+  useEffect(() => {
+    renderMarker() && setPrimarySchoolSelectorByState()
+  }, [selectedState])
 
   useEffect(() => {
     setLatLonOfSelectedSchool()
@@ -83,7 +88,10 @@ export default function Filter() {
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' && (
             <SchoolCard>
-              <h2>{getNameOfSelectedSchool()}</h2>
+              <CardHeader>
+                <img src={currentSchool} />
+                <p>{getNameOfSelectedSchool()}</p>
+              </CardHeader>
               <p>{getAddressOfSelectedSchool()}</p>
             </SchoolCard>
           )}
@@ -139,9 +147,7 @@ const ContentWrapper = styled.main`
 const SelectSection = styled(ContentWrapper)`
   position: absolute;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
   bottom: 54px;
   width: 100%;
 `
@@ -151,9 +157,7 @@ const Option = styled.option`
 const Select = styled.select`
   font-family: 'Arial';
   height: 48px;
-  width: 100vw;
-  min-width: 380px;
-  max-width: 380px;
+  width: 92vw;
   border-radius: 12px;
   border: none;
   margin: 5px 0;
@@ -163,18 +167,21 @@ const Select = styled.select`
   box-shadow: 0 0 10px 2px #a4b0af;
 `
 const SchoolCard = styled.section`
+  display: flex;
+  width: 92vw;
+  flex-direction: column;
   font-family: 'Arial';
-  height: auto;
-  width: 100vw;
-  min-width: 380px;
-  max-width: 380px;
-  block-size: inline;
   border-radius: 12px;
-  border: none;
   padding: 10px;
-  margin: 5px 8px;
+  margin: 5px 0;
   font-size: 1.1rem;
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+`
+const CardHeader = styled.section`
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 20px;
 `
