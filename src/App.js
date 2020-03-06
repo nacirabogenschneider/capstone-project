@@ -63,6 +63,8 @@ function App() {
           schoolsData={schoolsData}
           schoolsDataAll={schoolsDataAll}
           currentSchoolImg={currentSchoolImg}
+          selectedState={selectedState}
+          setSelectedState={setSelectedState}
           selectedPrimarySchoolName={selectedPrimarySchoolName}
           setSelectedPrimarySchoolName={setSelectedPrimarySchoolName}
           selectedPrimarySchoolAddress={selectedPrimarySchoolAddress}

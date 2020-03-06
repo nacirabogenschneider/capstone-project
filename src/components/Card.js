@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-Cards.propTypes = {
-  selectedSchoolName: PropTypes.string.isRequired,
-  selectedSchoolAddress: PropTypes.string.isRequired,
-  selectedSchoolMeetpoint: PropTypes.string.isRequired,
-  currentSchool: PropTypes.string,
-}
+// Cards.propTypes = {
+//   selectedSchoolName: PropTypes.string.isRequired,
+//   selectedSchoolAddress: PropTypes.string.isRequired,
+//   selectedSchoolMeetpoint: PropTypes.string.isRequired,
+//   currentSchool: PropTypes.string,
+// }
 export default function Cards({
   currentSchoolImg,
   schoolName,
