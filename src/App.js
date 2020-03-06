@@ -42,6 +42,7 @@ function App() {
     selectedPrimarySchoolAdress,
     setSelectedPrimarySchoolAdress,
   ] = useState('')
+  const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
 
   return (
     <AppGrid>
@@ -66,6 +67,7 @@ function App() {
           setSelectedPrimarySchoolName={setSelectedPrimarySchoolName}
           selectedPrimarySchoolAddress={selectedPrimarySchoolAddress}
           setSelectedPrimarySchoolAddress={setSelectedPrimarySchoolAddress}
+          selectedPrimarySchool={selectedPrimarySchool}
         />
 
         <Footer>
