@@ -7,31 +7,32 @@ import * as schoolsData from './data/schools.json'
 import PropTypes from 'prop-types'
 import Cards from './Components/Card'
 import currentSchoolImg from './img/solid-sm/school-selected.svg'
+import meetpointsData from './data/meetpoints.json'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
-MapWrapped.propTypes = {
-  defaultZoom: PropTypes.number.isRequired,
-  defaultCenter: PropTypes.object.isRequired,
-  efaultOptions: PropTypes.object,
+// MapWrapped.propTypes = {
+//   defaultZoom: PropTypes.number.isRequired,
+//   defaultCenter: PropTypes.object.isRequired,
+//   efaultOptions: PropTypes.object,
 
-  selectedPrimary: PropTypes.string.isRequired,
-  selectedState: PropTypes.string.isRequired,
-  selectedSchoolMeetpoint: PropTypes.string.isRequired,
-  schoolLatLon: PropTypes.object.isRequired,
+//   selectedPrimary: PropTypes.string.isRequired,
+//   selectedState: PropTypes.string.isRequired,
+//   selectedSchoolMeetpoint: PropTypes.string.isRequired,
+//   schoolLatLon: PropTypes.object.isRequired,
 
-  mapElement: PropTypes.object.isRequired,
-  googleMapURL: PropTypes.string.isRequired,
-  loadingElement: PropTypes.object.isRequired,
-  containerElemen: PropTypes.object.isRequired,
-}
+//   mapElement: PropTypes.object.isRequired,
+//   googleMapURL: PropTypes.string.isRequired,
+//   loadingElement: PropTypes.object.isRequired,
+//   containerElemen: PropTypes.object.isRequired,
+// }
 
 function App() {
   const schoolsDataAll = schoolsData.schools
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
-  const [meetpoints, setMeetpoints] = useState([])
+  const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
   const [selectedMeetpoint, setSelectedMeetpoint] = useState('')
   const [selectedPrimarySchoolName, setSelectedPrimarySchoolName] = useState('')
   const [
@@ -43,6 +44,9 @@ function App() {
     setSelectedPrimarySchoolAdress,
   ] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
+
+  console.log('App - selected State:')
+  console.log(selectedState)
 
   return (
     <AppGrid>
@@ -70,6 +74,8 @@ function App() {
           selectedPrimarySchoolAddress={selectedPrimarySchoolAddress}
           setSelectedPrimarySchoolAddress={setSelectedPrimarySchoolAddress}
           selectedPrimarySchool={selectedPrimarySchool}
+          meetpoints={meetpoints}
+          setMeetpoints={setMeetpoints}
         />
 
         <Footer>

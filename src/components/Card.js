@@ -21,6 +21,7 @@ export default function Cards({
           <img src={currentSchoolImg} alt="current" />
           <p>{schoolName}</p>
         </CardHeader>
+
         <p>{schoolAdress}</p>
       </SchoolCard>
 
