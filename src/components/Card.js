@@ -1,8 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
+Cards.propTypes = {
+  selectedSchoolName: PropTypes.string.isRequired,
+  selectedSchoolAddress: PropTypes.string.isRequired,
+  selectedSchoolMeetpoint: PropTypes.string.isRequired,
+  currentSchool: PropTypes.string,
+}
 export default function Cards({
-  currentSchool,
+  currentSchoolImg,
   schoolName,
   schoolAdress,
   meetpoint,
@@ -11,7 +18,7 @@ export default function Cards({
     <InfoCards>
       <SchoolCard>
         <CardHeader>
-          <img src={currentSchool} alt="current" />
+          <img src={currentSchoolImg} alt="current" />
           <p>{schoolName}</p>
         </CardHeader>
         <p>{schoolAdress}</p>
@@ -19,7 +26,7 @@ export default function Cards({
 
       <SchoolCard>
         <CardHeader>
-          <span style={{ fontSize: 30 }}>&#128107;</span>
+          <span>&#128107;</span>
           <p>Dein Treffpunkt</p>
         </CardHeader>
         <p>{meetpoint}</p>
