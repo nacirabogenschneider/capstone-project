@@ -6,10 +6,9 @@ export default function Cards({
   schoolName,
   schoolAdress,
   meetpoint,
-  meetpointImg,
 }) {
   return (
-    <>
+    <InfoCards>
       <SchoolCard>
         <CardHeader>
           <img src={currentSchool} alt="current" />
@@ -23,12 +22,20 @@ export default function Cards({
           <span style={{ fontSize: 30 }}>&#128107;</span>
           <p>Dein Treffpunkt</p>
         </CardHeader>
-        <p>&#128109;</p>
+        <p>{meetpoint}</p>
       </SchoolCard>
-    </>
+    </InfoCards>
   )
 }
-
+const InfoCards = styled.section`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 250px;
+  width: 100%;
+`
 const CardHeader = styled.section`
   display: flex;
   justify-content: left;

@@ -16,12 +16,15 @@ export default function Filter() {
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
-  const [selectedMeetpoint, setSelectedMeetpoint] = useState({})
+  const [selectedMeetpoint, setSelectedMeetpoint] = useState('')
+  const [meetPointCard, setMeetPointCard] = useState({})
 
   useEffect(() => {
     setMeetpoints(Meetpoints.allMeetpoints)
   }, [])
+
   console.log(meetpoints)
+
   useEffect(() => {
     renderMarker() && setPrimarySchoolSelectorByState()
   }, [selectedState])
@@ -31,6 +34,14 @@ export default function Filter() {
   }, [selectedPrimarySchool])
   console.log(schoolLatLon)
 
+  useEffect(() => {
+    setMeetPointCard({
+      school: selectedPrimarySchool,
+      coordinates: schoolLatLon,
+      meetpoint: selectedMeetpoint,
+      runninglist: [],
+    })
+  }, [selectedMeetpoint])
   function filterSchoolsByPrimarySchool() {
     return schoolsDataAll
       .filter(school => school.school_type === 'Grundschule')
@@ -159,7 +170,7 @@ export default function Filter() {
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' && (
             <Marker
-              key={Math.random()}
+              key={schoolLatLon}
               position={{
                 lat: schoolLatLon.lat,
                 lng: schoolLatLon.lon,
@@ -169,19 +180,14 @@ export default function Filter() {
               }}
             />
           )}
-
-        {selectedPrimarySchool &&
-          selectedPrimarySchool !== 'Wähle deine Schule' &&
-          selectedMeetpoint && (
-            <Cards
-              currentSchool={currentSchool}
-              schoolName={getNameOfSelectedSchool()}
-              schoolAdress={getAddressOfSelectedSchool()}
-              meetpoint={selectedMeetpoint}
-              meetpointImg={meetpointImg}
-            />
-          )}
       </SelectSection>
+
+      <Cards
+        currentSchool={currentSchool}
+        schoolName={getNameOfSelectedSchool()}
+        schoolAdress={getAddressOfSelectedSchool()}
+        meetpoint={selectedMeetpoint}
+      />
     </>
   )
 }
@@ -198,7 +204,6 @@ const ContentWrapper = styled.main`
 const SelectSection = styled(ContentWrapper)`
   position: absolute;
   display: flex;
-
   bottom: 54px;
   width: 100%;
 `
