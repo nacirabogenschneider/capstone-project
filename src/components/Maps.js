@@ -11,8 +11,9 @@ export default function Maps() {
         defaultZoom={12}
         defaultCenter={{ lat: 53.551086, lng: 9.993682 }}
         defaultOptions={{ styles: mapStyles }}
-      ></GoogleMap>
-      <Filter key={Math.random()} />
+      >
+        <Filter key={Math.random()} />
+      </GoogleMap>
     </>
   )
 }

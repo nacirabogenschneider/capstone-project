@@ -1,17 +1,31 @@
 import React from 'react'
 import styled from 'styled-components'
-import 
 
-
-export default function Card({ currentSchool, schoolName, schoolAdress }) {
+export default function Cards({
+  currentSchool,
+  schoolName,
+  schoolAdress,
+  meetpoint,
+  meetpointImg,
+}) {
   return (
-    <SchoolCard>
-      <CardHeader>
-        <img src={currentSchool} alt="current" />
-        <p>{schoolName}</p>
-      </CardHeader>
-      <p>{schoolAdress}</p>
-    </SchoolCard>
+    <>
+      <SchoolCard>
+        <CardHeader>
+          <img src={currentSchool} alt="current" />
+          <p>{schoolName}</p>
+        </CardHeader>
+        <p>{schoolAdress}</p>
+      </SchoolCard>
+
+      <SchoolCard>
+        <CardHeader>
+          <span style={{ fontSize: 30 }}>&#128107;</span>
+          <p>Dein Treffpunkt</p>
+        </CardHeader>
+        <p>&#128109;</p>
+      </SchoolCard>
+    </>
   )
 }
 

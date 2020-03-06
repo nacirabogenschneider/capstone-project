@@ -1,0 +1,40 @@
+{
+  "allMeetpoints": [
+    {
+      "school": "Schule Heidacker",
+      "name": "Steinacker 22, 22523 Hamburg",
+      "lat": 53.6199799,
+      "lon": 9.8881139
+    },
+    {
+      "school": "Schule Heidacker",
+      "name": "Pinneberger Chaussee 105, 22523 Hamburg",
+      "lat": 53.61795,
+      "lon": 9.88906
+    },
+    {
+      "school": "Schule Heidacker",
+      "name": "Ameisenkamp 1-5, 22523 Hamburg",
+      "lat": 53.61952,
+      "lon": 9.88755
+    },
+    {
+      "school": "Schule Heidacker",
+      "name": "Heidacker 37-33, 22523 Hamburg",
+      "lat": 53.62036,
+      "lon": 9.89396
+    },
+    {
+      "school": "Schule Heidacker",
+      "name": "Kornacker 44, 22523 Hamburg",
+      "lat": 53.6195,
+      "lon": 9.8899831
+    },
+    {
+      "school": "Schule Heidacker",
+      "name": "Schnelsener Weg 32, 22523 Hamburg",
+      "lat": 3.6207589,
+      "lon": 9.89361
+    }
+  ]
+}

@@ -4,17 +4,24 @@ import styled from 'styled-components'
 import * as schoolsData from '../data/schools.json'
 import currentSchool from '../img/solid-sm/school-selected.svg'
 import schoolBuilding from '../img/solid-sm/school-all.svg'
-import Card from './Card'
+import meetpointImg from '../img/solid-sm/shoe-prints.svg'
+import Cards from './Card'
+import * as Meetpoints from '../data/meetpoints.json'
 
 export default function Filter() {
   const schoolsDataAll = schoolsData.schools
   const primarySchools = filterSchoolsByPrimarySchool()
   const schoolStates = schoolsData.states
-
+  const [meetpoints, setMeetpoints] = useState([])
   const [selectedState, setSelectedState] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
+  const [selectedMeetpoint, setSelectedMeetpoint] = useState({})
 
+  useEffect(() => {
+    setMeetpoints(Meetpoints.allMeetpoints)
+  }, [])
+  console.log(meetpoints)
   useEffect(() => {
     renderMarker() && setPrimarySchoolSelectorByState()
   }, [selectedState])
@@ -40,6 +47,15 @@ export default function Filter() {
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   }
+  function setMeetpointsSelectorBySchool() {
+    return meetpoints
+      .filter(meetpoint => meetpoint.school === getNameOfSelectedSchool())
+      .sort()
+      .map(sortetMeetpoint => (
+        <Option key={sortetMeetpoint.name}>{sortetMeetpoint.name}</Option>
+      ))
+  }
+  console.log('Name der Schule ' + getNameOfSelectedSchool())
 
   function getNameOfSelectedSchool() {
     const schoolValues = selectedPrimarySchool.split(',')
@@ -83,17 +99,26 @@ export default function Filter() {
       ))
   }
 
+  function renderMeetpointMarker() {
+    return meetpoints
+      .filter(meetpoint => meetpoint.school === getNameOfSelectedSchool())
+      .map(sortedMeetpoints => (
+        <Marker
+          key={sortedMeetpoints.name}
+          position={{
+            lat: sortedMeetpoints.lat,
+            lng: sortedMeetpoints.lon,
+          }}
+          icon={{
+            url: meetpointImg,
+          }}
+        />
+      ))
+  }
+
   return (
     <>
       <SelectSection key={selectedPrimarySchool.name}>
-        {selectedPrimarySchool &&
-          selectedPrimarySchool !== 'Wähle deine Schule' && (
-            <Card
-              currentSchool={currentSchool}
-              schoolName={getNameOfSelectedSchool()}
-              schoolAdress={getAddressOfSelectedSchool()}
-            />
-          )}
         <Select
           key={selectedState.name}
           onClick={selectedState =>
@@ -118,6 +143,21 @@ export default function Filter() {
         </Select>
         {selectedPrimarySchool &&
           selectedPrimarySchool !== 'Wähle deine Schule' && (
+            <Select
+              onClick={selectedMeetpoint =>
+                setSelectedMeetpoint(selectedMeetpoint.target.value)
+              }
+            >
+              {console.log(selectedMeetpoint)}
+              <Option key={'meetpoints'}>Wähle deinen Treffpunkt</Option>
+              {setMeetpointsSelectorBySchool()}
+              {selectedPrimarySchool !== 'Wähle deine Schule' &&
+                renderMeetpointMarker()}
+            </Select>
+          )}
+
+        {selectedPrimarySchool &&
+          selectedPrimarySchool !== 'Wähle deine Schule' && (
             <Marker
               key={Math.random()}
               position={{
@@ -127,7 +167,18 @@ export default function Filter() {
               icon={{
                 url: currentSchool,
               }}
-              zoom={20}
+            />
+          )}
+
+        {selectedPrimarySchool &&
+          selectedPrimarySchool !== 'Wähle deine Schule' &&
+          selectedMeetpoint && (
+            <Cards
+              currentSchool={currentSchool}
+              schoolName={getNameOfSelectedSchool()}
+              schoolAdress={getAddressOfSelectedSchool()}
+              meetpoint={selectedMeetpoint}
+              meetpointImg={meetpointImg}
             />
           )}
       </SelectSection>
@@ -166,16 +217,3 @@ const Select = styled.select`
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
-// const SchoolCard = styled.section`
-//   display: flex;
-//   width: 92vw;
-//   flex-direction: column;
-//   font-family: 'Arial';
-//   border-radius: 12px;
-//   padding: 10px;
-//   margin: 5px 0;
-//   font-size: 1.1rem;
-//   background: white;
-//   opacity: 0.94;
-//   box-shadow: 0 0 10px 2px #a4b0af;
-// `
