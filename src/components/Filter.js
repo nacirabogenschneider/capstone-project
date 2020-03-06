@@ -102,6 +102,14 @@ export default function Filter({
   //     .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   // }
 
+  function filterSchoolsByPrimaryState() {
+    return primarySchools
+      .filter(school => school.state === isSelectedState)
+      .map(school => school.name + ', ' + school.address)
+      .sort()
+      .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
+  }
+
   function setMeetpointsSelectorBySchool() {
     return isMeetpoints
       .filter(isMeetpoints => isMeetpoints.school === getNameOfSelectedSchool())
@@ -194,13 +202,7 @@ export default function Filter({
         >
           <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
           {isSelectedState !== 'Wähle dein Bundesland' &&
-            primarySchools
-              .filter(school => school.state === isSelectedState)
-              .map(school => school.name + ', ' + school.address)
-              .sort()
-              .map(sortedSchool => (
-                <Option key={sortedSchool}>{sortedSchool}</Option>
-              ))}
+            filterSchoolsByPrimaryState()}
         </Select>
 
         {isSelectedPrimarySchool &&
