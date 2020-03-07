@@ -30,11 +30,16 @@ const MapWrapped = withScriptjs(withGoogleMap(Map))
 function App() {
   const schoolsDataAll = schoolsData.schools
   const schoolStates = schoolsData.states
-  const [selectedState, setSelectedState] = useState('')
+  const [primarySchools, setPrimaryschools] = useState([])
+  const [selectedState, setSelectedState] = useState('Wähle Dein Bundesland')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
   const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
-  const [selectedMeetpoint, setSelectedMeetpoint] = useState('')
-  const [selectedPrimarySchoolName, setSelectedPrimarySchoolName] = useState('')
+  const [selectedMeetpoint, setSelectedMeetpoint] = useState(
+    'Wähle deinen Treffpunkt'
+  )
+  const [selectedPrimarySchoolName, setSelectedPrimarySchoolName] = useState(
+    'Wähle deine Schule'
+  )
   const [
     selectedPrimarySchoolAddress,
     setSelectedPrimarySchoolAddress,
@@ -61,8 +66,9 @@ function App() {
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+
         <Filter
-          key={Math.random()}
+          key="Filter-Component"
           schoolStates={schoolStates}
           schoolsData={schoolsData}
           schoolsDataAll={schoolsDataAll}
@@ -76,6 +82,8 @@ function App() {
           selectedPrimarySchool={selectedPrimarySchool}
           meetpoints={meetpoints}
           setMeetpoints={setMeetpoints}
+          primarySchools={primarySchools}
+          setPrimaryschools={setPrimaryschools}
         />
 
         <Footer>
@@ -84,7 +92,7 @@ function App() {
       </MapContainer>
 
       <Cards
-        currentSchoolImg={currentSchoolImg}
+        currentSchool={currentSchoolImg}
         schoolName={setSelectedPrimarySchoolName}
         schoolAdress={setSelectedPrimarySchoolAddress}
         selectedMeetpoint={selectedMeetpoint}

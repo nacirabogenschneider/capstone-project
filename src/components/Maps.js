@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GoogleMap } from 'react-google-maps'
 import mapStyles from './utils/mapStyles'
 import PropTypes from 'prop-types'
@@ -20,21 +20,33 @@ export default function Map({
   selectedState,
   selectedPrimarySchool,
 }) {
-  const [variablePosition, setVariablePosition] = useState({
-    lat: 53.551086,
-    lon: 9.993682,
-  })
-  console.log('MAPS STATE')
-  console.log(selectedState)
+  const [variablePosition, setVariablePosition] = useState({})
 
-  // selectedPrimarySchool
-  //   ? setVariablePosition({ lat: schoolLatLon.lat, lon: schoolLatLon.lon })
-  //   : setVariablePosition({ lat: stateFound.lat, lon: stateFound.lon })
+  const [googlePosition, setGooglePosition] = useState({
+    lat: 53.551086,
+    lng: 9.993682,
+  })
+
+  const coordinates = states.filter(state => state.name === selectedState)
+
+  useEffect(() => {
+    if (coordinates.length > 0) {
+      const cooObject = coordinates[0]
+      setVariablePosition(cooObject)
+    }
+  }, [coordinates])
+  useEffect(() => {
+    const googleObject = {
+      lat: +variablePosition.lat,
+      lng: +variablePosition.lng,
+    }
+    setGooglePosition(googleObject)
+  }, [variablePosition])
 
   return (
     <GoogleMap
       defaultZoom={12}
-      defaultCenter={{ lat: variablePosition.lat, lng: variablePosition.lon }}
+      defaultCenter={googlePosition}
       defaultOptions={{ styles: mapStyles }}
     ></GoogleMap>
   )
