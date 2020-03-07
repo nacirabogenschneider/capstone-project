@@ -11,30 +11,29 @@ import meetpointsData from './data/meetpoints.json'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
-// MapWrapped.propTypes = {
-//   defaultZoom: PropTypes.number.isRequired,
-//   defaultCenter: PropTypes.object.isRequired,
-//   efaultOptions: PropTypes.object,
+MapWrapped.propTypes = {
+  defaultZoom: PropTypes.number,
+  defaultCenter: PropTypes.object,
+  efaultOptions: PropTypes.object,
 
-//   selectedPrimary: PropTypes.string.isRequired,
-//   selectedState: PropTypes.string.isRequired,
-//   selectedSchoolMeetpoint: PropTypes.string.isRequired,
-//   schoolLatLon: PropTypes.object.isRequired,
+  selectedPrimary: PropTypes.string,
+  selectedState: PropTypes.string,
+  selectedSchoolMeetpoint: PropTypes.string,
+  schoolLatLon: PropTypes.object,
 
-//   mapElement: PropTypes.object.isRequired,
-//   googleMapURL: PropTypes.string.isRequired,
-//   loadingElement: PropTypes.object.isRequired,
-//   containerElemen: PropTypes.object.isRequired,
-// }
+  mapElement: PropTypes.object,
+  googleMapURL: PropTypes.string,
+  loadingElement: PropTypes.object,
+  containerElemen: PropTypes.object,
+}
 
 function App() {
   const schoolsDataAll = schoolsData.schools
-  const primSchools = schoolsDataAll
+  const primeSchools = schoolsDataAll
     .filter(school => school.school_type === 'Grundschule')
     .sort()
-
   const schoolStates = schoolsData.states
-  const [primarySchools, setPrimaryschools] = useState(primSchools)
+  const [primarySchools, setPrimaryschools] = useState(primeSchools)
   const [selectedState, setSelectedState] = useState()
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
   const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
@@ -47,10 +46,6 @@ function App() {
   const [
     selectedPrimarySchoolAddress,
     setSelectedPrimarySchoolAddress,
-  ] = useState('')
-  const [
-    selectedPrimarySchoolAdress,
-    setSelectedPrimarySchoolAdress,
   ] = useState('')
   const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
 
@@ -65,7 +60,7 @@ function App() {
           schoolLatLon={schoolLatLon}
           selectedState={selectedState}
           key={Math.random()}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
@@ -91,12 +86,14 @@ function App() {
         />
       </MapContainer>
 
-      <Cards
-        currentSchool={currentSchoolImg}
-        schoolName={setSelectedPrimarySchoolName}
-        schoolAdress={setSelectedPrimarySchoolAddress}
-        selectedMeetpoint={selectedMeetpoint}
-      />
+      {selectedMeetpoint !== 'Wähle deinen Treffpunkt' && (
+        <Cards
+          currentSchoolImg={currentSchoolImg}
+          schoolName={setSelectedPrimarySchoolName}
+          schoolAdress={setSelectedPrimarySchoolAddress}
+          selectedMeetpoint={selectedMeetpoint}
+        />
+      )}
     </AppGrid>
   )
 }
@@ -122,7 +119,6 @@ const Header = styled.header`
   z-index: 100;
   box-shadow: 0 0 10px 3px grey;
 `
-
 const MapContainer = styled.section`
   z-index: 0;
   margin: 0;

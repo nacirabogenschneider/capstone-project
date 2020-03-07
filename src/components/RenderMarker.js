@@ -1,6 +1,5 @@
 import React from 'react'
 import { Marker } from 'react-google-maps'
-import { func } from 'prop-types'
 
 export default function RenderMarker({
   primarySchools,

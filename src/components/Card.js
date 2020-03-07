@@ -2,12 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-// Cards.propTypes = {
-//   selectedSchoolName: PropTypes.string.isRequired,
-//   selectedSchoolAddress: PropTypes.string.isRequired,
-//   selectedSchoolMeetpoint: PropTypes.string.isRequired,
-//   currentSchool: PropTypes.string,
-// }
+Cards.propTypes = {
+  selectedSchoolName: PropTypes.string,
+  selectedSchoolAddress: PropTypes.string,
+  selectedSchoolMeetpoint: PropTypes.string,
+  currentSchool: PropTypes.string,
+}
+
 export default function Cards({
   currentSchoolImg,
   schoolName,
@@ -15,24 +16,24 @@ export default function Cards({
   meetpoint,
 }) {
   return (
-    <InfoCards>
-      <SchoolCard>
-        <CardHeader>
-          <img src={currentSchoolImg} alt="current" />
-          <p>{schoolName}</p>
-        </CardHeader>
-
-        <p>{schoolAdress}</p>
-      </SchoolCard>
-
-      <SchoolCard>
-        <CardHeader>
-          <span>&#128107;</span>
-          <p>Dein Treffpunkt</p>
-        </CardHeader>
-        <p>{meetpoint}</p>
-      </SchoolCard>
-    </InfoCards>
+    <>
+      <InfoCards>
+        <SchoolCard>
+          <CardHeader>
+            <img src={currentSchoolImg} alt="current"></img>
+            <p>{schoolName}</p>
+          </CardHeader>
+          <p>{schoolAdress}</p>
+        </SchoolCard>
+        <SchoolCard>
+          <CardHeader>
+            <span>&#128107;</span>
+            <p>Dein Treffpunkt</p>
+          </CardHeader>
+          <p>{meetpoint}</p>
+        </SchoolCard>
+      </InfoCards>
+    </>
   )
 }
 const InfoCards = styled.section`

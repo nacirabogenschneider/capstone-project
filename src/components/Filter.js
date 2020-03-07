@@ -5,12 +5,13 @@ import RenderMarker from '../Components/RenderMarker'
 import meetpointImg from '../img/solid-sm/shoe-prints.svg'
 import PropTypes, { string, number, func } from 'prop-types'
 import schoolBuildingImg from '../img/solid-sm/school-all.svg'
-// Filter.propTypes = {
-//   schoolsDataAll: PropTypes.array.isRequired,
-//   schoolsData: PropTypes.array.isRequired,
-//   schoolStates: PropTypes.array.isRequired,
-//   selectedState: PropTypes.string.isRequired,
-// }
+
+Filter.propTypes = {
+  schoolsDataAll: PropTypes.array,
+  schoolsData: PropTypes.array,
+  schoolStates: PropTypes.array,
+  selectedState: PropTypes.string,
+}
 
 export default function Filter({
   schoolsDataAll,
@@ -44,7 +45,7 @@ export default function Filter({
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
   ] = useState(selectedPrimarySchoolAddress)
-  const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lng: 0 })
+  const [schoolLatLon, setSchoolLatLon] = useState([])
   const [isSelectedMeetpoint, setIsSelectedMeetpoint] = useState('')
   const [isMeetpoints, setIsMeetpoints] = useState(meetpoints)
 
@@ -53,26 +54,11 @@ export default function Filter({
   }, [isSelectedState])
 
   useEffect(() => {
-    setMeetpointsSelectorBySchool()
-  }, [isSelectedPrimarySchool])
-
-  useEffect(() => {
     getNameOfSelectedSchool()
-  }, [isSelectedPrimarySchool])
-
-  useEffect(() => {
     getAddressOfSelectedSchool()
-  }, [isSelectedPrimarySchool])
-
-  useEffect(() => {
     setMeetpointsSelectorBySchool()
-  }, [isSelectedPrimarySchool])
-
-  useEffect(() => {
     setLatLonOfSelectedSchool()
   }, [isSelectedPrimarySchool])
-
-  console.log('SIND ALLE MEETPOINTS GELADEN? ', isMeetpoints)
 
   function filterSchoolsByPrimaryState() {
     return isPrimarySchools
@@ -100,18 +86,17 @@ export default function Filter({
   }
 
   function getAddressOfSelectedSchool() {
-    const schoolAddress = selectedPrimarySchool.split(',')
+    const schoolAddress = isSelectedPrimarySchool.split(',')
     const selectedSchoolAddress =
       schoolAddress[schoolAddress.length - 2] +
       ',' +
       schoolAddress[schoolAddress.length - 1]
-    setSelectedPrimarySchoolAddress(selectedSchoolAddress)
+    setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
   }
 
   function setLatLonOfSelectedSchool() {
-    const filterByName = getNameOfSelectedSchool()
-    const schools = primarySchools.filter(
-      school => school.name === filterByName
+    const schools = isPrimarySchools.filter(
+      school => school.name === isSelectedPrimarySchoolName
     )
     if (schools.length > 0) {
       setSchoolLatLon({ lat: schools[0].lat, lng: schools[0].lon })
@@ -120,14 +105,9 @@ export default function Filter({
 
   function handleStateChange(event) {
     setSelectedState(event.target.value)
-    console.log('In der Handle Funktion - DAS BUNDESLAND ', selectedState)
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
-    console.log(
-      'In der Handle Funktion - DIE GRUNDSCHULE',
-      isSelectedPrimarySchool
-    )
   }
   function handleMeetpointClick(event) {
     setIsSelectedMeetpoint(event.target.value)
@@ -156,8 +136,10 @@ export default function Filter({
         </Select>
 
         <RenderMarker
-          //primarySchoolsByState={primSchoolByState}
-          primarySchools={isPrimarySchools}
+          primarySchoolsByState={isPrimarySchools.filter(
+            school => school.state === selectedState
+          )}
+          primarySchools={primarySchools}
           selectedState={selectedState}
           selectedPrimarySchool={selectedPrimarySchool}
           schoolBuilding={schoolBuildingImg}
@@ -167,10 +149,7 @@ export default function Filter({
         {isSelectedPrimarySchool && (
           <Marker
             key={schoolLatLon}
-            position={{
-              lat: +schoolLatLon.lat,
-              lng: +schoolLatLon.lon,
-            }}
+            position={schoolLatLon}
             icon={{
               url: currentSchoolImg,
             }}
