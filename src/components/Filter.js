@@ -31,30 +31,27 @@ export default function Filter({
   primarySchools,
   setPrimaryschools,
 }) {
-  const primSchools = filterSchoolsByPrimarySchool()
-  const primSchoolByState = filterSchoolsByPrimaryState()
-  const [isPrimarySchools, setIsPrimaryschools] = useState(primSchools)
-
+  const [isPrimarySchools, setIsPrimaryschools] = useState(primarySchools)
   const [isSelectedState, setIsSelectedState] = useState(selectedState)
-
   const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
     selectedPrimarySchool
   )
-
   const [
     isSelectedPrimarySchoolName,
     setIsSelectedPrimarySchoolName,
-  ] = useState(selectedPrimarySchool)
-
+  ] = useState('')
   const [
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
   ] = useState(selectedPrimarySchoolAddress)
-
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lng: 0 })
   const [isSelectedMeetpoint, setIsSelectedMeetpoint] = useState('')
   const [isMeetpoints, setIsMeetpoints] = useState(meetpoints)
   const [meetPointCard, setMeetPointCard] = useState({})
+
+  useEffect(() => {
+    filterSchoolsByPrimaryState()
+  }, [isSelectedState])
 
   useEffect(() => {
     getNameOfSelectedSchool()
@@ -64,19 +61,6 @@ export default function Filter({
     getAddressOfSelectedSchool()
   }, [isSelectedPrimarySchool])
 
-  // useEffect(() => {
-  //   selectedState !== 'Wähle dein Bundesland' && renderMarker()
-  // }, [selectedState])
-
-  //Selected Primary School
-  // useEffect(() => {
-  //   setSelectedPrimarySchoolName(isSelectedPrimarySchoolName)
-  // }, [isSelectedPrimarySchool])
-
-  // useEffect(() => {
-  //   setSelectedState(isSelectedState)
-  // }, [isSelectedState])
-
   useEffect(() => {
     setMeetpointsSelectorBySchool()
   }, [isSelectedPrimarySchool])
@@ -85,21 +69,13 @@ export default function Filter({
     setLatLonOfSelectedSchool()
   }, [isSelectedPrimarySchool])
 
-  function filterSchoolsByPrimarySchool() {
-    return schoolsDataAll
-      .filter(school => school.school_type === 'Grundschule')
-      .sort()
-  }
-
   function filterSchoolsByPrimaryState() {
-    return primarySchools
-      .filter(school => school.state === isSelectedState)
+    return isPrimarySchools
+      .filter(school => school.state === selectedState)
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   }
-  console.log('Ausgewählte Grundschule')
-  console.log(isSelectedPrimarySchool)
 
   function setMeetpointsSelectorBySchool() {
     return isMeetpoints
@@ -137,6 +113,7 @@ export default function Filter({
 
   function handleStateChange(event) {
     setSelectedState(event.target.value)
+    console.log('In der Handle Funktion - DAS BUNDESLAND ' + selectedState)
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
@@ -144,7 +121,6 @@ export default function Filter({
   function handleMeetpointClick(event) {
     setIsSelectedMeetpoint(event.target.value)
   }
-  console.log('Filter - Bundesland: ', selectedState)
 
   return (
     <>
@@ -155,26 +131,31 @@ export default function Filter({
             <Option key={state.name}>{state.name}</Option>
           ))}
         </Select>
+
         <Select key="School-Filter" onChange={handleSchoolChange}>
           <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
-          {selectedState !== 'Wähle dein Bundesland' &&
+
+          {selectedState &&
+            selectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
+
         {console.log('1. Filter Nach Selection- ', selectedPrimarySchool)}
         <Select key="Meetpoints" onSelect={handleMeetpointClick}>
           <Option key={selectedMeetpoint} onClick={console.log('Clicked')}>
             Wähle deinen Treffpunkt
           </Option>
         </Select>
-        )}
+
         <RenderMarker
-          primarySchoolsByState={primSchoolByState}
-          primarySchools={filterSchoolsByPrimarySchool()}
+          //primarySchoolsByState={primSchoolByState}
+          primarySchools={isPrimarySchools}
           selectedState={selectedState}
           selectedPrimarySchool={selectedPrimarySchool}
           schoolBuilding={schoolBuildingImg}
           currentSchool={currentSchoolImg}
         />
+
         {isSelectedPrimarySchool &&
           isSelectedPrimarySchool !== 'Wähle deine Schule' && (
             <Marker

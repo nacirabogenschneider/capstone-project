@@ -29,8 +29,12 @@ const MapWrapped = withScriptjs(withGoogleMap(Map))
 
 function App() {
   const schoolsDataAll = schoolsData.schools
+  const primSchools = schoolsDataAll
+    .filter(school => school.school_type === 'Grundschule')
+    .sort()
+
   const schoolStates = schoolsData.states
-  const [primarySchools, setPrimaryschools] = useState([])
+  const [primarySchools, setPrimaryschools] = useState(primSchools)
   const [selectedState, setSelectedState] = useState('Wähle Dein Bundesland')
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
   const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)

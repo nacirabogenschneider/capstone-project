@@ -13,9 +13,6 @@ export default function RenderMarker({
   const primByState = primarySchools.filter(
     school => school.state === selectedState
   )
-
-  console.log(primByState)
-
   return primByState.map(sortedSchool => (
     <Marker
       key={sortedSchool.id}
