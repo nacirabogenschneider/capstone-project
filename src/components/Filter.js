@@ -164,23 +164,22 @@ export default function Filter({
           currentSchool={currentSchoolImg}
         />
 
-        {isSelectedPrimarySchool &&
-          isSelectedPrimarySchool !== 'Wähle deine Schule' && (
-            <Marker
-              key={schoolLatLon}
-              position={{
-                lat: schoolLatLon.lat,
-                lng: schoolLatLon.lon,
-              }}
-              icon={{
-                url: currentSchoolImg,
-              }}
-            />
-          )}
+        {isSelectedPrimarySchool && (
+          <Marker
+            key={schoolLatLon}
+            position={{
+              lat: +schoolLatLon.lat,
+              lng: +schoolLatLon.lon,
+            }}
+            icon={{
+              url: currentSchoolImg,
+            }}
+          />
+        )}
+        <Footer>
+          <AddPointButton>&#10003;</AddPointButton>
+        </Footer>
       </SelectSection>
-      <Footer>
-        <AddPointButton>&#10003;</AddPointButton>
-      </Footer>
     </>
   )
 }
@@ -221,18 +220,17 @@ const Footer = styled.header`
   justify-content: center;
   align-items: center;
   padding: 12px;
-  background: #fbfbfb;
+  background: transparent;
   border-bottom: 0.8px solid lightgray;
   z-index: 100;
-  box-shadow: 0 0 10px 3px grey;
 `
 const AddPointButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
-  height: 35px;
-  width: 35px;
+  height: 45px;
+  width: 45px;
   border: none;
   margin: 4px;
   border-radius: 12px;

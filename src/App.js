@@ -35,7 +35,7 @@ function App() {
 
   const schoolStates = schoolsData.states
   const [primarySchools, setPrimaryschools] = useState(primSchools)
-  const [selectedState, setSelectedState] = useState('Wähle Dein Bundesland')
+  const [selectedState, setSelectedState] = useState()
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
   const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
   const [selectedMeetpoint, setSelectedMeetpoint] = useState(

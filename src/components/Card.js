@@ -41,7 +41,7 @@ const InfoCards = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  bottom: 250px;
+  top: 100px;
   width: 100%;
 `
 const CardHeader = styled.section`
