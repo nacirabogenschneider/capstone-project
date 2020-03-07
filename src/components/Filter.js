@@ -47,11 +47,14 @@ export default function Filter({
   const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lng: 0 })
   const [isSelectedMeetpoint, setIsSelectedMeetpoint] = useState('')
   const [isMeetpoints, setIsMeetpoints] = useState(meetpoints)
-  const [meetPointCard, setMeetPointCard] = useState({})
 
   useEffect(() => {
     filterSchoolsByPrimaryState()
   }, [isSelectedState])
+
+  useEffect(() => {
+    setMeetpointsSelectorBySchool()
+  }, [isSelectedPrimarySchool])
 
   useEffect(() => {
     getNameOfSelectedSchool()
@@ -69,6 +72,8 @@ export default function Filter({
     setLatLonOfSelectedSchool()
   }, [isSelectedPrimarySchool])
 
+  console.log('SIND ALLE MEETPOINTS GELADEN? ', isMeetpoints)
+
   function filterSchoolsByPrimaryState() {
     return isPrimarySchools
       .filter(school => school.state === selectedState)
@@ -79,7 +84,9 @@ export default function Filter({
 
   function setMeetpointsSelectorBySchool() {
     return isMeetpoints
-      .filter(isMeetpoints => isMeetpoints.school === selectedPrimarySchoolName)
+      .filter(
+        isMeetpoints => isMeetpoints.school === isSelectedPrimarySchoolName
+      )
       .sort()
       .map(sortetMeetpoint => (
         <Option key={sortetMeetpoint.name}>{sortetMeetpoint.name}</Option>
@@ -89,7 +96,7 @@ export default function Filter({
   function getNameOfSelectedSchool() {
     const schoolValues = isSelectedPrimarySchool.split(',')
     const selectedValueName = schoolValues[0]
-    setSelectedPrimarySchoolName(selectedValueName)
+    setIsSelectedPrimarySchoolName(selectedValueName)
   }
 
   function getAddressOfSelectedSchool() {
@@ -113,10 +120,14 @@ export default function Filter({
 
   function handleStateChange(event) {
     setSelectedState(event.target.value)
-    console.log('In der Handle Funktion - DAS BUNDESLAND ' + selectedState)
+    console.log('In der Handle Funktion - DAS BUNDESLAND ', selectedState)
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
+    console.log(
+      'In der Handle Funktion - DIE GRUNDSCHULE',
+      isSelectedPrimarySchool
+    )
   }
   function handleMeetpointClick(event) {
     setIsSelectedMeetpoint(event.target.value)
@@ -134,17 +145,14 @@ export default function Filter({
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
           <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
-
           {selectedState &&
             selectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
 
-        {console.log('1. Filter Nach Selection- ', selectedPrimarySchool)}
         <Select key="Meetpoints" onSelect={handleMeetpointClick}>
-          <Option key={selectedMeetpoint} onClick={console.log('Clicked')}>
-            Wähle deinen Treffpunkt
-          </Option>
+          <Option key={selectedMeetpoint}>Wähle deinen Treffpunkt</Option>
+          {setMeetpointsSelectorBySchool()}
         </Select>
 
         <RenderMarker
@@ -170,6 +178,9 @@ export default function Filter({
             />
           )}
       </SelectSection>
+      <Footer>
+        <AddPointButton>&#10003;</AddPointButton>
+      </Footer>
     </>
   )
 }
@@ -203,4 +214,28 @@ const Select = styled.select`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+`
+const Footer = styled.header`
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: #fbfbfb;
+  border-bottom: 0.8px solid lightgray;
+  z-index: 100;
+  box-shadow: 0 0 10px 3px grey;
+`
+const AddPointButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  height: 35px;
+  width: 35px;
+  border: none;
+  margin: 4px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  background: white;
 `
