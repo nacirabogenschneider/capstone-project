@@ -4,6 +4,7 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 const meetpoints = []
 export default function Meetpoint() {
@@ -18,45 +19,60 @@ export default function Meetpoint() {
     console.log('Ausgewählte Adresse', address, 'Koordinaten', coordinates)
   }
   return (
-    <div>
-      <PlacesAutocomplete
-        value={address}
-        onChange={setAddress}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <StyledInput
-              {...getInputProps({ placeholder: 'Suche eine Adresse' })}
-            ></StyledInput>
+    <>
+      <Heading>Neuen Treffpunkt erstellen.</Heading>
+      <div>
+        <PlacesAutocomplete
+          value={address}
+          onChange={setAddress}
+          onSelect={handleSelect}
+        >
+          {({
+            getInputProps,
+            suggestions,
+            getSuggestionItemProps,
+            loading,
+          }) => (
             <div>
-              {loading ? <div>...leading</div> : null}
-              {suggestions.map(suggestion => {
-                const style = {
-                  backgroundColor: suggestion.active ? '#EE7600' : '#fff',
-                }
-                return (
-                  <StyledSuggestion
-                    {...getSuggestionItemProps(suggestion, { style })}
-                  >
-                    {suggestion.description}
-                  </StyledSuggestion>
-                )
-              })}
+              <StyledInput
+                {...getInputProps({ placeholder: 'Suche eine Adresse' })}
+              ></StyledInput>
+              <StyledSuggestionWrapper>
+                {loading ? <div>...loading</div> : null}
+                {suggestions.map(suggestion => {
+                  const style = {
+                    backgroundColor: suggestion.active ? '#EE7600' : '#fff',
+                    borderRadius: 12,
+                    margin: 4,
+                  }
+                  return (
+                    <StyledSuggestion
+                      {...getSuggestionItemProps(suggestion, { style })}
+                    >
+                      {suggestion.description}
+                    </StyledSuggestion>
+                  )
+                })}
+              </StyledSuggestionWrapper>
             </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </div>
+          )}
+        </PlacesAutocomplete>
+      </div>
+      <NavLink onClick={console.log('CLICK')} to="/meetpoint">
+        <AddPointButton aria-label="check">&#10003;</AddPointButton>
+      </NavLink>
+    </>
   )
 }
 
 const StyledInput = styled.input`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 92vw;
   height: 40px;
   flex-direction: column;
-  font-family: 'Arial';
+  font-family: 'Raleway';
   border-radius: 12px;
   border: none;
   padding: 10px;
@@ -68,8 +84,47 @@ const StyledInput = styled.input`
 `
 
 const StyledSuggestion = styled.div`
+  display: flex;
+  justify-content: center;
   background: white;
   opacity: 0.94;
   font-size: 18px;
   padding: 10px;
+`
+const StyledSuggestionWrapper = styled.div`
+  border-radius: 12px;
+  margin: 6px;
+`
+const Heading = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 40px;
+  flex-direction: column;
+  font-family: 'Raleway';
+  font-weight: 500;
+  border-radius: 12px;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 1.4rem;
+  background: white;
+  opacity: 0.94;
+  box-shadow: 0 0 10px 2px #a4b0af;
+`
+const AddPointButton = styled.button`
+  display: flex;
+  left: 45vw;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  height: 45px;
+  width: 45px;
+  border: none;
+  margin: 4px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  background: white;
 `

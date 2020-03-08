@@ -51,11 +51,11 @@ const SchoolCard = styled.section`
   display: flex;
   width: 92vw;
   flex-direction: column;
-  font-family: 'Arial';
+  font-family: 'Raleway';
   border-radius: 12px;
   padding: 10px;
   margin: 5px 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
