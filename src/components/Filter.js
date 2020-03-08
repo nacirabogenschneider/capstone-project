@@ -39,20 +39,14 @@ export default function Filter({
 
   useEffect(() => {
     filterSchoolsByPrimaryState()
-  }, [isSelectedState, filterSchoolsByPrimaryState])
+  }, [isSelectedState])
 
   useEffect(() => {
     getNameOfSelectedSchool()
     getAddressOfSelectedSchool()
     setMeetpointsSelectorBySchool()
     setLatLonOfSelectedSchool()
-  }, [
-    isSelectedPrimarySchool,
-    getAddressOfSelectedSchool,
-    getNameOfSelectedSchool,
-    setLatLonOfSelectedSchool,
-    setMeetpointsSelectorBySchool,
-  ])
+  }, [isSelectedPrimarySchool])
 
   useEffect(() => {
     setCardSchoolObject({
@@ -62,7 +56,6 @@ export default function Filter({
       lng: schoolLatLon.lng,
     })
   }, [
-    setCardSchoolObject,
     isSelectedPrimarySchoolName,
     isSelectedPrimarySchoolAddress,
     schoolLatLon,
@@ -151,7 +144,7 @@ export default function Filter({
           <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
 
-        <RenderMarker
+        {/* <RenderMarker
           primarySchoolsByState={isPrimarySchools.filter(
             school => school.state === selectedState
           )}
@@ -160,12 +153,28 @@ export default function Filter({
           selectedPrimarySchool={selectedPrimarySchool}
           schoolBuilding={schoolBuildingImg}
           currentSchool={currentSchoolImg}
-        />
+        /> */}
+
+        {selectedState &&
+          primarySchools
+            .filter(school => school.state === selectedState)
+            .map(school => (
+              <Marker
+                key={school.id}
+                position={{
+                  lat: +school.lat,
+                  lng: +school.lon,
+                }}
+                icon={{
+                  url: schoolBuildingImg,
+                }}
+              />
+            ))}
 
         {isSelectedPrimarySchool && (
           <Marker
             key={schoolLatLon}
-            position={schoolLatLon}
+            position={{ lat: +schoolLatLon.lat, lng: +schoolLatLon.lng }}
             icon={{
               url: currentSchoolImg,
             }}

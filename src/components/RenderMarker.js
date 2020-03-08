@@ -9,12 +9,13 @@ export default function RenderMarker({
   const primByState = primarySchools.filter(
     school => school.state === selectedState
   )
+
   return primByState.map(sortedSchool => (
     <Marker
       key={sortedSchool.id}
       position={{
-        lat: sortedSchool.lat,
-        lng: sortedSchool.lon,
+        lat: +sortedSchool.lat,
+        lng: +sortedSchool.lon,
       }}
       icon={{
         url: schoolBuilding,

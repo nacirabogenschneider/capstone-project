@@ -18,10 +18,7 @@ export default function Map({ selectedState }) {
       setVariableStatePosition(cooObject)
     }
   }, [coordinates])
-  console.log(
-    'HIER KOMMEN DIE KOORDIANTEN NACH AUSGEWÄHLTEM BUNDESLAND',
-    variableStatePosition
-  )
+
   return (
     <GoogleMap
       defaultZoom={10}
