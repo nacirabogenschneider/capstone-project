@@ -27,7 +27,7 @@ export default function Map({ selectedState }) {
   useEffect(() => {
     if (coordinates.length > 0) {
       const cooObject = coordinates[0]
-      setVariablePosition(cooObject)
+      setVariableStatePosition(cooObject)
     }
   }, [coordinates])
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Map({ selectedState }) {
       lng: +variableStatePosition.lng,
     }
     setGooglePosition(googleObject)
-  }, [variablePosition])
+  }, [variableStatePosition])
 
   return (
     <GoogleMap
