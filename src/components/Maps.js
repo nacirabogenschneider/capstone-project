@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { GoogleMap } from 'react-google-maps'
+
 import mapStyles from './utils/mapStyles'
-import PropTypes from 'prop-types'
+
 import * as schoolsData from '../data/schools.json'
 
 const states = schoolsData.states
-console.log('Maps-states')
-console.log(states)
 
 // Map.propTypes = {
 //   selectedState: PropTypes.string.isRequired,
@@ -15,12 +14,8 @@ console.log(states)
 //   defaultCenter: PropTypes.object.isRequired,
 //   defaultOptions: PropTypes.object,
 // }
-export default function Map({
-  schoolLatLon,
-  selectedState,
-  selectedPrimarySchool,
-}) {
-  const [variablePosition, setVariablePosition] = useState({})
+export default function Map({ selectedState }) {
+  const [variableStatePosition, setVariableStatePosition] = useState({})
 
   const [googlePosition, setGooglePosition] = useState({
     lat: 53.551086,
@@ -37,8 +32,8 @@ export default function Map({
   }, [coordinates])
   useEffect(() => {
     const googleObject = {
-      lat: +variablePosition.lat,
-      lng: +variablePosition.lng,
+      lat: +variableStatePosition.lat,
+      lng: +variableStatePosition.lng,
     }
     setGooglePosition(googleObject)
   }, [variablePosition])
@@ -46,7 +41,10 @@ export default function Map({
   return (
     <GoogleMap
       defaultZoom={12}
-      defaultCenter={googlePosition}
+      defaultCenter={{
+        lat: 53.551086,
+        lng: 9.993682,
+      }}
       defaultOptions={{ styles: mapStyles }}
     ></GoogleMap>
   )

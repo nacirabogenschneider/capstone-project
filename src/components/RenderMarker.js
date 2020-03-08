@@ -6,9 +6,6 @@ export default function RenderMarker({
   selectedState,
   schoolBuilding,
 }) {
-  console.log('RENDER ', selectedState)
-  console.log('RENDER PRIMARYSCHOOLS', primarySchools)
-
   const primByState = primarySchools.filter(
     school => school.state === selectedState
   )
