@@ -1,12 +1,11 @@
+import React, { useState } from 'react'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete'
-import React, { useState } from 'react'
-import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
-const meetpoints = []
 export default function Meetpoint() {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
@@ -15,9 +14,8 @@ export default function Meetpoint() {
     const latLng = await getLatLng(results[0])
     setAddress(value)
     setCoordinates(latLng)
-    console.log('Gesamtergebnis', results[0])
-    console.log('Ausgewählte Adresse', address, 'Koordinaten', coordinates)
   }
+
   return (
     <>
       <Heading>Neuen Treffpunkt erstellen.</Heading>
@@ -58,7 +56,7 @@ export default function Meetpoint() {
           )}
         </PlacesAutocomplete>
       </div>
-      <NavLink onClick={console.log('CLICK')} to="/meetpoint">
+      <NavLink to="/meetpoint">
         <AddPointButton aria-label="check">&#10003;</AddPointButton>
       </NavLink>
     </>
@@ -81,11 +79,12 @@ const StyledInput = styled.input`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+  z-index: 100;
 `
 
 const StyledSuggestion = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
   background: white;
   opacity: 0.94;
   font-size: 18px;
@@ -99,7 +98,7 @@ const Heading = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 40px;
   flex-direction: column;
   font-family: 'Raleway';
@@ -110,8 +109,8 @@ const Heading = styled.h1`
   margin: 5px 0;
   font-size: 1.4rem;
   background: white;
-  opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  opacity: 0.96;
+  box-shadow: 0 0 10px 4px #a4b0af;
 `
 const AddPointButton = styled.button`
   display: flex;
@@ -127,4 +126,5 @@ const AddPointButton = styled.button`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
+  z-index: 200;
 `

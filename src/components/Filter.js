@@ -134,7 +134,7 @@ export default function Filter({
             isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
-        <NavLink onClick={console.log('CLICK')} to="/meetpoint">
+        <NavLink onClick={console.log('')} to="/meetpoint">
           <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
       </SelectSection>

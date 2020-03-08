@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import Meetpoint from './Meetpoint'
-import App from '../App'
 
 Cards.propTypes = {
   selectedSchoolName: PropTypes.string,
@@ -11,11 +10,7 @@ Cards.propTypes = {
   currentSchool: PropTypes.string,
 }
 
-export default function Cards({
-  cardSchoolObject,
-  currentSchoolImg,
-  selectedMeetpoint,
-}) {
+export default function Cards({ cardSchoolObject, currentSchoolImg }) {
   const [card] = useState(cardSchoolObject)
   return (
     <>
@@ -57,6 +52,6 @@ const SchoolCard = styled.section`
   margin: 5px 0;
   font-size: 1.2rem;
   background: white;
-  opacity: 0.94;
+  opacity: 0.95;
   box-shadow: 0 0 10px 2px #a4b0af;
 `

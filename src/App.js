@@ -39,10 +39,7 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Du hast noch keine Schule ausgewählt',
   })
-  console.log(
-    '0. APP - HIER KOMMEN DIE SCHULKOORDINATEN',
-    selectedSchoolCoordinates
-  )
+
   return (
     <Router>
       <AppGrid>
