@@ -9,12 +9,7 @@ import Cards from './components/Card'
 import currentSchoolImg from './img/solid-sm/school-selected.svg'
 import meetpointsData from './data/meetpoints.json'
 
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Route,
-  Switch,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 

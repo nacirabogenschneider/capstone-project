@@ -7,20 +7,8 @@ import * as schoolsData from '../data/schools.json'
 
 const states = schoolsData.states
 
-// Map.propTypes = {
-//   selectedState: PropTypes.string.isRequired,
-//   schoolLatLon: PropTypes.object.isRequired,
-//   defaultZoom: PropTypes.number.isRequired,
-//   defaultCenter: PropTypes.object.isRequired,
-//   defaultOptions: PropTypes.object,
-// }
 export default function Map({ selectedState }) {
   const [variableStatePosition, setVariableStatePosition] = useState({})
-
-  const [googlePosition, setGooglePosition] = useState({
-    lat: 53.551086,
-    lng: 9.993682,
-  })
 
   const coordinates = states.filter(state => state.name === selectedState)
 
@@ -30,13 +18,6 @@ export default function Map({ selectedState }) {
       setVariableStatePosition(cooObject)
     }
   }, [coordinates])
-  useEffect(() => {
-    const googleObject = {
-      lat: +variableStatePosition.lat,
-      lng: +variableStatePosition.lng,
-    }
-    setGooglePosition(googleObject)
-  }, [variableStatePosition])
 
   return (
     <GoogleMap

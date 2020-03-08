@@ -21,10 +21,6 @@ export default function Cards({
   const [meetpointData, setMeetpointData] = useState(
     'Noch kein Treffpunkt gewählt'
   )
-  console.log(
-    'Wieso kommt der Scheiß hier nicht an?????????? ',
-    selectedMeetpoint
-  )
   useEffect(() => {
     selectedMeetpoint !== 'Wähle deinen Treffpunkt' &&
       setMeetpointData(selectedMeetpoint)

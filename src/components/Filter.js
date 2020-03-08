@@ -3,19 +3,14 @@ import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import RenderMarker from './RenderMarker'
 
-import PropTypes, { string, number, func } from 'prop-types'
+import PropTypes from 'prop-types'
 import schoolBuildingImg from '../img/solid-sm/school-all.svg'
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Route,
-  Switch,
-} from 'react-router-dom'
+import { BrowserRouter as Router, NavLink } from 'react-router-dom'
 
 Filter.propTypes = {
-  schoolsDataAll: PropTypes.array,
-  schoolsData: PropTypes.array,
-  schoolStates: PropTypes.array,
+  schoolsDataAll: PropTypes.object,
+  schoolsData: PropTypes.object,
+  schoolStates: PropTypes.object,
   selectedState: PropTypes.string,
 }
 
