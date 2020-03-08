@@ -3,16 +3,8 @@ import { Marker } from 'react-google-maps'
 import styled from 'styled-components'
 import RenderMarker from './RenderMarker'
 
-import PropTypes from 'prop-types'
 import schoolBuildingImg from '../img/solid-sm/school-all.svg'
-import { BrowserRouter as Router, NavLink } from 'react-router-dom'
-
-Filter.propTypes = {
-  schoolsDataAll: PropTypes.object,
-  schoolsData: PropTypes.object,
-  schoolStates: PropTypes.object,
-  selectedState: PropTypes.string,
-}
+import { NavLink } from 'react-router-dom'
 
 export default function Filter({
   schoolStates,
@@ -28,8 +20,8 @@ export default function Filter({
   setCardSchoolObject,
   cardSchoolObject,
 }) {
-  const [isPrimarySchools, setIsPrimaryschools] = useState(primarySchools)
-  const [isSelectedState, setIsSelectedState] = useState(selectedState)
+  const [isPrimarySchools] = useState(primarySchools)
+  const [isSelectedState] = useState(selectedState)
   const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
     selectedPrimarySchool
   )
@@ -43,19 +35,24 @@ export default function Filter({
   ] = useState(selectedPrimarySchoolAddress)
   const [schoolLatLon, setSchoolLatLon] = useState([])
   const [isSelectedMeetpoint, setIsSelectedMeetpoint] = useState('')
-  const [isMeetpoints, setIsMeetpoints] = useState(meetpoints)
-  const [isCardSchoolObject, setIsCardSchoolObject] = useState(cardSchoolObject)
+  const [isMeetpoints] = useState(meetpoints)
 
   useEffect(() => {
     filterSchoolsByPrimaryState()
-  }, [isSelectedState])
+  }, [isSelectedState, filterSchoolsByPrimaryState])
 
   useEffect(() => {
     getNameOfSelectedSchool()
     getAddressOfSelectedSchool()
     setMeetpointsSelectorBySchool()
     setLatLonOfSelectedSchool()
-  }, [isSelectedPrimarySchool])
+  }, [
+    isSelectedPrimarySchool,
+    getAddressOfSelectedSchool,
+    getNameOfSelectedSchool,
+    setLatLonOfSelectedSchool,
+    setMeetpointsSelectorBySchool,
+  ])
 
   useEffect(() => {
     setCardSchoolObject({
@@ -65,6 +62,7 @@ export default function Filter({
       lng: schoolLatLon.lng,
     })
   }, [
+    setCardSchoolObject,
     isSelectedPrimarySchoolName,
     isSelectedPrimarySchoolAddress,
     schoolLatLon,
@@ -150,7 +148,7 @@ export default function Filter({
           {setMeetpointsSelectorBySchool()}
         </Select>
         <NavLink onClick={console.log('CLICK')} to="/meetpoint">
-          <AddPointButton>&#10003;</AddPointButton>
+          <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
 
         <RenderMarker

@@ -37,11 +37,9 @@ function App() {
   const schoolStates = schoolsData.states
   const [primarySchools, setPrimaryschools] = useState(primeSchools)
   const [selectedState, setSelectedState] = useState()
-  const [schoolLatLon, setSchoolLatLon] = useState({ lat: 0, lon: 0 })
+  const [schoolLatLon] = useState({ lat: 0, lon: 0 })
   const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
-  const [selectedMeetpoint, setSelectedMeetpoint] = useState(
-    'Wähle deinen Treffpunkt'
-  )
+  const [selectedMeetpoint] = useState('Wähle deinen Treffpunkt')
   const [selectedPrimarySchoolName, setSelectedPrimarySchoolName] = useState(
     'Wähle deine Schule'
   )
@@ -49,7 +47,7 @@ function App() {
     selectedPrimarySchoolAddress,
     setSelectedPrimarySchoolAddress,
   ] = useState('')
-  const [selectedPrimarySchool, setSelectedPrimarySchool] = useState('')
+  const [selectedPrimarySchool] = useState('')
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Du hast noch keine Schule ausgewählt',
   })

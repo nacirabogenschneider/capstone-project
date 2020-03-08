@@ -8,7 +8,7 @@ import * as schoolsData from '../data/schools.json'
 const states = schoolsData.states
 
 export default function Map({ selectedState }) {
-  const [variableStatePosition, setVariableStatePosition] = useState({})
+  const [variableStatePosition, setVariableStatePosition] = useState()
 
   const coordinates = states.filter(state => state.name === selectedState)
 
@@ -18,10 +18,13 @@ export default function Map({ selectedState }) {
       setVariableStatePosition(cooObject)
     }
   }, [coordinates])
-
+  console.log(
+    'HIER KOMMEN DIE KOORDIANTEN NACH AUSGEWÄHLTEM BUNDESLAND',
+    variableStatePosition
+  )
   return (
     <GoogleMap
-      defaultZoom={12}
+      defaultZoom={10}
       defaultCenter={{
         lat: 53.551086,
         lng: 9.993682,

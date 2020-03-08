@@ -12,12 +12,9 @@ Cards.propTypes = {
 export default function Cards({
   cardSchoolObject,
   currentSchoolImg,
-  schoolName,
-  schoolAdress,
-  meetpoint,
   selectedMeetpoint,
 }) {
-  const [card, setCard] = useState(cardSchoolObject)
+  const [card] = useState(cardSchoolObject)
   const [meetpointData, setMeetpointData] = useState(
     'Noch kein Treffpunkt gewählt'
   )
@@ -38,7 +35,9 @@ export default function Cards({
         {console.log('CARD _ MEETPOINT', selectedMeetpoint)}
         <SchoolCard>
           <CardHeader>
-            <span>&#128107;</span>
+            <span aria-label="children-couple" role="img">
+              &#128107;
+            </span>
             <p>Dein Treffpunkt</p>
           </CardHeader>
           <p>{meetpointData}</p>
