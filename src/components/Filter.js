@@ -126,7 +126,7 @@ export default function Filter({
   }
   function handleMeetpointClick(event) {
     selectedPrimarySchool !== 'Wähle deine Schule' &&
-      setSelectedMeetpoint(event.target.value)
+      setIsSelectedMeetpoint(event.target.value)
     console.log(
       'TARGET VALUE aus dem Select feld Meetpoint',
       isSelectedMeetpoint
