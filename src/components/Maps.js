@@ -49,7 +49,6 @@ export default function Map({
               icon={schoolsImg}
             />
           ))}
-      (
     </GoogleMap>
   )
 }
