@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -15,13 +15,6 @@ export default function Cards({
   selectedMeetpoint,
 }) {
   const [card] = useState(cardSchoolObject)
-  const [meetpointData, setMeetpointData] = useState(
-    'Noch kein Treffpunkt gewählt'
-  )
-  useEffect(() => {
-    selectedMeetpoint !== 'Wähle deinen Treffpunkt' &&
-      setMeetpointData(selectedMeetpoint)
-  }, [selectedMeetpoint])
   return (
     <>
       <InfoCards>
@@ -33,15 +26,6 @@ export default function Cards({
           <p>{card.address}</p>
         </SchoolCard>
         {console.log('CARD _ MEETPOINT', selectedMeetpoint)}
-        <SchoolCard>
-          <CardHeader>
-            <span aria-label="children-couple" role="img">
-              &#128107;
-            </span>
-            <p>Dein Treffpunkt</p>
-          </CardHeader>
-          <p>{meetpointData}</p>
-        </SchoolCard>
       </InfoCards>
     </>
   )

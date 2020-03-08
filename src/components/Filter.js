@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Marker } from 'react-google-maps'
-import styled from 'styled-components'
-import RenderMarker from './RenderMarker'
-
-import schoolBuildingImg from '../img/solid-sm/school-all.svg'
 import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
 export default function Filter({
-  schoolStates,
-  currentSchoolImg,
   setSelectedState,
-  selectedState,
-  selectedPrimarySchoolAddress,
+  schoolStates,
   selectedPrimarySchool,
-  selectedMeetpoint,
-  setSelectedMeetpoint,
-  meetpoints,
   primarySchools,
   setCardSchoolObject,
-  cardSchoolObject,
 }) {
   const [isPrimarySchools] = useState(primarySchools)
-  const [isSelectedState] = useState(selectedState)
+  const [isSelectedState, setIsSelectedState] = useState()
   const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
-    selectedPrimarySchool
+    'Wähle deine Schule'
   )
   const [
     isSelectedPrimarySchoolName,
@@ -32,19 +22,17 @@ export default function Filter({
   const [
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
-  ] = useState(selectedPrimarySchoolAddress)
+  ] = useState('')
   const [schoolLatLon, setSchoolLatLon] = useState([])
-  const [isSelectedMeetpoint, setIsSelectedMeetpoint] = useState('')
-  const [isMeetpoints] = useState(meetpoints)
 
   useEffect(() => {
+    setSelectedState(isSelectedState)
     filterSchoolsByPrimaryState()
-  }, [isSelectedState])
+  }, [isSelectedState, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
-    getNameOfSelectedSchool()
     getAddressOfSelectedSchool()
-    setMeetpointsSelectorBySchool()
+    getNameOfSelectedSchool()
     setLatLonOfSelectedSchool()
   }, [isSelectedPrimarySchool])
 
@@ -63,21 +51,30 @@ export default function Filter({
 
   function filterSchoolsByPrimaryState() {
     return isPrimarySchools
-      .filter(school => school.state === selectedState)
+      .filter(school => school.state === isSelectedState)
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   }
 
-  function setMeetpointsSelectorBySchool() {
-    return isMeetpoints
-      .filter(
-        isMeetpoints => isMeetpoints.school === isSelectedPrimarySchoolName
-      )
-      .sort()
-      .map(sortetMeetpoint => (
-        <Option key={sortetMeetpoint.name}>{sortetMeetpoint.name}</Option>
+  function renderMarker() {
+    return isPrimarySchools
+      .filter(school => school.state === isSelectedState)
+      .map(sortedSchool => (
+        <Marker
+          key={sortedSchool.name}
+          position={{
+            lat: +sortedSchool.lat,
+            lng: +sortedSchool.lon,
+          }}
+        />
       ))
+  }
+
+  function setStateSelector() {
+    return schoolStates.map(state => (
+      <option key={state.name}>{state.name}</option>
+    ))
   }
 
   function getNameOfSelectedSchool() {
@@ -105,18 +102,11 @@ export default function Filter({
   }
 
   function handleStateChange(event) {
-    setSelectedState(event.target.value)
+    setIsSelectedState(event.target.value)
+    renderMarker()
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
-  }
-  function handleMeetpointClick(event) {
-    selectedPrimarySchool !== 'Wähle deine Schule' &&
-      setIsSelectedMeetpoint(event.target.value)
-    console.log(
-      'TARGET VALUE aus dem Select feld Meetpoint',
-      isSelectedMeetpoint
-    )
   }
 
   return (
@@ -124,62 +114,18 @@ export default function Filter({
       <SelectSection key="Filter">
         <Select key="State-Filter" onChange={handleStateChange}>
           <Option key={isSelectedState}>Wähle dein Bundesland</Option>
-          {schoolStates.map(state => (
-            <Option key={state.name}>{state.name}</Option>
-          ))}
+          {setStateSelector()}
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
           <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
-          {selectedState &&
-            selectedState !== 'Wähle dein Bundesland' &&
+          {isSelectedState &&
+            isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
-        </Select>
-
-        <Select key="Meetpoints" onChange={handleMeetpointClick}>
-          <Option key={selectedMeetpoint}>Wähle deinen Treffpunkt</Option>
-          {setMeetpointsSelectorBySchool()}
         </Select>
         <NavLink onClick={console.log('CLICK')} to="/meetpoint">
           <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
-
-        {/* <RenderMarker
-          primarySchoolsByState={isPrimarySchools.filter(
-            school => school.state === selectedState
-          )}
-          primarySchools={primarySchools}
-          selectedState={selectedState}
-          selectedPrimarySchool={selectedPrimarySchool}
-          schoolBuilding={schoolBuildingImg}
-          currentSchool={currentSchoolImg}
-        /> */}
-
-        {selectedState &&
-          primarySchools
-            .filter(school => school.state === selectedState)
-            .map(school => (
-              <Marker
-                key={school.id}
-                position={{
-                  lat: +school.lat,
-                  lng: +school.lon,
-                }}
-                icon={{
-                  url: schoolBuildingImg,
-                }}
-              />
-            ))}
-
-        {isSelectedPrimarySchool && (
-          <Marker
-            key={schoolLatLon}
-            position={{ lat: +schoolLatLon.lat, lng: +schoolLatLon.lng }}
-            icon={{
-              url: currentSchoolImg,
-            }}
-          />
-        )}
       </SelectSection>
     </>
   )
