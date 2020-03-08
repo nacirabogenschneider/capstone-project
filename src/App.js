@@ -32,11 +32,17 @@ function App() {
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
   const [primarySchools, setPrimaryschools] = useState(primeSchools)
-  const [schoolLatLon] = useState({ lat: 0, lon: 0 })
+  const [selectedSchoolCoordinates, setSelectedSchoolCoordinates] = useState({
+    lat: 0,
+    lon: 0,
+  })
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Du hast noch keine Schule ausgewählt',
   })
-
+  console.log(
+    '0. APP - HIER KOMMEN DIE SCHULKOORDINATEN',
+    selectedSchoolCoordinates
+  )
   return (
     <Router>
       <AppGrid>
@@ -44,7 +50,7 @@ function App() {
         <MapContainer key="mapcontainer">
           <MapWrapped
             selectedState={selectedState}
-            schoolLatLon={schoolLatLon}
+            selectedSchoolCoordinates={selectedSchoolCoordinates}
             primeSchools={primarySchools}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
@@ -65,6 +71,7 @@ function App() {
                 primarySchools={primarySchools}
                 setPrimaryschools={setPrimaryschools}
                 setSelectedState={setSelectedState}
+                setSelectedSchoolCoordinates={setSelectedSchoolCoordinates}
               />
             </Route>
           </Switch>

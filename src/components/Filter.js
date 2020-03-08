@@ -9,6 +9,7 @@ export default function Filter({
   selectedPrimarySchool,
   primarySchools,
   setCardSchoolObject,
+  setSelectedSchoolCoordinates,
 }) {
   const [isPrimarySchools] = useState(primarySchools)
   const [isSelectedState, setIsSelectedState] = useState()
@@ -23,7 +24,10 @@ export default function Filter({
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
   ] = useState('')
-  const [schoolLatLon, setSchoolLatLon] = useState([])
+  const [
+    isSelectedSchoolCoordinates,
+    setIsSelectedSchoolCoordinates,
+  ] = useState([])
 
   useEffect(() => {
     setSelectedState(isSelectedState)
@@ -37,16 +41,20 @@ export default function Filter({
   }, [isSelectedPrimarySchool])
 
   useEffect(() => {
+    setSelectedSchoolCoordinates(isSelectedSchoolCoordinates)
+  }, [isSelectedSchoolCoordinates])
+
+  useEffect(() => {
     setCardSchoolObject({
       name: isSelectedPrimarySchoolName,
       address: isSelectedPrimarySchoolAddress,
-      lat: schoolLatLon.lat,
-      lng: schoolLatLon.lng,
+      lat: isSelectedSchoolCoordinates.lat,
+      lng: isSelectedSchoolCoordinates.lng,
     })
   }, [
     isSelectedPrimarySchoolName,
     isSelectedPrimarySchoolAddress,
-    schoolLatLon,
+    isSelectedSchoolCoordinates,
   ])
 
   function filterSchoolsByPrimaryState() {
@@ -97,7 +105,10 @@ export default function Filter({
       school => school.name === isSelectedPrimarySchoolName
     )
     if (schools.length > 0) {
-      setSchoolLatLon({ lat: schools[0].lat, lng: schools[0].lon })
+      setIsSelectedSchoolCoordinates({
+        lat: schools[0].lat,
+        lng: schools[0].lon,
+      })
     }
   }
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import Meetpoint from './Meetpoint'
+import App from '../App'
 
 Cards.propTypes = {
   selectedSchoolName: PropTypes.string,
@@ -25,7 +27,7 @@ export default function Cards({
           </CardHeader>
           <p>{card.address}</p>
         </SchoolCard>
-        {console.log('CARD _ MEETPOINT', selectedMeetpoint)}
+        <Meetpoint />
       </InfoCards>
     </>
   )
