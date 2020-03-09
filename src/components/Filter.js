@@ -9,7 +9,6 @@ export default function Filter({
   selectedPrimarySchool,
   primarySchools,
   setCardSchoolObject,
-  setSelectedSchoolCoordinates,
 }) {
   const [isSelectedState, setIsSelectedState] = useState()
   const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
@@ -23,10 +22,7 @@ export default function Filter({
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
   ] = useState('')
-  const [
-    isSelectedPrimarySchoolObject,
-    setIsSelectedPrimarySchoolObject,
-  ] = useState([])
+
   const [
     isSelectedSchoolCoordinates,
     setIsSelectedSchoolCoordinates,
@@ -84,31 +80,12 @@ export default function Filter({
     setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
   }
 
-  function setLatLonOfSelectedSchool() {
-    const schools = primarySchools.filter(
-      school => school.name === isSelectedPrimarySchoolName
-    )
-    if (schools.length > 0) {
-      setIsSelectedSchoolCoordinates({
-        lat: schools[0].lat,
-        lon: schools[0].lon,
-      })
-    }
-  }
-
-  setLatLonOfSelectedSchool()
-  console.log('DAS ENDLICH GEFUNDENE ELEMENT: ', isSelectedPrimarySchoolObject)
-
   function handleStateChange(event) {
     setIsSelectedState(event.target.value)
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
   }
-  console.log('GEWÄHLTE SCHULE', isSelectedPrimarySchool)
-  console.log('GEWÄHLTER SCHULNAME', isSelectedPrimarySchoolName)
-  console.log('GEWÄHLTE SCHULKOORDINATEN', isSelectedSchoolCoordinates)
-
   return (
     <>
       <SelectSection key="Filter">

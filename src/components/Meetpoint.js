@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import check from '../img/solid-sm/sm-check.svg'
 
 export default function Meetpoint() {
   const [address, setAddress] = useState('')
@@ -57,7 +58,9 @@ export default function Meetpoint() {
         </PlacesAutocomplete>
       </div>
       <NavLink to="/meetpoint">
-        <AddPointButton aria-label="check">&#10003;</AddPointButton>
+        <AddPointButton aria-label="check">
+          <img src={check} alt="check button"></img>
+        </AddPointButton>
       </NavLink>
     </>
   )
@@ -98,18 +101,18 @@ const Heading = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 40px;
   flex-direction: column;
   font-family: 'Raleway';
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 12px;
   border: none;
   padding: 10px;
   margin: 5px 0;
+  color: white;
   font-size: 1.4rem;
-  background: white;
-  opacity: 0.96;
+  background: #ee7600;
+  opacity: 0.92;
   box-shadow: 0 0 10px 4px #a4b0af;
 `
 const AddPointButton = styled.button`
