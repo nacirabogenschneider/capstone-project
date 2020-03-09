@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Map from './components/Maps'
-import { withScriptjs, withGoogleMap } from 'react-google-maps'
-import Filter from './components/Filter'
-import * as schoolsData from './data/schools.json'
 import PropTypes from 'prop-types'
-import Cards from './components/Card'
-import currentSchoolImg from './img/solid-sm/school-selected.svg'
-import meetpointsData from './data/meetpoints.json'
-
+import React, { useState } from 'react'
+import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import styled from 'styled-components'
+import Cards from './components/Card'
+import Filter from './components/Filter'
+import Map from './components/Maps'
+import * as schoolsData from './data/schools.json'
+import currentSchoolImg from './img/solid-sm/school-selected.svg'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -17,12 +15,9 @@ MapWrapped.propTypes = {
   defaultZoom: PropTypes.number,
   defaultCenter: PropTypes.object,
   efaultOptions: PropTypes.object,
-
   selectedPrimary: PropTypes.string,
-  selectedState: PropTypes.string,
   selectedSchoolMeetpoint: PropTypes.string,
   schoolLatLon: PropTypes.object,
-
   mapElement: PropTypes.object,
   googleMapURL: PropTypes.string,
   loadingElement: PropTypes.object,
@@ -35,19 +30,12 @@ function App() {
     .filter(school => school.school_type === 'Grundschule')
     .sort()
   const schoolStates = schoolsData.states
+  const [selectedState, setSelectedState] = useState('')
   const [primarySchools, setPrimaryschools] = useState(primeSchools)
-  const [selectedState, setSelectedState] = useState()
-  const [schoolLatLon] = useState({ lat: 0, lon: 0 })
-  const [meetpoints, setMeetpoints] = useState(meetpointsData.allMeetpoints)
-  const [selectedMeetpoint] = useState('Wähle deinen Treffpunkt')
-  const [selectedPrimarySchoolName, setSelectedPrimarySchoolName] = useState(
-    'Wähle deine Schule'
-  )
-  const [
-    selectedPrimarySchoolAddress,
-    setSelectedPrimarySchoolAddress,
-  ] = useState('')
-  const [selectedPrimarySchool] = useState('')
+  const [selectedSchoolCoordinates, setSelectedSchoolCoordinates] = useState({
+    lat: 0,
+    lon: 0,
+  })
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Du hast noch keine Schule ausgewählt',
   })
@@ -58,8 +46,9 @@ function App() {
         <Header />
         <MapContainer key="mapcontainer">
           <MapWrapped
-            schoolLatLon={schoolLatLon}
             selectedState={selectedState}
+            selectedSchoolCoordinates={selectedSchoolCoordinates}
+            primeSchools={primarySchools}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
             loadingElement={<div style={{ height: `100%` }} />}
@@ -74,23 +63,12 @@ function App() {
                 schoolsData={schoolsData}
                 schoolsDataAll={schoolsDataAll}
                 currentSchoolImg={currentSchoolImg}
-                selectedState={selectedState}
-                setSelectedState={setSelectedState}
-                selectedPrimarySchoolName={selectedPrimarySchoolName}
-                setSelectedPrimarySchoolName={setSelectedPrimarySchoolName}
-                selectedPrimarySchoolAddress={selectedPrimarySchoolAddress}
-                setSelectedPrimarySchoolAddress={
-                  setSelectedPrimarySchoolAddress
-                }
                 setCardSchoolObject={setCardSchoolObject}
                 cardSchoolObject={cardSchoolObject}
-                selectedPrimarySchool={selectedPrimarySchool}
-                meetpoints={meetpoints}
-                setMeetpoints={setMeetpoints}
                 primarySchools={primarySchools}
                 setPrimaryschools={setPrimaryschools}
-                setSelectedMeetpoint
-                selectedMeetpoint
+                setSelectedState={setSelectedState}
+                setSelectedSchoolCoordinates={setSelectedSchoolCoordinates}
               />
             </Route>
           </Switch>
@@ -99,9 +77,6 @@ function App() {
               <Cards
                 cardSchoolObject={cardSchoolObject}
                 currentSchoolImg={currentSchoolImg}
-                schoolName={setSelectedPrimarySchoolName}
-                schoolAdress={setSelectedPrimarySchoolAddress}
-                selectedMeetpoint={selectedMeetpoint}
               />
             </Route>
           </Switch>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Meetpoint from './Meetpoint'
 
 Cards.propTypes = {
   selectedSchoolName: PropTypes.string,
@@ -9,19 +10,8 @@ Cards.propTypes = {
   currentSchool: PropTypes.string,
 }
 
-export default function Cards({
-  cardSchoolObject,
-  currentSchoolImg,
-  selectedMeetpoint,
-}) {
+export default function Cards({ cardSchoolObject, currentSchoolImg }) {
   const [card] = useState(cardSchoolObject)
-  const [meetpointData, setMeetpointData] = useState(
-    'Noch kein Treffpunkt gewählt'
-  )
-  useEffect(() => {
-    selectedMeetpoint !== 'Wähle deinen Treffpunkt' &&
-      setMeetpointData(selectedMeetpoint)
-  }, [selectedMeetpoint])
   return (
     <>
       <InfoCards>
@@ -32,16 +22,7 @@ export default function Cards({
           </CardHeader>
           <p>{card.address}</p>
         </SchoolCard>
-        {console.log('CARD _ MEETPOINT', selectedMeetpoint)}
-        <SchoolCard>
-          <CardHeader>
-            <span aria-label="children-couple" role="img">
-              &#128107;
-            </span>
-            <p>Dein Treffpunkt</p>
-          </CardHeader>
-          <p>{meetpointData}</p>
-        </SchoolCard>
+        <Meetpoint />
       </InfoCards>
     </>
   )
@@ -65,12 +46,12 @@ const SchoolCard = styled.section`
   display: flex;
   width: 92vw;
   flex-direction: column;
-  font-family: 'Arial';
+  font-family: 'Raleway';
   border-radius: 12px;
   padding: 10px;
   margin: 5px 0;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   background: white;
-  opacity: 0.94;
+  opacity: 0.95;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
