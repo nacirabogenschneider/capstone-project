@@ -11,11 +11,7 @@ export default function Map({
   selectedSchoolCoordinates,
 }) {
   const schoolName = cardSchoolObject.name
-  const schoolAddress = cardSchoolObject.schoolAddress
   const [schoolCoordinates, setSchoolCoordinates] = useState({})
-  console.log('Der Name der Schule in maps - - - ', schoolName)
-  console.log('Das ganze schulobject', cardSchoolObject)
-  console.log('Das ausgewählte Bundesland', selectedState)
 
   function filterSchoolsByPrimaryState() {
     return primeSchools
@@ -27,8 +23,6 @@ export default function Map({
         lng: school.lon,
       }))
   }
-  console.log(filterSchoolsByPrimaryState())
-
   function setLatLonOfSelectedSchool() {
     const schools = filterSchoolsByPrimaryState().filter(
       school => school.name === schoolName
@@ -44,7 +38,6 @@ export default function Map({
     setLatLonOfSelectedSchool()
   }, [])
 
-  console.log(schoolCoordinates)
   return (
     <GoogleMap
       defaultZoom={11}
