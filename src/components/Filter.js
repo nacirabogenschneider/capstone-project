@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Marker } from 'react-google-maps'
+
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -9,9 +9,7 @@ export default function Filter({
   selectedPrimarySchool,
   primarySchools,
   setCardSchoolObject,
-  setSelectedSchoolCoordinates,
 }) {
-  const [isPrimarySchools] = useState(primarySchools)
   const [isSelectedState, setIsSelectedState] = useState()
   const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
     'Wähle deine Schule'
@@ -24,6 +22,7 @@ export default function Filter({
     isSelectedPrimarySchoolAddress,
     setIsSelectedPrimarySchoolAddress,
   ] = useState('')
+
   const [
     isSelectedSchoolCoordinates,
     setIsSelectedSchoolCoordinates,
@@ -37,12 +36,7 @@ export default function Filter({
   useEffect(() => {
     getAddressOfSelectedSchool()
     getNameOfSelectedSchool()
-    setLatLonOfSelectedSchool()
-  }, [isSelectedPrimarySchool])
-
-  useEffect(() => {
-    setSelectedSchoolCoordinates(isSelectedSchoolCoordinates)
-  }, [isSelectedSchoolCoordinates])
+  }, [isSelectedPrimarySchool, primarySchools])
 
   useEffect(() => {
     setCardSchoolObject({
@@ -58,25 +52,11 @@ export default function Filter({
   ])
 
   function filterSchoolsByPrimaryState() {
-    return isPrimarySchools
+    return primarySchools
       .filter(school => school.state === isSelectedState)
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
-  }
-
-  function renderMarker() {
-    return isPrimarySchools
-      .filter(school => school.state === isSelectedState)
-      .map(sortedSchool => (
-        <Marker
-          key={sortedSchool.name}
-          position={{
-            lat: +sortedSchool.lat,
-            lng: +sortedSchool.lon,
-          }}
-        />
-      ))
   }
 
   function setStateSelector() {
@@ -100,26 +80,12 @@ export default function Filter({
     setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
   }
 
-  function setLatLonOfSelectedSchool() {
-    const schools = isPrimarySchools.filter(
-      school => school.name === isSelectedPrimarySchoolName
-    )
-    if (schools.length > 0) {
-      setIsSelectedSchoolCoordinates({
-        lat: schools[0].lat,
-        lng: schools[0].lon,
-      })
-    }
-  }
-
   function handleStateChange(event) {
     setIsSelectedState(event.target.value)
-    renderMarker()
   }
   function handleSchoolChange(event) {
     setIsSelectedPrimarySchool(event.target.value)
   }
-
   return (
     <>
       <SelectSection key="Filter">
@@ -134,7 +100,7 @@ export default function Filter({
             isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
-        <NavLink onClick={console.log('')} to="/meetpoint">
+        <NavLink to="/meetpoint">
           <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
       </SelectSection>

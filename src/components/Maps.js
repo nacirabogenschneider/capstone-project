@@ -1,27 +1,43 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
-import selectedSchoolImg from '../img/solid-sm/school-selected.svg'
+import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
 import mapStyles from './utils/mapStyles'
 
 export default function Map({
+  cardSchoolObject,
   primeSchools,
   selectedState,
   selectedSchoolCoordinates,
 }) {
-  useEffect(() => {
-    selectedSchoolCoordinates.lengst > 0 && renderSingleSchool()
-  }, [selectedSchoolCoordinates, renderSingleSchool])
+  const schoolName = cardSchoolObject.name
+  const [schoolCoordinates, setSchoolCoordinates] = useState({})
 
-  function renderSingleSchool() {
-    return (
-      <Marker
-        key={selectedSchoolCoordinates}
-        position={selectedSchoolCoordinates}
-        icon={selectedSchoolImg}
-      />
-    )
+  function filterSchoolsByPrimaryState() {
+    return primeSchools
+      .filter(school => school.state === selectedState)
+      .map(school => ({
+        name: school.name,
+        adress: school.address,
+        lat: school.lat,
+        lng: school.lon,
+      }))
   }
+  function setLatLonOfSelectedSchool() {
+    const schools = filterSchoolsByPrimaryState().filter(
+      school => school.name === schoolName
+    )
+    if (schools.length > 0) {
+      setSchoolCoordinates({
+        lat: schools[0].lat,
+        lng: schools[0].lng,
+      })
+    }
+  }
+  useEffect(() => {
+    setLatLonOfSelectedSchool()
+  }, [])
+
   return (
     <GoogleMap
       defaultZoom={11}
@@ -44,6 +60,15 @@ export default function Map({
               icon={schoolsImg}
             />
           ))}
+
+      <Marker
+        key={selectedSchoolCoordinates}
+        position={{
+          lat: +schoolCoordinates.lat,
+          lng: +schoolCoordinates.lng,
+        }}
+        icon={schoolsSelectedImg}
+      />
     </GoogleMap>
   )
 }
