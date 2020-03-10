@@ -8,7 +8,7 @@ import Filter from './components/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
 import currentSchoolImg from './img/solid-sm/school-selected.svg'
-
+import { schoolRef } from './firebase'
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
 MapWrapped.propTypes = {
