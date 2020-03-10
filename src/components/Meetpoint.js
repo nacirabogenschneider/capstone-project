@@ -6,7 +6,6 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import check from '../img/solid-sm/sm-check.svg'
-import { findRenderedComponentWithType } from 'react-dom/test-utils'
 
 export default function Meetpoint({
   cardSchoolObject,
