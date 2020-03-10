@@ -49,6 +49,7 @@ function App() {
         <Header />
         <MapContainer key="mapcontainer">
           <MapWrapped
+            meetpoints={meetpoints}
             cardSchoolObject={cardSchoolObject}
             selectedState={selectedState}
             selectedSchoolCoordinates={selectedSchoolCoordinates}
