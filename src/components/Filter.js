@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import check from '../img/solid-sm/sm-check.svg'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -101,7 +101,9 @@ export default function Filter({
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/meetpoint">
-          <AddPointButton aria-label="check">&#10003;</AddPointButton>
+          <AddPointButton aria-label="check">
+            <img src={check} alt="check button"></img>
+          </AddPointButton>
         </NavLink>
       </SelectSection>
     </>

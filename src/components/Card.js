@@ -3,14 +3,19 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Meetpoint from './Meetpoint'
 
-Cards.propTypes = {
+Card.propTypes = {
   selectedSchoolName: PropTypes.string,
   selectedSchoolAddress: PropTypes.string,
   selectedSchoolMeetpoint: PropTypes.string,
   currentSchool: PropTypes.string,
 }
 
-export default function Cards({ cardSchoolObject, currentSchoolImg }) {
+export default function Card({
+  cardSchoolObject,
+  currentSchoolImg,
+  meetpoints,
+  setMeetpoints,
+}) {
   const [card] = useState(cardSchoolObject)
   return (
     <>
@@ -22,7 +27,11 @@ export default function Cards({ cardSchoolObject, currentSchoolImg }) {
           </CardHeader>
           <p>{card.address}</p>
         </SchoolCard>
-        <Meetpoint />
+        <Meetpoint
+          cardSchoolObject={cardSchoolObject}
+          setMeetpoints={setMeetpoints}
+          meetpoints={meetpoints}
+        />
       </InfoCards>
     </>
   )

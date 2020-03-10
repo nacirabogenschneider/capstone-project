@@ -6,8 +6,13 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import check from '../img/solid-sm/sm-check.svg'
+import { findRenderedComponentWithType } from 'react-dom/test-utils'
 
-export default function Meetpoint() {
+export default function Meetpoint({
+  cardSchoolObject,
+  setMeetpoints,
+  meetpoints,
+}) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
   const handleSelect = async value => {
@@ -17,9 +22,21 @@ export default function Meetpoint() {
     setCoordinates(latLng)
   }
 
+  function handleClick() {
+    setMeetpoints([
+      ...meetpoints,
+      {
+        schoolname: cardSchoolObject.name,
+        meetpoint: address,
+        meetpointLat: coordinates.lat,
+        meetpointLng: coordinates.lng,
+      },
+    ])
+  }
+  console.log('Hier kommt die Adresse aus dem autocomplete Feld: ', address)
   return (
     <>
-      <Heading>Neuen Treffpunkt erstellen.</Heading>
+      <Heading>{address ? address : 'Neuen Treffpunkt erstellen.'}</Heading>
       <div>
         <PlacesAutocomplete
           value={address}
@@ -58,7 +75,7 @@ export default function Meetpoint() {
         </PlacesAutocomplete>
       </div>
       <NavLink to="/meetpoint">
-        <AddPointButton aria-label="check">
+        <AddPointButton aria-label="check" onClick={handleClick}>
           <img src={check} alt="check button"></img>
         </AddPointButton>
       </NavLink>
@@ -107,8 +124,8 @@ const Heading = styled.h1`
   font-weight: 600;
   border-radius: 12px;
   border: none;
-  padding: 10px;
-  margin: 5px 0;
+  padding: 14px;
+  margin: 5px 4px;
   color: white;
   font-size: 1.4rem;
   background: #ee7600;

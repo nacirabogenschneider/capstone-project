@@ -39,6 +39,9 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Du hast noch keine Schule ausgewählt',
   })
+  const [meetpoints, setMeetpoints] = useState([])
+
+  console.log('TEST 1 2', meetpoints)
 
   return (
     <Router>
@@ -76,6 +79,8 @@ function App() {
           <Switch>
             <Route path="/meetpoint">
               <Cards
+                meetpoints={meetpoints}
+                setMeetpoints={setMeetpoints}
                 cardSchoolObject={cardSchoolObject}
                 currentSchoolImg={currentSchoolImg}
               />
