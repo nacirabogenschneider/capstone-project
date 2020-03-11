@@ -2,6 +2,9 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import Meetpoint from './Meetpoint'
+import meetpointFlag from '../img/solid-sm/meetpoints-flag.svg'
+import Runninglist from './Runninglist'
+import { Route, Switch } from 'react-router-dom'
 
 Card.propTypes = {
   selectedSchoolName: PropTypes.string,
@@ -19,20 +22,33 @@ export default function Card({
   const [card] = useState(cardSchoolObject)
   return (
     <>
-      <InfoCards>
-        <SchoolCard>
-          <CardHeader>
-            <img src={currentSchoolImg} alt="current school"></img>
-            <p>{card.name}</p>
-          </CardHeader>
-          <p>{card.address}</p>
-        </SchoolCard>
-        <Meetpoint
-          cardSchoolObject={cardSchoolObject}
-          setMeetpoints={setMeetpoints}
-          meetpoints={meetpoints}
-        />
-      </InfoCards>
+      <Switch>
+        <Route>
+          <InfoCards>
+            <SchoolCard>
+              <CardHeader>
+                <div>
+                  <img src={currentSchoolImg} alt="current school"></img>
+
+                  <span>{card.name}</span>
+                </div>
+              </CardHeader>
+              <div>
+                <img src={meetpointFlag} alt="current meetpoint"></img>
+                {meetpoints.map(meetpoint => (
+                  <span>{meetpoint.meetpoint}</span>
+                ))}
+              </div>
+            </SchoolCard>
+
+            <Meetpoint
+              cardSchoolObject={cardSchoolObject}
+              setMeetpoints={setMeetpoints}
+              meetpoints={meetpoints}
+            />
+          </InfoCards>
+        </Route>
+      </Switch>
     </>
   )
 }
@@ -48,7 +64,8 @@ const InfoCards = styled.section`
 const CardHeader = styled.section`
   display: flex;
   justify-content: left;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   font-size: 20px;
 `
 const SchoolCard = styled.section`

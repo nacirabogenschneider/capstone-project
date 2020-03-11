@@ -100,7 +100,7 @@ export default function Filter({
             isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
-        <NavLink to="/meetpoint">
+        <NavLink to="/card">
           <AddPointButton aria-label="check">
             <img src={check} alt="check button"></img>
           </AddPointButton>

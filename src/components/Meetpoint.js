@@ -6,6 +6,8 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import check from '../img/solid-sm/sm-check.svg'
+import next from '../img/solid-sm/sm-arrow-right.svg'
+import back from '../img/solid-sm/sm-arrow-left.svg'
 
 export default function Meetpoint({
   cardSchoolObject,
@@ -32,7 +34,6 @@ export default function Meetpoint({
       },
     ])
   }
-  console.log('Hier kommt die Adresse aus dem autocomplete Feld: ', address)
   return (
     <>
       <Heading>{address ? address : 'Neuen Treffpunkt erstellen.'}</Heading>
@@ -73,11 +74,23 @@ export default function Meetpoint({
           )}
         </PlacesAutocomplete>
       </div>
-      <NavLink to="/meetpoint">
-        <AddPointButton aria-label="check" onClick={handleClick}>
-          <img src={check} alt="check button"></img>
-        </AddPointButton>
-      </NavLink>
+      <ButtonWrapper>
+        <NavLink to="/card">
+          <AddPointButton aria-label="check" onClick={handleClick}>
+            <img src={back} alt="back button"></img>
+          </AddPointButton>
+        </NavLink>
+        <NavLink to="/card">
+          <AddPointButton aria-label="check" onClick={handleClick}>
+            <img src={check} alt="check button"></img>
+          </AddPointButton>
+        </NavLink>
+        <NavLink to="/runninglist">
+          <AddPointButton aria-label="check">
+            <img src={next} alt="next button"></img>
+          </AddPointButton>
+        </NavLink>
+      </ButtonWrapper>
     </>
   )
 }
@@ -146,4 +159,7 @@ const AddPointButton = styled.button`
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
   z-index: 200;
+`
+const ButtonWrapper = styled.div`
+  display: flex;
 `

@@ -3,11 +3,15 @@ import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import Cards from './components/Card'
+import Card from './components/Card'
 import Filter from './components/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
 import currentSchoolImg from './img/solid-sm/school-selected.svg'
+import plus from './img/solid-sm/sm-plus.svg'
+import back from './img/solid-sm/sm-arrow-left.svg'
+import check from './img/solid-sm/sm-check.svg'
+import Runninglist from './components/Runninglist'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -37,7 +41,7 @@ function App() {
     lon: 0,
   })
   const [cardSchoolObject, setCardSchoolObject] = useState({
-    name: 'Du hast noch keine Schule ausgewählt',
+    name: 'Noch keine Schule ausgewählt',
   })
   const [meetpoints, setMeetpoints] = useState([])
 
@@ -78,13 +82,18 @@ function App() {
             </Route>
           </Switch>
           <Switch>
-            <Route path="/meetpoint">
-              <Cards
+            <Route path="/card">
+              <Card
                 meetpoints={meetpoints}
                 setMeetpoints={setMeetpoints}
                 cardSchoolObject={cardSchoolObject}
                 currentSchoolImg={currentSchoolImg}
               />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/runninglist">
+              <Runninglist plus={plus} back={back} check={check} />
             </Route>
           </Switch>
         </MapContainer>
