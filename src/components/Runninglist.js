@@ -7,21 +7,23 @@ export default function Runninglist({ plus, back, check }) {
     <>
       <StyledRunninglistSection>
         <StyledRow>
-          <StyledRunningTime>Startzeit</StyledRunningTime>
-          <StyledRunningHeader>Laufliste</StyledRunningHeader>
+          <StyledRunningTitle>
+            <h1>Lauflisten</h1>
+          </StyledRunningTitle>
         </StyledRow>
+
         <StyledRow>
           <TimeInput type="time"></TimeInput>
           <StyledTextWrapper>
-            <p> Laufliste Nummer 1</p>
+            <RunningList> Laufliste Nummer 1</RunningList>
             <img src={plus}></img>
           </StyledTextWrapper>
         </StyledRow>
 
         <div>
           <ButtonWrapper>
-            <NavLink to="/meetpoint">
-              <AddPointButton aria-label="check">
+            <NavLink to="/card">
+              <AddPointButton aria-label="back">
                 <img src={back} alt="back button"></img>
               </AddPointButton>
             </NavLink>
@@ -36,7 +38,13 @@ export default function Runninglist({ plus, back, check }) {
     </>
   )
 }
+
+const RunningList = styled.p`
+  padding-left: 10px;
+  margin: 0;
+`
 const StyledTextWrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,6 +52,8 @@ const StyledTextWrapper = styled.div`
   border: none;
   width: 100vw;
   background: white;
+  margin: 0 4px;
+  padding: 0;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
@@ -60,13 +70,33 @@ const TimeInput = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   height: 48px;
   width: 80px;
+  margin: 0 4px;
   border: none;
   border-radius: 12px;
   background: white;
   opacity: 0.94;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
+`
+
+const StyledRunningTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  width: 100vw;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  padding-left: 10px;
+  margin: 0 4px;
+  opacity: 0.94;
+  font-size: 1.4rem;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
 
@@ -79,6 +109,8 @@ const StyledRunningHeader = styled.div`
   height: 48px;
   border-radius: 12px;
   border: none;
+  padding-left: 10px;
+  margin: 0 4px;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
@@ -91,11 +123,12 @@ const StyledRow = styled.div`
 const StyledRunningTime = styled.div`
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
   background: #ee7600;
   font-family: 'Arial';
   height: 48px;
   width: 80px;
+  margin: 0 4px;
   border-radius: 12px;
   border: none;
   opacity: 0.94;
@@ -108,12 +141,18 @@ const AddPointButton = styled.button`
   align-items: center;
   height: 45px;
   width: 45px;
+  margin: 4px;
   border: none;
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 
 const ButtonWrapper = styled.div`
   display: flex;
+  justify-content: center;
 `
