@@ -112,6 +112,10 @@ const StyledInput = styled.input`
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
   z-index: 100;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 
 const StyledSuggestion = styled.div`
@@ -159,6 +163,10 @@ const AddPointButton = styled.button`
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
   z-index: 200;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 const ButtonWrapper = styled.div`
   display: flex;
