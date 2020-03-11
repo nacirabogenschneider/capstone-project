@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import check from '../img/solid-sm/sm-check.svg'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -100,8 +100,10 @@ export default function Filter({
             isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
-        <NavLink to="/meetpoint">
-          <AddPointButton aria-label="check">&#10003;</AddPointButton>
+        <NavLink to="/card">
+          <AddPointButton aria-label="check">
+            <img src={check} alt="check button"></img>
+          </AddPointButton>
         </NavLink>
       </SelectSection>
     </>
@@ -137,6 +139,10 @@ const Select = styled.select`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 const AddPointButton = styled.button`
   display: flex;
@@ -152,4 +158,8 @@ const AddPointButton = styled.button`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `

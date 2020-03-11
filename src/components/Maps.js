@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
+import meetpointFlag from '../img/solid-sm/meetpoints-flag.svg'
 import mapStyles from './utils/mapStyles'
 
 export default function Map({
+  meetpoints,
   cardSchoolObject,
   primeSchools,
   selectedState,
@@ -23,6 +25,7 @@ export default function Map({
         lng: school.lon,
       }))
   }
+
   function setLatLonOfSelectedSchool() {
     const schools = filterSchoolsByPrimaryState().filter(
       school => school.name === schoolName
