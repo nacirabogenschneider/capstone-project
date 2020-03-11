@@ -75,7 +75,7 @@ export default function Meetpoint({
         </PlacesAutocomplete>
       </div>
       <ButtonWrapper>
-        <NavLink to="/card">
+        <NavLink to="/">
           <AddPointButton aria-label="check" onClick={handleClick}>
             <img src={back} alt="back button"></img>
           </AddPointButton>

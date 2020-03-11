@@ -6,65 +6,65 @@ export default function Runninglist({ plus, back, check }) {
   return (
     <>
       <StyledRunninglistSection>
-        <StyledRunningTime>Startzeit</StyledRunningTime>
-        <StyledRunningHeader>Laufliste</StyledRunningHeader>
-        <TimeInput type="time"></TimeInput>
-        <DotWrapper>
-          <AddPointButtonPlus>
+        <StyledRow>
+          <StyledRunningTime>Startzeit</StyledRunningTime>
+          <StyledRunningHeader>Laufliste</StyledRunningHeader>
+        </StyledRow>
+        <StyledRow>
+          <TimeInput type="time"></TimeInput>
+          <StyledTextWrapper>
+            <p> Laufliste Nummer 1</p>
             <img src={plus}></img>
-          </AddPointButtonPlus>
-        </DotWrapper>
+          </StyledTextWrapper>
+        </StyledRow>
+
+        <div>
+          <ButtonWrapper>
+            <NavLink to="/meetpoint">
+              <AddPointButton aria-label="check">
+                <img src={back} alt="back button"></img>
+              </AddPointButton>
+            </NavLink>
+            <NavLink to="/card">
+              <AddPointButton aria-label="check">
+                <img src={check} alt="check button"></img>
+              </AddPointButton>
+            </NavLink>
+          </ButtonWrapper>
+        </div>
       </StyledRunninglistSection>
-      <ButtonWrapper>
-        <NavLink to="/meetpoint">
-          <AddPointButton aria-label="check">
-            <img src={back} alt="back button"></img>
-          </AddPointButton>
-        </NavLink>
-        <NavLink to="/card">
-          <AddPointButton aria-label="check">
-            <img src={check} alt="check button"></img>
-          </AddPointButton>
-        </NavLink>
-      </ButtonWrapper>
     </>
   )
 }
+const StyledTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  border: none;
+  width: 100vw;
+  background: white;
+  opacity: 0.94;
+  box-shadow: 0 0 10px 2px #a4b0af;
+`
 
 const StyledRunninglistSection = styled.section`
   position: absolute;
-  display: grid;
-  grid-template-columns: 20% auto;
-  grid-template-rows: 20% auto;
-  grid-column-gap: 12px;
-  grid-row-gap: 12px;
-  margin: 0 8px;
-  box-sizing: border-box;
+  font-family: Raleway;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
   top: 120px;
-  width: 97vw;
 `
 const TimeInput = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'Arial';
   height: 48px;
-  border-radius: 12px;
+  width: 80px;
   border: none;
-  font-size: 1.1rem;
-  background: white;
-  opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
-`
-const DotWrapper = styled.div`
-  display: flex;
-  justify-content: right;
-  font-family: 'Arial';
-  height: 48px;
   border-radius: 12px;
-  border: none;
-  font-size: 1.4rem;
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
@@ -75,13 +75,18 @@ const StyledRunningHeader = styled.div`
   align-items: center;
   justify-content: left;
   background: #ee7600;
-  font-family: 'Arial';
+  width: 100vw;
   height: 48px;
   border-radius: 12px;
   border: none;
-  padding-left: 12px;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+`
+
+const StyledRow = styled.div`
+  display: flex;
+  margin: 5px 0;
+  width: 100vw;
 `
 const StyledRunningTime = styled.div`
   display: flex;
@@ -90,35 +95,20 @@ const StyledRunningTime = styled.div`
   background: #ee7600;
   font-family: 'Arial';
   height: 48px;
+  width: 80px;
   border-radius: 12px;
   border: none;
-  padding-left: 12px;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
-const AddPointButtonPlus = styled.button`
-  display: flex;
-  left: 45vw;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6rem;
-  height: 45px;
-  width: 45px;
-  border: none;
-  background: transparent;
-`
 const AddPointButton = styled.button`
   display: flex;
-  left: 45vw;
   text-decoration: none;
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
   height: 45px;
   width: 45px;
   border: none;
-  margin: 4px;
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
