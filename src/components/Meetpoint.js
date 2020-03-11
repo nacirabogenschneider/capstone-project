@@ -6,8 +6,14 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import check from '../img/solid-sm/sm-check.svg'
+import next from '../img/solid-sm/sm-arrow-right.svg'
+import back from '../img/solid-sm/sm-arrow-left.svg'
 
-export default function Meetpoint() {
+export default function Meetpoint({
+  cardSchoolObject,
+  setMeetpoint,
+  meetpoint,
+}) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
   const handleSelect = async value => {
@@ -17,9 +23,17 @@ export default function Meetpoint() {
     setCoordinates(latLng)
   }
 
+  function handleClick() {
+    setMeetpoint({
+      schoolname: cardSchoolObject.name,
+      meetpoint: address,
+      meetpointLat: coordinates.lat,
+      meetpointLng: coordinates.lng,
+    })
+  }
   return (
     <>
-      <Heading>Neuen Treffpunkt erstellen.</Heading>
+      <Heading>{address ? address : 'Neuen Treffpunkt erstellen.'}</Heading>
       <div>
         <PlacesAutocomplete
           value={address}
@@ -57,11 +71,23 @@ export default function Meetpoint() {
           )}
         </PlacesAutocomplete>
       </div>
-      <NavLink to="/meetpoint">
-        <AddPointButton aria-label="check">
-          <img src={check} alt="check button"></img>
-        </AddPointButton>
-      </NavLink>
+      <ButtonWrapper>
+        <NavLink to="/">
+          <AddPointButton aria-label="check" onClick={handleClick}>
+            <img src={back} alt="back button"></img>
+          </AddPointButton>
+        </NavLink>
+        <NavLink to="/card">
+          <AddPointButton aria-label="check" onClick={handleClick}>
+            <img src={check} alt="check button"></img>
+          </AddPointButton>
+        </NavLink>
+        <NavLink to="/runninglist">
+          <AddPointButton aria-label="check">
+            <img src={next} alt="next button"></img>
+          </AddPointButton>
+        </NavLink>
+      </ButtonWrapper>
     </>
   )
 }
@@ -83,6 +109,10 @@ const StyledInput = styled.input`
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
   z-index: 100;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 
 const StyledSuggestion = styled.div`
@@ -107,8 +137,8 @@ const Heading = styled.h1`
   font-weight: 600;
   border-radius: 12px;
   border: none;
-  padding: 10px;
-  margin: 5px 0;
+  padding: 14px;
+  margin: 5px 4px;
   color: white;
   font-size: 1.4rem;
   background: #ee7600;
@@ -130,4 +160,11 @@ const AddPointButton = styled.button`
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
   z-index: 200;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
+`
+const ButtonWrapper = styled.div`
+  display: flex;
 `
