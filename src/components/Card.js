@@ -16,8 +16,8 @@ Card.propTypes = {
 export default function Card({
   cardSchoolObject,
   currentSchoolImg,
-  meetpoints,
-  setMeetpoints,
+  meetpoint,
+  setMeetpoint,
 }) {
   const [card] = useState(cardSchoolObject)
   return (
@@ -35,16 +35,14 @@ export default function Card({
               </CardHeader>
               <div>
                 <img src={meetpointFlag} alt="current meetpoint"></img>
-                {meetpoints.map(meetpoint => (
-                  <span>{meetpoint.meetpoint}</span>
-                ))}
+                <span key={meetpoint.meetpoint}>{meetpoint.meetpoint}</span>
               </div>
             </SchoolCard>
 
             <Meetpoint
               cardSchoolObject={cardSchoolObject}
-              setMeetpoints={setMeetpoints}
-              meetpoints={meetpoints}
+              setMeetpoint={setMeetpoint}
+              meetpoint={meetpoint}
             />
           </InfoCards>
         </Route>

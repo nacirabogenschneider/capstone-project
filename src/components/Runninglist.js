@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default function Runninglist({ plus, back, check }) {
+export default function Runninglist({ meetpoint, plus, back, check }) {
+  useEffect(() => {
+    console.log('RUNNINGLIST', meetpoint.meetpoint)
+  })
+
   return (
     <>
       <StyledRunninglistSection>
+        <StyledRow>
+          <StyledRunningHeader>
+            {(meetpoint.length === 0 && 'Dein Treffpunkt') ||
+              meetpoint.meetpoint}
+          </StyledRunningHeader>
+        </StyledRow>
         <StyledRow>
           <StyledRunningTitle>
             <h1>Lauflisten</h1>

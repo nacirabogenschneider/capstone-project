@@ -43,9 +43,9 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Noch keine Schule ausgewählt',
   })
-  const [meetpoints, setMeetpoints] = useState([])
+  const [meetpoint, setMeetpoint] = useState([])
 
-  console.log('TEST 1 2', meetpoints)
+  console.log('TEST 1 2', meetpoint)
 
   return (
     <Router>
@@ -53,7 +53,7 @@ function App() {
         <Header />
         <MapContainer key="mapcontainer">
           <MapWrapped
-            meetpoints={meetpoints}
+            meetpoint={meetpoint}
             cardSchoolObject={cardSchoolObject}
             selectedState={selectedState}
             selectedSchoolCoordinates={selectedSchoolCoordinates}
@@ -84,8 +84,8 @@ function App() {
           <Switch>
             <Route path="/card">
               <Card
-                meetpoints={meetpoints}
-                setMeetpoints={setMeetpoints}
+                meetpoint={meetpoint}
+                setMeetpoint={setMeetpoint}
                 cardSchoolObject={cardSchoolObject}
                 currentSchoolImg={currentSchoolImg}
               />
@@ -93,7 +93,12 @@ function App() {
           </Switch>
           <Switch>
             <Route path="/runninglist">
-              <Runninglist plus={plus} back={back} check={check} />
+              <Runninglist
+                meetpoint={meetpoint}
+                plus={plus}
+                back={back}
+                check={check}
+              />
             </Route>
           </Switch>
         </MapContainer>

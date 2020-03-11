@@ -11,8 +11,8 @@ import back from '../img/solid-sm/sm-arrow-left.svg'
 
 export default function Meetpoint({
   cardSchoolObject,
-  setMeetpoints,
-  meetpoints,
+  setMeetpoint,
+  meetpoint,
 }) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
@@ -24,15 +24,12 @@ export default function Meetpoint({
   }
 
   function handleClick() {
-    setMeetpoints([
-      ...meetpoints,
-      {
-        schoolname: cardSchoolObject.name,
-        meetpoint: address,
-        meetpointLat: coordinates.lat,
-        meetpointLng: coordinates.lng,
-      },
-    ])
+    setMeetpoint({
+      schoolname: cardSchoolObject.name,
+      meetpoint: address,
+      meetpointLat: coordinates.lat,
+      meetpointLng: coordinates.lng,
+    })
   }
   return (
     <>

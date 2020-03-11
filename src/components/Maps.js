@@ -73,7 +73,7 @@ export default function Map({
         icon={schoolsSelectedImg}
       />
 
-      {meetpoints.length > 0 &&
+      {/* {meetpoints.length > 0 &&
         meetpoints
           .filter(meetpoint => meetpoint.schoolname === cardSchoolObject.name)
           .map(meetpoint => (
@@ -85,7 +85,7 @@ export default function Map({
               }}
               icon={meetpointFlag}
             />
-          ))}
+          ))} */}
     </GoogleMap>
   )
 }
