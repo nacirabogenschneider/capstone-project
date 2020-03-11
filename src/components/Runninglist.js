@@ -113,8 +113,9 @@ const StyledRunningTitle = styled.div`
 const StyledRunningHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
   background: #ee7600;
+
   width: 100vw;
   height: 48px;
   border-radius: 12px;
@@ -122,6 +123,8 @@ const StyledRunningHeader = styled.div`
   padding-left: 10px;
   margin: 0 4px;
   opacity: 0.94;
+  color: white;
+  font-size: 1.4rem;
   box-shadow: 0 0 10px 2px #a4b0af;
 `
 
