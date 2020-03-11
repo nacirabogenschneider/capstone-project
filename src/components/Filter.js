@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import check from '../img/solid-sm/sm-check.svg'
+import React, { useEffect, useState, useCallback } from 'react'
+
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -23,10 +23,15 @@ export default function Filter({
     setIsSelectedPrimarySchoolAddress,
   ] = useState('')
 
-  const [
-    isSelectedSchoolCoordinates,
-    setIsSelectedSchoolCoordinates,
-  ] = useState([])
+  const [isSelectedSchoolCoordinates] = useState([])
+
+  const filterSchoolsByPrimaryState = useCallback(() => {
+    return primarySchools
+      .filter(school => school.state === isSelectedState)
+      .map(school => school.name + ', ' + school.address)
+      .sort()
+      .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
+  })
 
   useEffect(() => {
     setSelectedState(isSelectedState)
@@ -50,14 +55,6 @@ export default function Filter({
     isSelectedPrimarySchoolAddress,
     isSelectedSchoolCoordinates,
   ])
-
-  function filterSchoolsByPrimaryState() {
-    return primarySchools
-      .filter(school => school.state === isSelectedState)
-      .map(school => school.name + ', ' + school.address)
-      .sort()
-      .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
-  }
 
   function setStateSelector() {
     return schoolStates.map(state => (
@@ -101,9 +98,7 @@ export default function Filter({
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/card">
-          <AddPointButton aria-label="check">
-            <img src={check} alt="check button"></img>
-          </AddPointButton>
+          <AddPointButton aria-label="check">&#10003;</AddPointButton>
         </NavLink>
       </SelectSection>
     </>
@@ -139,10 +134,6 @@ const Select = styled.select`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
-  &:active,
-  &:focus {
-    box-shadow: 0 0 10px 2px #ee7600;
-  }
 `
 const AddPointButton = styled.button`
   display: flex;
@@ -158,8 +149,4 @@ const AddPointButton = styled.button`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
-  &:active,
-  &:focus {
-    box-shadow: 0 0 10px 2px #ee7600;
-  }
 `

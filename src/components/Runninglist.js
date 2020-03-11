@@ -26,7 +26,7 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
           <TimeInput type="time"></TimeInput>
           <StyledTextWrapper>
             <RunningList> Laufliste Nummer 1</RunningList>
-            <img src={plus}></img>
+            <img src={plus} alt="add button"></img>
           </StyledTextWrapper>
         </StyledRow>
 
@@ -130,20 +130,7 @@ const StyledRow = styled.div`
   margin: 5px 0;
   width: 100vw;
 `
-const StyledRunningTime = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ee7600;
-  font-family: 'Arial';
-  height: 48px;
-  width: 80px;
-  margin: 0 4px;
-  border-radius: 12px;
-  border: none;
-  opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
-`
+
 const AddPointButton = styled.button`
   display: flex;
   text-decoration: none;

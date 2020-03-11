@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Meetpoint from './Meetpoint'
 import meetpointFlag from '../img/solid-sm/meetpoints-flag.svg'
-import Runninglist from './Runninglist'
+// import Runninglist from './Runninglist'
 import { Route, Switch } from 'react-router-dom'
 
 Card.propTypes = {
