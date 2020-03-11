@@ -18,7 +18,7 @@
 .env.test.local
 .env.production.local
 .env
-/firebase
+/.firebase
 .firebaserc
 .firebase.json
 
