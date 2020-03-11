@@ -27,11 +27,8 @@ export default function Card({
           <InfoCards>
             <SchoolCard>
               <CardHeader>
-                <div>
-                  <img src={currentSchoolImg} alt="current school"></img>
-
-                  <span>{card.name}</span>
-                </div>
+                <img src={currentSchoolImg} alt="current school"></img>
+                <span>{card.name}</span>
               </CardHeader>
               <div>
                 <img src={meetpointFlag} alt="current meetpoint"></img>
@@ -62,7 +59,6 @@ const InfoCards = styled.section`
 const CardHeader = styled.section`
   display: flex;
   justify-content: left;
-  flex-direction: column;
   align-items: left;
   font-size: 20px;
 `

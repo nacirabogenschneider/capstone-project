@@ -32,16 +32,13 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
 
         <div>
           <ButtonWrapper>
-            <NavLink to="/card">
-              <AddPointButton aria-label="back">
-                <img src={back} alt="back button"></img>
-              </AddPointButton>
-            </NavLink>
-            <NavLink to="/card">
-              <AddPointButton aria-label="check">
-                <img src={check} alt="check button"></img>
-              </AddPointButton>
-            </NavLink>
+            <AddPointButton as={NavLink} to="/card" aria-label="back">
+              <img src={back} alt="back button"></img>
+            </AddPointButton>
+
+            <AddPointButton as={NavLink} to="/card" aria-label="check">
+              <img src={check} alt="check button"></img>
+            </AddPointButton>
           </ButtonWrapper>
         </div>
       </StyledRunninglistSection>

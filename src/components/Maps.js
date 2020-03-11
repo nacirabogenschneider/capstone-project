@@ -72,20 +72,6 @@ export default function Map({
         }}
         icon={schoolsSelectedImg}
       />
-
-      {/* {meetpoints.length > 0 &&
-        meetpoints
-          .filter(meetpoint => meetpoint.schoolname === cardSchoolObject.name)
-          .map(meetpoint => (
-            <Marker
-              key={meetpoint.meetpoint}
-              position={{
-                lat: +meetpoint.meetpointLat,
-                lng: +meetpoint.meetpointLat,
-              }}
-              icon={meetpointFlag}
-            />
-          ))} */}
     </GoogleMap>
   )
 }

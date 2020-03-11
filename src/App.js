@@ -45,8 +45,6 @@ function App() {
   })
   const [meetpoint, setMeetpoint] = useState([])
 
-  console.log('TEST 1 2', meetpoint)
-
   return (
     <Router>
       <AppGrid>
