@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import eye from '../img/outline-md/md-eye.svg'
-import { symbol } from 'prop-types'
-import adult from '../img/solid-sm/adult.svg'
-import child from '../img/solid-sm/child.svg'
+// import adult from '../img/solid-sm/adult.svg'
+// import child from '../img/solid-sm/child.svg'
+// import nextId from 'react-id-generator'
 
 export default function Runninglist({ meetpoint, plus, back, check }) {
-  useEffect(() => {
-    console.log('RUNNINGLIST', meetpoint.meetpoint)
-  })
-
   const [allRunningLists, setAllRunningLists] = useState([])
   const [selectedTime, setSelectedTime] = useState('')
   const [nameOfRunningList, setNameOfRunningList] = useState('')
@@ -37,9 +33,6 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
   function submitHandler(event) {
     event.preventDefault()
     setAllRunningLists([...allRunningLists, createRunninglist])
-    console.log('Name der Liste - ', event.target.value)
-    console.log('UHRZEIT: ')
-    console.log('Click')
   }
 
   function onListNameChange(event) {
@@ -63,7 +56,6 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
           </StyledRunningTitle>
         </StyledRow>
         {allRunningLists}
-
         <form onSubmit={submitHandler}>
           <StyledRow>
             <TimeInput
@@ -75,7 +67,6 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
               <RunningListInput
                 type="text"
                 name="list-name"
-                // value={nameOfRunningList}
                 placeholder="Name der neuen Liste?"
                 onChange={onListNameChange}
               ></RunningListInput>
@@ -101,10 +92,6 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
   )
 }
 
-const RunningList = styled.p`
-  padding-left: 10px;
-  margin: 0;
-`
 const RunningListInput = styled.input`
   padding-left: 10px;
   margin: 0;
@@ -126,7 +113,7 @@ const StyledTextWrapper = styled.div`
   justify-content: space-between;
   border-radius: 12px;
   border: none;
-  width: 100vw;
+  width: 100%;
   background: white;
   margin: 0 4px;
   padding: 0;
@@ -145,6 +132,7 @@ const StyledRunninglistSection = styled.section`
   display: flex;
   flex-direction: column;
   top: 120px;
+  overflow-y: scroll;
 `
 const TimeInput = styled.input`
   display: flex;
@@ -250,14 +238,14 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 95vh;
-  height: 400px;
-  background: #ee7600;
-  opacity: 0.96;
-`
+// const StyledForm = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   width: 95vh;
+//   height: 400px;
+//   background: #ee7600;
+//   opacity: 0.96;
+// `
 const CreateButton = styled.div`
   padding: 0 10px;
   border: none;
