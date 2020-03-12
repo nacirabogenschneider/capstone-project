@@ -6,35 +6,49 @@ import eye from '../img/outline-md/md-eye.svg'
 import uuid from 'react-uuid'
 // import adult from '../img/solid-sm/adult.svg'
 // import child from '../img/solid-sm/child.svg'
-// import nextId from 'react-id-generator'
+import nextId from 'react-id-generator'
 
 export default function Runninglist({ meetpoint, back, check }) {
+  const unique = uuid()
   const [allRunningLists, setAllRunningLists] = useState([])
   const [runningLists, setRunningLists] = useState([])
   const { register, handleSubmit } = useForm()
   const onSubmit = data => {
-    setRunningLists([...runningLists, data])
+    setRunningLists([
+      ...runningLists,
+      { time: data.time, listname: data.listname, id: unique },
+    ])
   }
-  function handleListClick() {
-    console.log('Liste geklickt')
+  function handleListClick(event) {
+    console.log('runningLists ', runningLists)
+    console.log('Liste geklickt ', event.target.id)
   }
 
   function createRunninglist() {
     return runningLists.map(list => (
-      <StyledRow key={uuid(list)} onClick={handleListClick}>
-        <StyledTime>{list.time}</StyledTime>
-        <StyledTextWrapper>
-          <RunningListName>
-            <div>{list.listname}</div>
-            {/* <img src={adult} alt="adult"></img>
+      <label key={uuid(list)} htmlFor={list.id}>
+        <StyledRow>
+          <StyledTime>{list.time}</StyledTime>
+          <StyledTextWrapper>
+            <RunningListName>
+              <div
+                id={list.id}
+                onClick={handleListClick}
+                value={list.listname}
+                name="labeling"
+              >
+                {list.listname}
+              </div>
+              {/* <img src={adult} alt="adult"></img>
             <img src={child} alt="child"></img>
             <img src={child} alt="child"></img> */}
-          </RunningListName>
-          <CreateButton>
-            <img src={eye} alt="add button"></img>
-          </CreateButton>
-        </StyledTextWrapper>
-      </StyledRow>
+            </RunningListName>
+            <CreateButton>
+              <img src={eye} alt="add button"></img>
+            </CreateButton>
+          </StyledTextWrapper>
+        </StyledRow>
+      </label>
     ))
   }
 
