@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import eye from '../img/outline-md/md-eye.svg'
+import uuid from 'react-uuid'
 // import adult from '../img/solid-sm/adult.svg'
 // import child from '../img/solid-sm/child.svg'
 // import nextId from 'react-id-generator'
 
-export default function Runninglist({ meetpoint, plus, back, check }) {
+export default function Runninglist({ meetpoint, back, check }) {
   const [allRunningLists, setAllRunningLists] = useState([])
-  const [selectedTime, setSelectedTime] = useState('')
-  const [nameOfRunningList, setNameOfRunningList] = useState('')
+  const [runningLists, setRunningLists] = useState([])
+  const { register, handleSubmit } = useForm()
+  const onSubmit = data => {
+    setRunningLists([...runningLists, data])
+  }
+  function handleListClick() {
+    console.log('Liste geklickt')
+  }
 
-  const createRunninglist = (
-    <>
-      <StyledRow>
-        <StyledTime>{selectedTime}</StyledTime>
+  function createRunninglist() {
+    return runningLists.map(list => (
+      <StyledRow key={uuid(list)} onClick={handleListClick}>
+        <StyledTime>{list.time}</StyledTime>
         <StyledTextWrapper>
           <RunningListName>
-            <div>{nameOfRunningList}</div>
+            <div>{list.listname}</div>
             {/* <img src={adult} alt="adult"></img>
             <img src={child} alt="child"></img>
             <img src={child} alt="child"></img> */}
@@ -27,20 +35,14 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
           </CreateButton>
         </StyledTextWrapper>
       </StyledRow>
-    </>
-  )
+    ))
+  }
 
   function submitHandler(event) {
     event.preventDefault()
     setAllRunningLists([...allRunningLists, createRunninglist])
   }
 
-  function onListNameChange(event) {
-    setNameOfRunningList(event.target.value)
-  }
-  function timeChangeHandler(event) {
-    setSelectedTime(event.target.value)
-  }
   return (
     <>
       <StyledRunninglistSection>
@@ -55,31 +57,28 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
             <h1>Lauflisten</h1>
           </StyledRunningTitle>
         </StyledRow>
-        {allRunningLists}
-        <form onSubmit={submitHandler}>
+        {createRunninglist()}
+
+        <form onSubmit={handleSubmit(onSubmit)}>
           <StyledRow>
             <TimeInput
               type="time"
               name="time"
-              onChange={timeChangeHandler}
+              ref={register({ required: true })}
             ></TimeInput>
             <StyledTextWrapper>
               <RunningListInput
+                ref={register({ required: true, minLength: 2 })}
                 type="text"
-                name="list-name"
+                name="listname"
                 placeholder="Name der neuen Liste?"
-                onChange={onListNameChange}
               ></RunningListInput>
-              <CreateButton>
-                <img src={plus} type="submit" alt="add button"></img>
-              </CreateButton>
-              <CreateButton onClick={submitHandler}>
+              <CreateButton type="submit" onClick={submitHandler}>
                 <img src={check} alt="create button"></img>
               </CreateButton>
             </StyledTextWrapper>
           </StyledRow>
         </form>
-
         <div>
           <ButtonWrapper>
             <AddPointButton as={NavLink} to="/card" aria-label="back">
@@ -238,14 +237,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
-// const StyledForm = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   width: 95vh;
-//   height: 400px;
-//   background: #ee7600;
-//   opacity: 0.96;
-// `
 const CreateButton = styled.div`
   padding: 0 10px;
   border: none;
