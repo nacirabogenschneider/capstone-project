@@ -6,7 +6,6 @@ import eye from '../img/outline-md/md-eye.svg'
 import uuid from 'react-uuid'
 // import adult from '../img/solid-sm/adult.svg'
 // import child from '../img/solid-sm/child.svg'
-import nextId from 'react-id-generator'
 
 export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
@@ -43,7 +42,7 @@ export default function Runninglist({ meetpoint, back, check }) {
             <img src={child} alt="child"></img>
             <img src={child} alt="child"></img> */}
             </RunningListName>
-            <CreateButton>
+            <CreateButton type="submit">
               <img src={eye} alt="add button"></img>
             </CreateButton>
           </StyledTextWrapper>
@@ -57,6 +56,9 @@ export default function Runninglist({ meetpoint, back, check }) {
     setAllRunningLists([...allRunningLists, createRunninglist])
   }
 
+  function handleButtonClick() {
+    console.log('Icon clicked')
+  }
   return (
     <>
       <StyledRunninglistSection>
@@ -87,7 +89,7 @@ export default function Runninglist({ meetpoint, back, check }) {
                 name="listname"
                 placeholder="Name der neuen Liste?"
               ></RunningListInput>
-              <CreateButton type="submit" onClick={submitHandler}>
+              <CreateButton type="submit">
                 <img src={check} alt="create button"></img>
               </CreateButton>
             </StyledTextWrapper>
@@ -251,7 +253,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
-const CreateButton = styled.div`
-  padding: 0 10px;
+const CreateButton = styled.button`
+  background: transparent;
+  padding: 10px;
   border: none;
 `
