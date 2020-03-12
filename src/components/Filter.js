@@ -31,7 +31,7 @@ export default function Filter({
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
-  })
+  }, [isSelectedState, primarySchools])
 
   useEffect(() => {
     setSelectedState(isSelectedState)
@@ -54,6 +54,7 @@ export default function Filter({
     isSelectedPrimarySchoolName,
     isSelectedPrimarySchoolAddress,
     isSelectedSchoolCoordinates,
+    setCardSchoolObject,
   ])
 
   function setStateSelector() {
@@ -134,6 +135,9 @@ const Select = styled.select`
   background: white;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
 const AddPointButton = styled.button`
   display: flex;
@@ -149,4 +153,7 @@ const AddPointButton = styled.button`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `

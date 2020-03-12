@@ -12,7 +12,8 @@ import plus from './img/solid-sm/sm-plus.svg'
 import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
-//import { schoolRef } from './firebase'
+
+//import { schoolRef } from './firebase'/
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -90,6 +91,7 @@ function App() {
               />
             </Route>
           </Switch>
+
           <Switch>
             <Route path="/runninglist">
               <Runninglist
