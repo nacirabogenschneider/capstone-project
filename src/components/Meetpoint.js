@@ -33,7 +33,6 @@ export default function Meetpoint({
   }
   return (
     <>
-      <Heading>{address ? address : 'Neuen Treffpunkt erstellen.'}</Heading>
       <div>
         <PlacesAutocomplete
           value={address}
@@ -48,7 +47,9 @@ export default function Meetpoint({
           }) => (
             <div>
               <StyledInput
-                {...getInputProps({ placeholder: 'Suche eine Adresse' })}
+                {...getInputProps({
+                  placeholder: 'Neuen Treffpunkt erstellen',
+                })}
               ></StyledInput>
               <StyledSuggestionWrapper>
                 {loading ? <div>...loading</div> : null}
