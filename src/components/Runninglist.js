@@ -11,13 +11,15 @@ export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
   const [allRunningLists, setAllRunningLists] = useState([])
   const [runningLists, setRunningLists] = useState([])
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, reset } = useForm()
   const onSubmit = data => {
     setRunningLists([
       ...runningLists,
       { time: data.time, listname: data.listname, id: unique },
     ])
+    reset()
   }
+
   function handleListClick(event) {
     console.log('runningLists ', runningLists)
     console.log('Liste geklickt ', event.target.id)
@@ -51,14 +53,6 @@ export default function Runninglist({ meetpoint, back, check }) {
     ))
   }
 
-  function submitHandler(event) {
-    event.preventDefault()
-    setAllRunningLists([...allRunningLists, createRunninglist])
-  }
-
-  function handleButtonClick() {
-    console.log('Icon clicked')
-  }
   return (
     <>
       <StyledRunninglistSection>
@@ -139,7 +133,6 @@ const StyledTextWrapper = styled.div`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
-
 const StyledRunninglistSection = styled.section`
   position: absolute;
   font-family: Raleway;
