@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import styled from 'styled-components'
 import Select from 'react-select'
@@ -14,6 +15,14 @@ export default function RunninglistDetails({
   plus,
 }) {
   const [person, setPerson] = useState([])
+  const [addedPerson, setAddedPerson] = useState([])
+
+  const { register, handleSubmit, reset } = useForm()
+  const onSubmit = data => {
+    setAddedPerson(data)
+    reset()
+  }
+
   console.log('AUSWAHL', setPerson)
   function renderProfilePeople() {
     staticProfilData.map(person => (
@@ -54,12 +63,16 @@ export default function RunninglistDetails({
           <StyledHeader>Zeit - Name der Laufliste</StyledHeader>
           <div>
             <Select
+              id={uuid()}
+              ref={register()}
+              name="runninglist"
               onChange={setPerson}
               options={options}
               placeholder="Person hinzufügen"
               isSearchable
               isMulti
-              autoFocus
+              openOnClick
+              makeAnimated
             ></Select>
             {/* <AddPersonSelection>
               <option>Person der Laufliste hinzufügen</option>
@@ -69,7 +82,9 @@ export default function RunninglistDetails({
             </StyledButton> */}
           </div>
         </div>
-        <SaveButton onClick={handleSaveButtonCkick}>speichern</SaveButton>
+        <SaveButton type="submit" name="submit">
+          speichern
+        </SaveButton>
       </StyledForm>
     </>
   )
@@ -99,12 +114,13 @@ const StyledButton = styled.button`
 const StyledForm = styled.section`
   position: absolute;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  left: 4px;
+  right: 4px;
+  display: block;
+  border-radius: 12px;
   font-family: Raleway;
-  width: 100%;
+
+  box-sizing: inline-block;
   height: auto;
   padding: 10px;
   opacity: 0.99;
