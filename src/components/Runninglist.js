@@ -159,7 +159,7 @@ const StyledRunninglistSection = styled.section`
   display: flex;
   flex-direction: column;
   top: 120px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 `
 const TimeInput = styled.input`
   display: flex;
