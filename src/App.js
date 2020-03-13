@@ -112,10 +112,9 @@ function App() {
 export default App
 
 const AppGrid = styled.section`
-  width: auto;
-  height: auto;
   display: grid;
-  grid-template-rows: 48px 1fr 48px;
+  height: 100vh;
+  grid-template-rows: 48px auto 48px;
   margin: 0;
   padding: 0;
 `
@@ -135,7 +134,7 @@ const MapContainer = styled.section`
   margin: 0;
   padding: 0;
   width: 100%;
-  height: calc(100vh - 96px);
+  height: 100%;
 `
 
 const Footer = styled.header`

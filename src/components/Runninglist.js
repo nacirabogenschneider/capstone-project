@@ -4,8 +4,11 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import eye from '../img/outline-md/md-eye.svg'
 import uuid from 'react-uuid'
-// import adult from '../img/solid-sm/adult.svg'
-// import child from '../img/solid-sm/child.svg'
+// import RunninlistDetails from './RunninglistDetails'
+import adult from '../img/solid-sm/adult.svg'
+import child from '../img/solid-sm/child.svg'
+import plus from '../img/solid-sm/sm-plus.svg'
+import RunninglistDetails from './RunninglistDetails'
 
 export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
@@ -20,6 +23,13 @@ export default function Runninglist({ meetpoint, back, check }) {
     reset()
   }
 
+  const staticProfilData = [
+    { runningPersonName: 'Nacira Bogenschneider', state: 'parent' },
+    { runningPersonName: 'Vincent', state: 'child', class: '2a' },
+    { runningPersonName: 'Marlene', state: 'child', class: 'VSKb' },
+    { runningPersonName: 'Bruno', state: 'child' },
+  ]
+
   function handleListClick(event) {
     console.log('runningLists ', runningLists)
     console.log('Liste geklickt ', event.target.id)
@@ -32,17 +42,20 @@ export default function Runninglist({ meetpoint, back, check }) {
           <StyledTime>{list.time}</StyledTime>
           <StyledTextWrapper>
             <RunningListName>
-              <div
-                id={list.id}
-                onClick={handleListClick}
-                value={list.listname}
-                name="labeling"
-              >
-                {list.listname}
+              <div id={list.id} onClick={handleListClick} value={list.listname}>
+                {list.listname} {/* renderPreviewIcons()*/}
               </div>
-              {/* <img src={adult} alt="adult"></img>
-            <img src={child} alt="child"></img>
-            <img src={child} alt="child"></img> */}
+              {/*   const [childIconCounter, setChildIconCounter] = useState([])
+              const [setAdultIconCounter, setChildIconCounter] = useState([])
+
+              function countPersonStates(){
+                staticProfilData.filter(person => person.state === "adult" ? setAdultIconCounter([...adultIconCounter, {1} ]): setChildIconCounter([...childIconCounter, {1} ]))
+              }
+              function renderPreviewIcons(){
+               adultIconCounter.map(icon=>   <img src={adult} alt="adult"></img>) 
+                childIconCounter.map(icon => <img src={child} alt="child"></img)
+              }
+            */}
             </RunningListName>
             <CreateButton type="submit">
               <img src={eye} alt="add button"></img>
@@ -68,7 +81,11 @@ export default function Runninglist({ meetpoint, back, check }) {
           </StyledRunningTitle>
         </StyledRow>
         {createRunninglist()}
-
+        <RunninglistDetails
+          staticProfilData={staticProfilData}
+          runningLists={runningLists}
+          plus={plus}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <StyledRow>
             <TimeInput
@@ -136,6 +153,8 @@ const StyledTextWrapper = styled.div`
 const StyledRunninglistSection = styled.section`
   position: absolute;
   font-family: Raleway;
+  width: 100vw;
+  height: auto;
   font-size: 1.1rem;
   display: flex;
   flex-direction: column;
