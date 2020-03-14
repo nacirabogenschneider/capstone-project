@@ -15,10 +15,6 @@ export default function RunninglistDetails({
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { register, handleSubmit, reset } = useForm()
 
-  useEffect(() => {
-    setAddedPerson(...addedPerson, person)
-  }, [person])
-
   function onSubmit(event) {
     event.preventDefault()
     reset()
@@ -43,7 +39,9 @@ export default function RunninglistDetails({
     let index = staticProfilData.findIndex(
       item => item.name === event.target.id
     )
-    console.log('INDEXtoDELET', index)
+    let deleted = staticProfilData.splice(index, 1)
+    console.log('INDEXtoDELET', deleted)
+    setPerson(deleted)
   }
 
   function peopleSelectorRadioButton() {
@@ -65,10 +63,13 @@ export default function RunninglistDetails({
   }
 
   function renderNewPersonOnList() {
-    return addedPerson.map(person => (
+    return person.map(person => (
       <StyledPersonEntry key={person.name}>{person.name}</StyledPersonEntry>
     ))
   }
+  // useEffect(() => {
+  //   setAddedPerson(...addedPerson, person)
+  // }, [person])
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
@@ -83,12 +84,12 @@ export default function RunninglistDetails({
           <StyledForm onSubmit={handleSubmit(onSubmit)} id={uuid()}>
             <div>
               <div>Zeit - Name Der Liste</div>
-              {addedPerson.length === 0 && (
+              {person.length === 0 && (
                 <StyledPersonEntry>
                   Deine Liste ist noch leer...
                 </StyledPersonEntry>
               )}
-              {/* {addedPerson && renderNewPersonOnList()} */}
+              {addedPerson && renderNewPersonOnList()}
               <div>Wähle Personen aus Deinem Profil</div>
               {peopleSelectorRadioButton()}
             </div>
