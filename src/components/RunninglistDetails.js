@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import styled from 'styled-components'
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated'
-import { func } from 'prop-types'
 
 {
   /* <RunninlistDetails adult={adult} child={schild} /> */
@@ -14,17 +11,20 @@ export default function RunninglistDetails({
   runninglists,
   staticProfilData,
   plus,
+  isClicked,
 }) {
   const [person, setPerson] = useState([])
   const [addedPerson, setAddedPerson] = useState([])
-  const [toogleSelectForm, setToggleSelectForm] = useState(true)
+  const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { register, handleSubmit, reset } = useForm()
   const onSubmit = data => {
     setAddedPerson(data)
     reset()
   }
 
-  console.log('AUSWAHL', setPerson)
+  useEffect(() => {
+    isClicked && isClicked !== null && setToggleSelectForm(isClicked)
+  }, [isClicked])
   function renderProfilePeople() {
     staticProfilData.map(person => (
       <>
@@ -34,13 +34,6 @@ export default function RunninglistDetails({
       </>
     ))
   }
-
-  const options = [
-    { value: 'Nacira Bogenschneider', label: 'Nacira Bogenschneider' },
-    { value: 'Vincent', label: 'Vincent' },
-    { value: 'Marlene', label: 'Marlene' },
-    { value: 'Bruno', label: 'Bruno' },
-  ]
 
   function addPeopleToRunninglist() {
     console.log('DIE PERSONEN HINZUFÜGEN ')
@@ -70,18 +63,13 @@ export default function RunninglistDetails({
             <div>
               <StyledHeader>Zeit - Name der Laufliste</StyledHeader>
               <div>
-                <Select
+                <AddPersonSelection
                   id={uuid()}
                   ref={register()}
                   name="runninglist"
                   onChange={setPerson}
-                  options={options}
                   placeholder="Person hinzufügen"
-                  isSearchable
-                  isMulti
-                  openOnClick
-                  makeAnimated
-                ></Select>
+                ></AddPersonSelection>
               </div>
             </div>
             <SaveButton type="submit" name="submit">
@@ -128,7 +116,6 @@ const StyledForm = styled.section`
   display: block;
   border-radius: 12px;
   font-family: Raleway;
-
   box-sizing: inline-block;
   height: auto;
   padding: 10px;
@@ -137,21 +124,17 @@ const StyledForm = styled.section`
   z-index: 300;
   opacity: 0.98;
 `
-const AddPersonSelection = styled(Select)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
+const AddPersonSelection = styled.select`
+  width: 100%;
   height: 48px;
   border-radius: 12px;
   border: none;
-  padding-left: 10px;
-  margin-left: -20px;
   opacity: 0.94;
   font-size: 1.2rem;
   box-shadow: 0 0 10px 2px #732806;
   &:active,
   &:focus {
+    border: none;
     box-shadow: 0 0 10px 2px white;
   }
 `

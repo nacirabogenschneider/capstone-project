@@ -12,7 +12,8 @@ import RunninglistDetails from './RunninglistDetails'
 
 export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
-  const [allRunningLists, setAllRunningLists] = useState([])
+  const [clickedListId, setClickedListID] = useState('')
+  const [isClicked, setIsClicked] = useState(null)
   const [runningLists, setRunningLists] = useState([])
   const { register, handleSubmit, reset } = useForm()
   const onSubmit = data => {
@@ -31,10 +32,10 @@ export default function Runninglist({ meetpoint, back, check }) {
   ]
 
   function handleListClick(event) {
-    console.log('runningLists ', runningLists)
     console.log('Liste geklickt ', event.target.id)
+    setIsClicked(true)
   }
-
+  console.log(isClicked)
   function createRunninglist() {
     return runningLists.map(list => (
       <label key={uuid(list)} htmlFor={list.id}>
@@ -58,7 +59,7 @@ export default function Runninglist({ meetpoint, back, check }) {
             */}
             </RunningListName>
             <CreateButton type="submit">
-              <img src={eye} alt="add button"></img>
+              <img src={plus} alt="add button"></img>
             </CreateButton>
           </StyledTextWrapper>
         </StyledRow>
@@ -82,6 +83,7 @@ export default function Runninglist({ meetpoint, back, check }) {
         </StyledRow>
         {createRunninglist()}
         <RunninglistDetails
+          isClicked={isClicked}
           staticProfilData={staticProfilData}
           runningLists={runningLists}
           plus={plus}
