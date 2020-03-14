@@ -4,6 +4,7 @@ import uuid from 'react-uuid'
 import styled from 'styled-components'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
+import { func } from 'prop-types'
 
 {
   /* <RunninlistDetails adult={adult} child={schild} /> */
@@ -16,7 +17,7 @@ export default function RunninglistDetails({
 }) {
   const [person, setPerson] = useState([])
   const [addedPerson, setAddedPerson] = useState([])
-
+  const [toogleSelectForm, setToggleSelectForm] = useState(true)
   const { register, handleSubmit, reset } = useForm()
   const onSubmit = data => {
     setAddedPerson(data)
@@ -55,42 +56,50 @@ export default function RunninglistDetails({
   function handleExitClick() {
     console.log('Die Liste schließen ohne zu speichern')
   }
-  return (
-    <>
-      <Exit>x</Exit>
-      <StyledForm id={uuid()}>
-        <div>
-          <StyledHeader>Zeit - Name der Laufliste</StyledHeader>
-          <div>
-            <Select
-              id={uuid()}
-              ref={register()}
-              name="runninglist"
-              onChange={setPerson}
-              options={options}
-              placeholder="Person hinzufügen"
-              isSearchable
-              isMulti
-              openOnClick
-              makeAnimated
-            ></Select>
-            {/* <AddPersonSelection>
-              <option>Person der Laufliste hinzufügen</option>
-            </AddPersonSelection> */}
-            {/* <StyledButton onClick={handleAddButtonCklick}>
-              <img src={plus}></img>
-            </StyledButton> */}
-          </div>
-        </div>
-        <SaveButton type="submit" name="submit">
-          speichern
-        </SaveButton>
-      </StyledForm>
-    </>
-  )
+
+  function toogle() {
+    setToggleSelectForm(!toogleSelectForm)
+  }
+
+  function renderSelectPeopleForm() {
+    return (
+      toogleSelectForm && (
+        <>
+          <Exit onClick={toogle}>x</Exit>
+          <StyledForm id={uuid()}>
+            <div>
+              <StyledHeader>Zeit - Name der Laufliste</StyledHeader>
+              <div>
+                <Select
+                  id={uuid()}
+                  ref={register()}
+                  name="runninglist"
+                  onChange={setPerson}
+                  options={options}
+                  placeholder="Person hinzufügen"
+                  isSearchable
+                  isMulti
+                  openOnClick
+                  makeAnimated
+                ></Select>
+              </div>
+            </div>
+            <SaveButton type="submit" name="submit">
+              speichern
+            </SaveButton>
+          </StyledForm>
+        </>
+      )
+    )
+  }
+
+  console.log('State', toogleSelectForm)
+  console.log('State', toogleSelectForm)
+  return renderSelectPeopleForm()
 }
 
 const Exit = styled.button`
+  display: flex;
   border: none;
   background: none;
   position: absolute;
