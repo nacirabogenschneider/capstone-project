@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import check from '../img/solid-sm/sm-check.svg'
 import next from '../img/solid-sm/sm-arrow-right.svg'
 import back from '../img/solid-sm/sm-arrow-left.svg'
+import plus from '../img/solid-sm/sm-plus.svg'
 
 export default function Meetpoint({
   cardSchoolObject,
@@ -51,6 +52,7 @@ export default function Meetpoint({
                   placeholder: 'Neuen Treffpunkt erstellen',
                 })}
               ></StyledInput>
+
               <StyledSuggestionWrapper>
                 {loading ? <div>...loading</div> : null}
                 {suggestions.map(suggestion => {
@@ -74,13 +76,13 @@ export default function Meetpoint({
       </div>
       <ButtonWrapper>
         <NavLink to="/">
-          <AddPointButton aria-label="check" onClick={handleClick}>
+          <AddPointButton aria-label="back" onClick={handleClick}>
             <img src={back} alt="back button"></img>
           </AddPointButton>
         </NavLink>
         <NavLink to="/card">
           <AddPointButton aria-label="check" onClick={handleClick}>
-            <img src={check} alt="check button"></img>
+            erstellen
           </AddPointButton>
         </NavLink>
         <NavLink to="/runninglist">
@@ -141,7 +143,7 @@ const Heading = styled.h1`
   padding: 14px;
   margin: 5px 4px;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   background: #ee7600;
   opacity: 0.92;
   box-shadow: 0 0 10px 4px #a4b0af;
@@ -152,9 +154,9 @@ const AddPointButton = styled.button`
   text-decoration: none;
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   height: 45px;
-  width: 45px;
+  width: auto;
   border: none;
   margin: 4px;
   border-radius: 12px;
@@ -168,4 +170,10 @@ const AddPointButton = styled.button`
 `
 const ButtonWrapper = styled.div`
   display: flex;
+`
+const CreateButton = styled.button`
+  background: transparent;
+  padding: 10px;
+  border: none;
+  z-index: 300;
 `

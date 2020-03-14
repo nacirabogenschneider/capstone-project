@@ -10,7 +10,6 @@ import styled from 'styled-components'
 export default function RunninglistDetails({
   runninglists,
   staticProfilData,
-  plus,
   isClicked,
   setIsClicked,
 }) {
@@ -18,14 +17,19 @@ export default function RunninglistDetails({
   const [addedPerson, setAddedPerson] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { register, handleSubmit, reset } = useForm()
-  const onSubmit = data => {
-    setAddedPerson(data)
+  function onSubmit(event) {
+    console.log('CLICKED SUBMIT')
+    event.preventDefault()
+    console.log(event.taget.value)
+    setAddedPerson(event.taget.value)
+
     reset()
   }
-
+  console.log('ADDEDPERSON', addedPerson)
   useEffect(() => {
     isClicked && isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
+
   function renderProfilePeople() {
     staticProfilData.map(person => (
       <>
@@ -35,20 +39,20 @@ export default function RunninglistDetails({
       </>
     ))
   }
-
-  function addPeopleToRunninglist() {
-    console.log('DIE PERSONEN HINZUFÜGEN ')
+  function addSelectedPerson() {
+    const selectedPeopel = staticProfilData.filter(
+      person => person.name === addedPerson
+    )
   }
-
-  function handleAddButtonCklick() {
-    console.log('PERSON HINZUFÜGEN')
-  }
-  function handleSaveButtonCkick() {
-    console.log('AllE DATEN AB INS ARRAY')
-  }
-
-  function handleExitClick() {
-    console.log('Die Liste schließen ohne zu speichern')
+  function peopleSelectorRadioButton() {
+    return staticProfilData.map(person => (
+      <RadioButtonWrapper key={uuid()}>
+        <StyledRadioInput>
+          <input type="radio" value={person.name} />
+          {person.name}
+        </StyledRadioInput>
+      </RadioButtonWrapper>
+    ))
   }
 
   function toogle() {
@@ -63,18 +67,16 @@ export default function RunninglistDetails({
           <Exit onClick={toogle}>x</Exit>
           <StyledForm id={uuid()}>
             <div>
-              <StyledHeader>Zeit - Name der Laufliste</StyledHeader>
-              <div>
-                <AddPersonSelection
-                  id={uuid()}
-                  ref={register()}
-                  name="runninglist"
-                  onChange={setPerson}
-                  placeholder="Person hinzufügen"
-                ></AddPersonSelection>
-              </div>
+              <div>Zeit - Name Der Liste</div>
+              <StyledPersonEntry>
+                Deine Liste ist noch leer...
+              </StyledPersonEntry>
+              <div>Wähle Personen aus Deinem Profil</div>
+              {/* <div>{renderProfilePeople()}</div> */}
+
+              {peopleSelectorRadioButton()}
             </div>
-            <SaveButton type="submit" name="submit">
+            <SaveButton type="submit" name="submit" onSubmitw={onSubmit}>
               speichern
             </SaveButton>
           </StyledForm>
@@ -82,12 +84,31 @@ export default function RunninglistDetails({
       )
     )
   }
-
-  console.log('State', toogleSelectForm)
-  console.log('State', toogleSelectForm)
   return renderSelectPeopleForm()
 }
 
+const StyledPersonEntry = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  padding: 14px;
+  margin: 8px 4px;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 12px;
+`
+const RadioButtonWrapper = styled.div`
+  padding: 14px;
+  margin: 8px 4px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #732806;
+`
+const StyledRadioInput = styled.label`
+  font-size: 18px;
+  color: black;
+`
 const Exit = styled.button`
   display: flex;
   border: none;
@@ -137,7 +158,7 @@ const AddPersonSelection = styled.select`
   &:active,
   &:focus {
     border: none;
-    box-shadow: 0 0 10px 2px white;
+    box-shadow: 0 0 10px 2px #732806;
   }
 `
 const SaveButton = styled.button`

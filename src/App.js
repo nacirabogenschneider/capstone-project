@@ -117,6 +117,7 @@ const AppGrid = styled.section`
   grid-template-rows: 48px auto 48px;
   margin: 0;
   padding: 0;
+  background: #bce1e3;
 `
 const Header = styled.header`
   width: auto;

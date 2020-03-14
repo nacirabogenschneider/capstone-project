@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -99,7 +98,7 @@ export default function Filter({
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/card">
-          <AddPointButton aria-label="check">&#10003;</AddPointButton>
+          <AddPointButton aria-label="check">auswählen</AddPointButton>
         </NavLink>
       </SelectSection>
     </>
@@ -147,9 +146,11 @@ const AddPointButton = styled.button`
   align-items: center;
   font-size: 1.6rem;
   height: 45px;
-  width: 45px;
+  width: auto;
   border: none;
   margin: 4px;
+  font-size: 1.1rem;
+  text-decoration: none;
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #a4b0af;
   background: white;

@@ -9,5 +9,8 @@ export default createGlobalStyle`
     font-family:'Raleway';
     font-size: 16px;
   }
+  a{
+    text-decoration: none;
+  }
  
 `

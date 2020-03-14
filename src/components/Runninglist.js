@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import eye from '../img/outline-md/md-eye.svg'
 import uuid from 'react-uuid'
-// import RunninlistDetails from './RunninglistDetails'
 import adult from '../img/solid-sm/adult.svg'
 import child from '../img/solid-sm/child.svg'
 import plus from '../img/solid-sm/sm-plus.svg'
 import RunninglistDetails from './RunninglistDetails'
+import circle from '../img/svg/_circle.svg'
 
 export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
@@ -16,6 +15,7 @@ export default function Runninglist({ meetpoint, back, check }) {
   const [isClicked, setIsClicked] = useState(null)
   const [runningLists, setRunningLists] = useState([])
   const { register, handleSubmit, reset } = useForm()
+
   const onSubmit = data => {
     setRunningLists([
       ...runningLists,
@@ -25,14 +25,18 @@ export default function Runninglist({ meetpoint, back, check }) {
   }
 
   const staticProfilData = [
-    { runningPersonName: 'Nacira Bogenschneider', state: 'parent' },
-    { runningPersonName: 'Vincent', state: 'child', class: '2a' },
-    { runningPersonName: 'Marlene', state: 'child', class: 'VSKb' },
-    { runningPersonName: 'Bruno', state: 'child' },
+    { name: 'Nacira Bogenschneider', state: 'parent' },
+    { name: 'Vincent', state: 'child', class: '2a' },
+    { name: 'Marlene', state: 'child', class: 'VSKb' },
+    { name: 'Bruno', state: 'child' },
   ]
 
+  useEffect(() => {
+    console.log(runningLists)
+  }, [runningLists])
+
   function handleListClick(event) {
-    console.log('Liste geklickt ', event.target.id)
+    setClickedListID(event.target.id)
     setIsClicked(true)
   }
   console.log(isClicked)
@@ -59,7 +63,7 @@ export default function Runninglist({ meetpoint, back, check }) {
             */}
             </RunningListName>
             <CreateButton type="submit">
-              <img src={plus} alt="add button"></img>
+              <img src={circle} alt="add button"></img>
             </CreateButton>
           </StyledTextWrapper>
         </StyledRow>
@@ -104,7 +108,7 @@ export default function Runninglist({ meetpoint, back, check }) {
                 placeholder="Name der neuen Liste?"
               ></RunningListInput>
               <CreateButton type="submit">
-                <img src={check} alt="create button"></img>
+                <img src={plus} alt="create button"></img>
               </CreateButton>
             </StyledTextWrapper>
           </StyledRow>
