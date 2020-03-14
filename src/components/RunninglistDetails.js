@@ -12,6 +12,7 @@ export default function RunninglistDetails({
   staticProfilData,
   plus,
   isClicked,
+  setIsClicked,
 }) {
   const [person, setPerson] = useState([])
   const [addedPerson, setAddedPerson] = useState([])
@@ -52,6 +53,7 @@ export default function RunninglistDetails({
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
+    setIsClicked(false)
   }
 
   function renderSelectPeopleForm() {

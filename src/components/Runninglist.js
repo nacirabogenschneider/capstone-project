@@ -83,6 +83,7 @@ export default function Runninglist({ meetpoint, back, check }) {
         </StyledRow>
         {createRunninglist()}
         <RunninglistDetails
+          setIsClicked={setIsClicked}
           isClicked={isClicked}
           staticProfilData={staticProfilData}
           runningLists={runningLists}
