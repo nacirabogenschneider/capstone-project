@@ -1,57 +1,72 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import styled from 'styled-components'
-
-{
-  /* <RunninlistDetails adult={adult} child={schild} /> */
-}
 
 export default function RunninglistDetails({
   runninglists,
   staticProfilData,
   isClicked,
   setIsClicked,
+  plus,
 }) {
   const [person, setPerson] = useState([])
   const [addedPerson, setAddedPerson] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { register, handleSubmit, reset } = useForm()
-  function onSubmit(event) {
-    console.log('CLICKED SUBMIT')
-    event.preventDefault()
-    console.log(event.taget.value)
-    setAddedPerson(event.taget.value)
 
+  useEffect(() => {
+    setAddedPerson(...addedPerson, person)
+  }, [person])
+
+  function onSubmit(event) {
+    event.preventDefault()
     reset()
   }
-  console.log('ADDEDPERSON', addedPerson)
+
   useEffect(() => {
     isClicked && isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
 
-  function renderProfilePeople() {
-    staticProfilData.map(person => (
-      <>
-        <img scr={person.state === 'adult' ? 'adult' : 'child'}></img>
-        <div>{person.runningPersonName}</div>
-        <div>{person.class}</div>
-      </>
-    ))
-  }
-  function addSelectedPerson() {
-    const selectedPeopel = staticProfilData.filter(
-      person => person.name === addedPerson
+  // function renderProfilePeople() {
+  //   staticProfilData.map(person => (
+  //     <>
+  //       <img scr={person.state === 'adult' ? 'adult' : 'child'}></img>
+  //       <div>{person.runningPersonName}</div>
+  //       <div>{person.class}</div>
+  //     </>
+  //   ))
+  // }
+
+  function handleAddClick(event) {
+    event.stopPropagation()
+    let index = staticProfilData.findIndex(
+      item => item.name === event.target.id
     )
+    console.log('INDEXtoDELET', index)
   }
+
   function peopleSelectorRadioButton() {
     return staticProfilData.map(person => (
-      <RadioButtonWrapper key={uuid()}>
-        <StyledRadioInput>
-          <input type="radio" value={person.name} />
+      <StyledTextWrapper key={uuid()}>
+        <RadioButtonWrapper
+          onClick={handleAddClick}
+          value={person.name}
+          name={person.name}
+          id={person.name}
+        >
           {person.name}
-        </StyledRadioInput>
-      </RadioButtonWrapper>
+        </RadioButtonWrapper>
+        <CreateButton type="submit">
+          <img src={plus} alt="create button"></img>
+        </CreateButton>
+      </StyledTextWrapper>
+    ))
+  }
+
+  function renderNewPersonOnList() {
+    return addedPerson.map(person => (
+      <StyledPersonEntry key={person.name}>{person.name}</StyledPersonEntry>
     ))
   }
 
@@ -65,20 +80,18 @@ export default function RunninglistDetails({
       toogleSelectForm && (
         <>
           <Exit onClick={toogle}>x</Exit>
-          <StyledForm id={uuid()}>
+          <StyledForm onSubmit={handleSubmit(onSubmit)} id={uuid()}>
             <div>
               <div>Zeit - Name Der Liste</div>
-              <StyledPersonEntry>
-                Deine Liste ist noch leer...
-              </StyledPersonEntry>
+              {addedPerson.length === 0 && (
+                <StyledPersonEntry>
+                  Deine Liste ist noch leer...
+                </StyledPersonEntry>
+              )}
+              {/* {addedPerson && renderNewPersonOnList()} */}
               <div>Wähle Personen aus Deinem Profil</div>
-              {/* <div>{renderProfilePeople()}</div> */}
-
               {peopleSelectorRadioButton()}
             </div>
-            <SaveButton type="submit" name="submit" onSubmitw={onSubmit}>
-              speichern
-            </SaveButton>
           </StyledForm>
         </>
       )
@@ -99,15 +112,18 @@ const StyledPersonEntry = styled.div`
   border-radius: 12px;
 `
 const RadioButtonWrapper = styled.div`
-  padding: 14px;
-  margin: 8px 4px;
-  background: white;
+  padding-left: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-radius: 12px;
-  box-shadow: 0 0 10px 2px #732806;
-`
-const StyledRadioInput = styled.label`
-  font-size: 18px;
-  color: black;
+  font-size: 16px;
+  border: none;
+  background: white;
+  margin: 0 4px;
+  padding: 0;
+  opacity: 0.94;
 `
 const Exit = styled.button`
   display: flex;
@@ -119,17 +135,6 @@ const Exit = styled.button`
   right: 6px;
   z-index: 900;
   color: white;
-`
-const StyledHeader = styled.h1`
-  color: white;
-  font-family: Raleway;
-  font-size: 1.4rem;
-  height: 48px;
-  margin: 20px;
-`
-const StyledButton = styled.button`
-  border: none;
-  background: transparent;
 `
 const StyledForm = styled.section`
   position: absolute;
@@ -147,26 +152,26 @@ const StyledForm = styled.section`
   z-index: 300;
   opacity: 0.98;
 `
-const AddPersonSelection = styled.select`
-  width: 100%;
-  height: 48px;
+const CreateButton = styled.button`
+  background: transparent;
+  padding: 10px;
+  border: none;
+`
+const StyledTextWrapper = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-radius: 12px;
   border: none;
+  width: 100%;
+  background: white;
+  margin: 10px 0;
+  padding: 0;
   opacity: 0.94;
-  font-size: 1.2rem;
   box-shadow: 0 0 10px 2px #732806;
   &:active,
   &:focus {
-    border: none;
-    box-shadow: 0 0 10px 2px #732806;
+    box-shadow: 0 0 10px 2px white;
   }
-`
-const SaveButton = styled.button`
-  height: 48px;
-  border-radius: 12px;
-  font-size: 1rem;
-  background: white;
-  border: none;
-  margin: 30px 0;
-  box-shadow: 0 0 10px 2px #732806;
 `
