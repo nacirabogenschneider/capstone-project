@@ -6,6 +6,7 @@ import uuid from 'react-uuid'
 import plus from '../img/solid-sm/sm-plus.svg'
 import RunninglistDetails from './RunninglistDetails'
 import circle from '../img/svg/_circle.svg'
+import minus from '../img/svg/_minus.svg'
 
 export default function Runninglist({ meetpoint, back, check }) {
   const unique = uuid()
@@ -81,6 +82,7 @@ export default function Runninglist({ meetpoint, back, check }) {
           staticProfilData={staticProfilData}
           runninglists={runningLists}
           plus={plus}
+          minus={minus}
         />
         <form onSubmit={handleSubmit(onSubmit)}>
           <StyledRow>

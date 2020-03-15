@@ -10,8 +10,11 @@ export default function RunninglistDetails({
   clickedListId,
   setIsClicked,
   plus,
+  minus,
 }) {
-  const [person, setPerson] = useState([])
+  const [person, setPerson] = useState(staticProfilData)
+  const [deletedPerson, setDeletedPerson] = useState([])
+  const [toNewRunninglist, setToNewRunninglist] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { handleSubmit, reset } = useForm()
   const clickedListElement = runninglists.find(
@@ -23,14 +26,14 @@ export default function RunninglistDetails({
   }, [isClicked])
 
   function handleAddClick(event) {
-    let index = staticProfilData.findIndex(
-      item => item.name === event.target.id
-    )
-    const selectedPerson = staticProfilData.splice(index, 1)
+    let index = person.findIndex(item => item.name === event.target.id)
+    let reversIndex = person.filter(item => item.name !== event.target.id)
+    const selectedPerson = person.splice(index, 1)
     const selectedSingle = selectedPerson[0]
 
-    setPerson([
-      ...person,
+    setPerson(reversIndex)
+    setToNewRunninglist([
+      ...toNewRunninglist,
       {
         name: selectedSingle.name,
         state: selectedSingle.state,
@@ -49,8 +52,18 @@ export default function RunninglistDetails({
     event.preventDefault()
     reset()
   }
+  function handelRemoveClick(event) {
+    let index = person.findIndex(item => item.name === event.target.id)
+    console.log(event.target.id)
+    const selectedPerson = person.splice(index, 1)
+    const selectedSingle = selectedPerson[0]
+    setDeletedPerson([...person, selectedSingle])
+    console.log('REMOVE-CLICK', index)
+    console.log(selectedSingle)
+  }
+
   function peopleFromProfileInput() {
-    return staticProfilData.map(person => (
+    return person.map(person => (
       <StyledTextWrapper key={uuid()}>
         <StyledWrapper
           onClick={handleAddClick}
@@ -67,12 +80,19 @@ export default function RunninglistDetails({
     ))
   }
   function renderNewPersonOnList() {
-    return person
+    return toNewRunninglist
       .filter(person => person.listid === clickedListId)
       .map(person => (
-        <StyledPersonEntry key={person.name}>
-          <StyledSpan>{person.name}</StyledSpan>
-          <StyledSpan> {person.class}</StyledSpan>
+        <StyledPersonEntry key={person.name} value={person.name}>
+          <StyledSpan
+            value={person.name}
+            onClick={handelRemoveClick}
+            id={person.name}
+          >
+            {person.name}
+          </StyledSpan>
+          <StyledSpan value={person.class}> {person.class}</StyledSpan>
+          <img src={minus} alt="remove button"></img>
         </StyledPersonEntry>
       ))
   }
@@ -92,15 +112,13 @@ export default function RunninglistDetails({
               <div>
                 {clickedListElement.time} - {clickedListElement.listname}
               </div>
-              {person.length === 0 && (
+              {toNewRunninglist.length < 1 && (
                 <StyledPersonEntry>
                   Deine Liste ist noch leer...
                 </StyledPersonEntry>
               )}
-              {person.length > 0 && renderNewPersonOnList()}
-              {staticProfilData.length > 0 && (
-                <div>Wähle Personen aus Deinem Profil</div>
-              )}
+              {renderNewPersonOnList()}
+              {person.length > 0 && <div>Wähle Personen aus Deinem Profil</div>}
               {peopleFromProfileInput()}
             </div>
           </StyledForm>
@@ -117,13 +135,15 @@ const StyledSpan = styled.span`
 
 const StyledPersonEntry = styled.div`
   display: flex;
-  justify-content: left;
-  align-items: left;
-  padding: 14px;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
   margin: 8px 4px;
+  padding: 0 4px;
+  color: white;
   background: transparent;
-  border: 1px solid white;
   border-radius: 12px;
+  box-shadow: 0 0 10px 2px #61390f;
 `
 const StyledWrapper = styled.div`
   padding-left: 10px;
