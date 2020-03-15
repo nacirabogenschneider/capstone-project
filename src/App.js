@@ -12,14 +12,15 @@ import plus from './img/solid-sm/sm-plus.svg'
 import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
-import { schoolRef } from './firebase'
+
+//import { schoolRef } from './firebase'/
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
 MapWrapped.propTypes = {
   defaultZoom: PropTypes.number,
   defaultCenter: PropTypes.object,
-  efaultOptions: PropTypes.object,
+  defaultOptions: PropTypes.object,
   selectedPrimary: PropTypes.string,
   selectedSchoolMeetpoint: PropTypes.string,
   schoolLatLon: PropTypes.object,
@@ -90,6 +91,7 @@ function App() {
               />
             </Route>
           </Switch>
+
           <Switch>
             <Route path="/runninglist">
               <Runninglist
@@ -110,12 +112,12 @@ function App() {
 export default App
 
 const AppGrid = styled.section`
-  width: auto;
-  height: auto;
   display: grid;
-  grid-template-rows: 48px 1fr 48px;
+  height: 100vh;
+  grid-template-rows: 48px auto 48px;
   margin: 0;
   padding: 0;
+  background: #bce1e3;
 `
 const Header = styled.header`
   width: auto;
@@ -133,7 +135,7 @@ const MapContainer = styled.section`
   margin: 0;
   padding: 0;
   width: 100%;
-  height: calc(100vh - 96px);
+  height: 100%;
 `
 
 const Footer = styled.header`

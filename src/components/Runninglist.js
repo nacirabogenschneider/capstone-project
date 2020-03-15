@@ -1,11 +1,63 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import uuid from 'react-uuid'
+import plus from '../img/solid-sm/sm-plus.svg'
+import RunninglistDetails from './RunninglistDetails'
+import circle from '../img/svg/_circle.svg'
 
-export default function Runninglist({ meetpoint, plus, back, check }) {
-  useEffect(() => {
-    console.log('RUNNINGLIST', meetpoint.meetpoint)
-  })
+export default function Runninglist({ meetpoint, back, check }) {
+  const unique = uuid()
+  const [clickedListId, setClickedListID] = useState('')
+  const [isClicked, setIsClicked] = useState(null)
+  const [runningLists, setRunningLists] = useState([])
+  const { register, handleSubmit, reset } = useForm()
+
+  const onSubmit = data => {
+    setRunningLists([
+      ...runningLists,
+      { time: data.time, listname: data.listname, id: unique, key: unique },
+    ])
+    reset()
+  }
+
+  const staticProfilData = [
+    { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },
+    { name: 'Vincent', state: 'child', class: '2a', key: uuid() },
+    { name: 'Marlene', state: 'child', class: 'VSKb', key: uuid() },
+    { name: 'Bruno', state: 'child', key: uuid() },
+  ]
+
+  function handleListClick(event) {
+    setClickedListID(event.target.id)
+    setIsClicked(true)
+  }
+
+  function createRunninglist() {
+    return runningLists.map(list => (
+      <label key={list.key} htmlFor={list.id}>
+        <StyledRow>
+          <StyledTime>{list.time}</StyledTime>
+          <StyledTextWrapper>
+            <RunningListName>
+              <div
+                key={list.key}
+                id={list.id}
+                onClick={handleListClick}
+                value={list.listname}
+              >
+                {list.listname}
+              </div>
+            </RunningListName>
+            <CreateButton type="submit">
+              <img src={circle} alt="add button"></img>
+            </CreateButton>
+          </StyledTextWrapper>
+        </StyledRow>
+      </label>
+    ))
+  }
 
   return (
     <>
@@ -21,23 +73,39 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
             <h1>Lauflisten</h1>
           </StyledRunningTitle>
         </StyledRow>
-
-        <StyledRow>
-          <TimeInput type="time"></TimeInput>
-          <StyledTextWrapper>
-            <RunningList> Laufliste Nummer 1</RunningList>
-            <img src={plus}></img>
-          </StyledTextWrapper>
-        </StyledRow>
-
+        {createRunninglist()}
+        <RunninglistDetails
+          clickedListId={clickedListId}
+          setIsClicked={setIsClicked}
+          isClicked={isClicked}
+          staticProfilData={staticProfilData}
+          runninglists={runningLists}
+          plus={plus}
+        />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <StyledRow>
+            <TimeInput
+              type="time"
+              name="time"
+              ref={register({ required: true })}
+            ></TimeInput>
+            <StyledTextWrapper>
+              <RunningListInput
+                ref={register({ required: true, minLength: 2 })}
+                type="text"
+                name="listname"
+                placeholder="Name der neuen Liste?"
+              ></RunningListInput>
+              <CreateButton type="submit">
+                <img src={plus} alt="create button"></img>
+              </CreateButton>
+            </StyledTextWrapper>
+          </StyledRow>
+        </form>
         <div>
           <ButtonWrapper>
             <AddPointButton as={NavLink} to="/card" aria-label="back">
               <img src={back} alt="back button"></img>
-            </AddPointButton>
-
-            <AddPointButton as={NavLink} to="/card" aria-label="check">
-              <img src={check} alt="check button"></img>
             </AddPointButton>
           </ButtonWrapper>
         </div>
@@ -46,9 +114,19 @@ export default function Runninglist({ meetpoint, plus, back, check }) {
   )
 }
 
-const RunningList = styled.p`
+const RunningListInput = styled.input`
   padding-left: 10px;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  font-size: 16px;
+  border: none;
+  background: white;
+  margin: 0 4px;
+  padding: 0;
+  opacity: 0.94;
 `
 const StyledTextWrapper = styled.div`
   box-sizing: border-box;
@@ -57,17 +135,22 @@ const StyledTextWrapper = styled.div`
   justify-content: space-between;
   border-radius: 12px;
   border: none;
-  width: 100vw;
+  width: 100%;
   background: white;
   margin: 0 4px;
   padding: 0;
   opacity: 0.94;
   box-shadow: 0 0 10px 2px #a4b0af;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
-
 const StyledRunninglistSection = styled.section`
   position: absolute;
   font-family: Raleway;
+  width: 100vw;
+  height: auto;
   font-size: 1.1rem;
   display: flex;
   flex-direction: column;
@@ -90,7 +173,33 @@ const TimeInput = styled.input`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
-
+const StyledTime = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 80px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  opacity: 0.94;
+  box-shadow: 0 0 10px 2px #a4b0af;
+`
+const RunningListName = styled.div`
+  padding-left: 10px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  font-size: 16px;
+  border: none;
+  background: white;
+  margin: 0 4px;
+  padding: 0;
+  opacity: 0.94;
+`
 const StyledRunningTitle = styled.div`
   display: flex;
   align-items: center;
@@ -112,7 +221,6 @@ const StyledRunningHeader = styled.div`
   align-items: center;
   justify-content: center;
   background: #ee7600;
-
   width: 100vw;
   height: 48px;
   border-radius: 12px;
@@ -130,20 +238,7 @@ const StyledRow = styled.div`
   margin: 5px 0;
   width: 100vw;
 `
-const StyledRunningTime = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ee7600;
-  font-family: 'Arial';
-  height: 48px;
-  width: 80px;
-  margin: 0 4px;
-  border-radius: 12px;
-  border: none;
-  opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
-`
+
 const AddPointButton = styled.button`
   display: flex;
   text-decoration: none;
@@ -161,8 +256,12 @@ const AddPointButton = styled.button`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+`
+const CreateButton = styled.button`
+  background: transparent;
+  padding: 10px;
+  border: none;
 `

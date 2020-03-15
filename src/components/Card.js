@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Meetpoint from './Meetpoint'
 import meetpointFlag from '../img/solid-sm/meetpoints-flag.svg'
-import Runninglist from './Runninglist'
 import { Route, Switch } from 'react-router-dom'
 
 Card.propTypes = {
@@ -30,10 +29,10 @@ export default function Card({
                 <img src={currentSchoolImg} alt="current school"></img>
                 <span>{card.name}</span>
               </CardHeader>
-              <div>
+              <MeetHeader>
                 <img src={meetpointFlag} alt="current meetpoint"></img>
                 <span key={meetpoint.meetpoint}>{meetpoint.meetpoint}</span>
-              </div>
+              </MeetHeader>
             </SchoolCard>
 
             <Meetpoint
@@ -59,7 +58,13 @@ const InfoCards = styled.section`
 const CardHeader = styled.section`
   display: flex;
   justify-content: left;
-  align-items: left;
+  align-items: center;
+  font-size: 20px;
+`
+const MeetHeader = styled.section`
+  display: flex;
+  justify-content: left;
+  align-items: center;
   font-size: 20px;
 `
 const SchoolCard = styled.section`
