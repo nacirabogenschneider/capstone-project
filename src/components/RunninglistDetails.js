@@ -23,14 +23,23 @@ export default function RunninglistDetails({
   }, [isClicked])
 
   function handleAddClick(event) {
-    event.stopPropagation()
     let index = staticProfilData.findIndex(
       item => item.name === event.target.id
     )
     const selectedPerson = staticProfilData.splice(index, 1)
     const selectedSingle = selectedPerson[0]
-    setPerson([...person, selectedSingle])
+
+    setPerson([
+      ...person,
+      {
+        name: selectedSingle.name,
+        state: selectedSingle.state,
+        key: selectedSingle.key,
+        listid: clickedListId,
+      },
+    ])
   }
+
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
     setIsClicked(false)
@@ -58,12 +67,14 @@ export default function RunninglistDetails({
     ))
   }
   function renderNewPersonOnList() {
-    return person.map(person => (
-      <StyledPersonEntry key={person.name}>
-        <StyledSpan>{person.name}</StyledSpan>
-        <StyledSpan> {person.class}</StyledSpan>
-      </StyledPersonEntry>
-    ))
+    return person
+      .filter(person => person.listid === clickedListId)
+      .map(person => (
+        <StyledPersonEntry key={person.name}>
+          <StyledSpan>{person.name}</StyledSpan>
+          <StyledSpan> {person.class}</StyledSpan>
+        </StyledPersonEntry>
+      ))
   }
   function runningListDetailsForm() {
     return (
