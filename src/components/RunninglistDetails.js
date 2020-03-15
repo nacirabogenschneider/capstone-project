@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import styled from 'styled-components'
@@ -12,19 +12,12 @@ export default function RunninglistDetails({
   plus,
 }) {
   const [person, setPerson] = useState([])
-  const [addedPerson, setAddedPerson] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
-  const { register, handleSubmit, reset } = useForm()
+  const { handleSubmit, reset } = useForm()
   const clickedListElement = runninglists.find(
     list => list.id === clickedListId
   )
 
-  console.log('PERSON LOG: ', person)
-
-  function onSubmit(event) {
-    event.preventDefault()
-    reset()
-  }
   useEffect(() => {
     isClicked && isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
@@ -36,29 +29,34 @@ export default function RunninglistDetails({
     )
     const selectedPerson = staticProfilData.splice(index, 1)
     const selectedSingle = selectedPerson[0]
-
     setPerson([...person, selectedSingle])
-    console.log('nächster Versuch: ', person)
+  }
+  function toogle() {
+    setToggleSelectForm(!toogleSelectForm)
+    setIsClicked(false)
   }
 
-  function peopleSelectorRadioButton() {
+  function onSubmit(event) {
+    event.preventDefault()
+    reset()
+  }
+  function peopleFromProfileInput() {
     return staticProfilData.map(person => (
       <StyledTextWrapper key={uuid()}>
-        <RadioButtonWrapper
+        <StyledWrapper
           onClick={handleAddClick}
           value={person.name}
           name={person.name}
           id={person.name}
         >
           {person.name}
-        </RadioButtonWrapper>
+        </StyledWrapper>
         <CreateButton type="submit">
           <img src={plus} alt="create button"></img>
         </CreateButton>
       </StyledTextWrapper>
     ))
   }
-
   function renderNewPersonOnList() {
     return person.map(person => (
       <StyledPersonEntry key={person.name}>
@@ -67,12 +65,6 @@ export default function RunninglistDetails({
       </StyledPersonEntry>
     ))
   }
-
-  function toogle() {
-    setToggleSelectForm(!toogleSelectForm)
-    setIsClicked(false)
-  }
-
   function runningListDetailsForm() {
     return (
       toogleSelectForm && (
@@ -98,7 +90,7 @@ export default function RunninglistDetails({
               {staticProfilData.length > 0 && (
                 <div>Wähle Personen aus Deinem Profil</div>
               )}
-              {peopleSelectorRadioButton()}
+              {peopleFromProfileInput()}
             </div>
           </StyledForm>
         </>
@@ -114,7 +106,6 @@ const StyledSpan = styled.span`
 
 const StyledPersonEntry = styled.div`
   display: flex;
-  /* flex-direction: column; */
   justify-content: left;
   align-items: left;
   padding: 14px;
@@ -123,7 +114,7 @@ const StyledPersonEntry = styled.div`
   border: 1px solid white;
   border-radius: 12px;
 `
-const RadioButtonWrapper = styled.div`
+const StyledWrapper = styled.div`
   padding-left: 10px;
   margin: 0;
   display: flex;

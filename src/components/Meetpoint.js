@@ -128,24 +128,7 @@ const StyledSuggestionWrapper = styled.div`
   border-radius: 12px;
   margin: 6px;
 `
-const Heading = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  flex-direction: column;
-  font-family: 'Raleway';
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
-  padding: 14px;
-  margin: 5px 4px;
-  color: white;
-  font-size: 1.2rem;
-  background: #ee7600;
-  opacity: 0.92;
-  box-shadow: 0 0 10px 4px #a4b0af;
-`
+
 const AddPointButton = styled.button`
   display: flex;
   left: 45vw;
@@ -168,10 +151,4 @@ const AddPointButton = styled.button`
 `
 const ButtonWrapper = styled.div`
   display: flex;
-`
-const CreateButton = styled.button`
-  background: transparent;
-  padding: 10px;
-  border: none;
-  z-index: 300;
 `
