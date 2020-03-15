@@ -13,7 +13,6 @@ export default function RunninglistDetails({
   minus,
 }) {
   const [person, setPerson] = useState(staticProfilData)
-  const [deletedPerson, setDeletedPerson] = useState([])
   const [toNewRunninglist, setToNewRunninglist] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { handleSubmit, reset } = useForm()
@@ -53,13 +52,13 @@ export default function RunninglistDetails({
     reset()
   }
   function handelRemoveClick(event) {
-    let index = person.findIndex(item => item.name === event.target.id)
-    console.log(event.target.id)
-    const selectedPerson = person.splice(index, 1)
+    let index = toNewRunninglist.findIndex(
+      item => item.name === event.target.id
+    )
+
+    const selectedPerson = toNewRunninglist.splice(index, 1)
     const selectedSingle = selectedPerson[0]
-    setDeletedPerson([...person, selectedSingle])
-    console.log('REMOVE-CLICK', index)
-    console.log(selectedSingle)
+    setPerson([...person, selectedSingle])
   }
 
   function peopleFromProfileInput() {
