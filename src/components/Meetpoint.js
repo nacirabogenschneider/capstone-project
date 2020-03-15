@@ -5,10 +5,8 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import check from '../img/solid-sm/sm-check.svg'
 import next from '../img/solid-sm/sm-arrow-right.svg'
 import back from '../img/solid-sm/sm-arrow-left.svg'
-import plus from '../img/solid-sm/sm-plus.svg'
 
 export default function Meetpoint({
   cardSchoolObject,

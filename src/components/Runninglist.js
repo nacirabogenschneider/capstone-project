@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import uuid from 'react-uuid'
-import adult from '../img/solid-sm/adult.svg'
-import child from '../img/solid-sm/child.svg'
 import plus from '../img/solid-sm/sm-plus.svg'
 import RunninglistDetails from './RunninglistDetails'
 import circle from '../img/svg/_circle.svg'
@@ -19,48 +17,38 @@ export default function Runninglist({ meetpoint, back, check }) {
   const onSubmit = data => {
     setRunningLists([
       ...runningLists,
-      { time: data.time, listname: data.listname, id: unique },
+      { time: data.time, listname: data.listname, id: unique, key: unique },
     ])
     reset()
   }
 
   const staticProfilData = [
-    { name: 'Nacira Bogenschneider', state: 'parent' },
-    { name: 'Vincent', state: 'child', class: '2a' },
-    { name: 'Marlene', state: 'child', class: 'VSKb' },
-    { name: 'Bruno', state: 'child' },
+    { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },
+    { name: 'Vincent', state: 'child', class: '2a', key: uuid() },
+    { name: 'Marlene', state: 'child', class: 'VSKb', key: uuid() },
+    { name: 'Bruno', state: 'child', key: uuid() },
   ]
-
-  useEffect(() => {
-    console.log(runningLists)
-  }, [runningLists])
 
   function handleListClick(event) {
     setClickedListID(event.target.id)
     setIsClicked(true)
   }
-  console.log(isClicked)
+
   function createRunninglist() {
     return runningLists.map(list => (
-      <label key={uuid(list)} htmlFor={list.id}>
+      <label key={list.key} htmlFor={list.id}>
         <StyledRow>
           <StyledTime>{list.time}</StyledTime>
           <StyledTextWrapper>
             <RunningListName>
-              <div id={list.id} onClick={handleListClick} value={list.listname}>
-                {list.listname} {/* renderPreviewIcons()*/}
+              <div
+                key={list.key}
+                id={list.id}
+                onClick={handleListClick}
+                value={list.listname}
+              >
+                {list.listname}
               </div>
-              {/*   const [childIconCounter, setChildIconCounter] = useState([])
-              const [setAdultIconCounter, setChildIconCounter] = useState([])
-
-              function countPersonStates(){
-                staticProfilData.filter(person => person.state === "adult" ? setAdultIconCounter([...adultIconCounter, {1} ]): setChildIconCounter([...childIconCounter, {1} ]))
-              }
-              function renderPreviewIcons(){
-               adultIconCounter.map(icon=>   <img src={adult} alt="adult"></img>) 
-                childIconCounter.map(icon => <img src={child} alt="child"></img)
-              }
-            */}
             </RunningListName>
             <CreateButton type="submit">
               <img src={circle} alt="add button"></img>
@@ -87,10 +75,11 @@ export default function Runninglist({ meetpoint, back, check }) {
         </StyledRow>
         {createRunninglist()}
         <RunninglistDetails
+          clickedListId={clickedListId}
           setIsClicked={setIsClicked}
           isClicked={isClicked}
           staticProfilData={staticProfilData}
-          runningLists={runningLists}
+          runninglists={runningLists}
           plus={plus}
         />
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -166,7 +155,6 @@ const StyledRunninglistSection = styled.section`
   display: flex;
   flex-direction: column;
   top: 120px;
-  /* overflow-y: scroll; */
 `
 const TimeInput = styled.input`
   display: flex;

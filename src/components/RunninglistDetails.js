@@ -7,6 +7,7 @@ export default function RunninglistDetails({
   runninglists,
   staticProfilData,
   isClicked,
+  clickedListId,
   setIsClicked,
   plus,
 }) {
@@ -14,34 +15,30 @@ export default function RunninglistDetails({
   const [addedPerson, setAddedPerson] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { register, handleSubmit, reset } = useForm()
+  const clickedListElement = runninglists.find(
+    list => list.id === clickedListId
+  )
+
+  console.log('PERSON LOG: ', person)
 
   function onSubmit(event) {
     event.preventDefault()
     reset()
   }
-
   useEffect(() => {
     isClicked && isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
-
-  // function renderProfilePeople() {
-  //   staticProfilData.map(person => (
-  //     <>
-  //       <img scr={person.state === 'adult' ? 'adult' : 'child'}></img>
-  //       <div>{person.runningPersonName}</div>
-  //       <div>{person.class}</div>
-  //     </>
-  //   ))
-  // }
 
   function handleAddClick(event) {
     event.stopPropagation()
     let index = staticProfilData.findIndex(
       item => item.name === event.target.id
     )
-    let deleted = staticProfilData.splice(index, 1)
-    console.log('INDEXtoDELET', deleted)
-    setPerson(deleted)
+    const selectedPerson = staticProfilData.splice(index, 1)
+    const selectedSingle = selectedPerson[0]
+
+    setPerson([...person, selectedSingle])
+    console.log('nächster Versuch: ', person)
   }
 
   function peopleSelectorRadioButton() {
@@ -64,33 +61,43 @@ export default function RunninglistDetails({
 
   function renderNewPersonOnList() {
     return person.map(person => (
-      <StyledPersonEntry key={person.name}>{person.name}</StyledPersonEntry>
+      <StyledPersonEntry key={person.name}>
+        <StyledSpan>{person.name}</StyledSpan>
+        <StyledSpan> {person.class}</StyledSpan>
+      </StyledPersonEntry>
     ))
   }
-  // useEffect(() => {
-  //   setAddedPerson(...addedPerson, person)
-  // }, [person])
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
     setIsClicked(false)
   }
 
-  function renderSelectPeopleForm() {
+  function runningListDetailsForm() {
     return (
       toogleSelectForm && (
         <>
-          <Exit onClick={toogle}>x</Exit>
-          <StyledForm onSubmit={handleSubmit(onSubmit)} id={uuid()}>
+          <Exit key={uuid()} onClick={toogle}>
+            x
+          </Exit>
+          <StyledForm
+            key={clickedListElement.id}
+            onSubmit={handleSubmit(onSubmit)}
+            id={clickedListElement.id}
+          >
             <div>
-              <div>Zeit - Name Der Liste</div>
+              <div>
+                {clickedListElement.time} - {clickedListElement.listname}
+              </div>
               {person.length === 0 && (
                 <StyledPersonEntry>
                   Deine Liste ist noch leer...
                 </StyledPersonEntry>
               )}
-              {addedPerson && renderNewPersonOnList()}
-              <div>Wähle Personen aus Deinem Profil</div>
+              {person.length > 0 && renderNewPersonOnList()}
+              {staticProfilData.length > 0 && (
+                <div>Wähle Personen aus Deinem Profil</div>
+              )}
               {peopleSelectorRadioButton()}
             </div>
           </StyledForm>
@@ -98,12 +105,16 @@ export default function RunninglistDetails({
       )
     )
   }
-  return renderSelectPeopleForm()
+  return runningListDetailsForm()
 }
+
+const StyledSpan = styled.span`
+  margin: 0 4px;
+`
 
 const StyledPersonEntry = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: left;
   align-items: left;
   padding: 14px;
