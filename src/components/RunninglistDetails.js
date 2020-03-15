@@ -38,6 +38,7 @@ export default function RunninglistDetails({
         state: selectedSingle.state,
         key: selectedSingle.key,
         listid: clickedListId,
+        class: selectedSingle.class,
       },
     ])
   }
