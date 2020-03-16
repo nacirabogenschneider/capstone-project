@@ -13,6 +13,7 @@ import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
 import Navigation from './components/Navigation'
+import School from './components/School'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -45,11 +46,13 @@ function App() {
     name: 'Noch keine Schule ausgewählt',
   })
   const [meetpoint, setMeetpoint] = useState([])
+  const selectedSchoolsName = cardSchoolObject.name
 
   return (
     <Router>
       <AppGrid>
         <Header />
+
         <MapContainer key="mapcontainer">
           <MapWrapped
             meetpoint={meetpoint}
@@ -80,8 +83,19 @@ function App() {
               />
             </Route>
           </Switch>
+
           <Switch>
-            <Route path="/card">
+            <Route path="/school">
+              <School
+                selectedSchoolsName={selectedSchoolsName}
+                primeSchools={primeSchools}
+                currentSchoolImg={currentSchoolImg}
+              />
+            </Route>
+          </Switch>
+
+          <Switch>
+            <Route path="/meetpoint">
               <Card
                 meetpoint={meetpoint}
                 setMeetpoint={setMeetpoint}
@@ -135,15 +149,4 @@ const MapContainer = styled.section`
   padding: 0;
   width: 100%;
   height: 100%;
-`
-
-const Footer = styled.header`
-  width: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  background: transparent;
-  border-bottom: 0.8px solid lightgray;
-  z-index: 100;
 `

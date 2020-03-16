@@ -52,7 +52,7 @@ const InfoCards = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  top: 100px;
+  top: 120px;
   width: 100%;
 `
 const CardHeader = styled.section`

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import uuid from 'react-uuid'
 
 export default function Filter({
   setSelectedState,
@@ -76,12 +77,12 @@ export default function Filter({
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
-          <Option key={schoolOfChoice}>Wähle deine Schule</Option>
+          <Option key={uuid()}>Wähle deine Schule</Option>
           {stateOfChoice &&
             stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
-        <NavLink to="/card">
+        <NavLink to="/meetpoint">
           <AddPointButton aria-label="check">auswählen</AddPointButton>
         </NavLink>
       </SelectSection>
@@ -95,7 +96,7 @@ const SelectSection = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  bottom: 66px;
+  top: 120px;
   width: 100%;
 `
 const Option = styled.option`

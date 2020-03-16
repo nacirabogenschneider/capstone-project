@@ -4,29 +4,25 @@ import meetpointFlag from '../img/svg/_flag.svg'
 import currentSchoolImg from '../img/svg/_school.svg'
 import pin from '../img/svg/_location.svg'
 import group from '../img/svg/_group.svg'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  NavLink,
-} from 'react-router-dom'
+import { BrowserRouter as Switch, NavLink } from 'react-router-dom'
 export default function Navigation() {
   return (
     <StyledNavbar>
       <StyledLink exact to="/">
-        <img src={pin}></img>
-        <span>home</span>
+        <img src={pin} alt="navigationpoint - home"></img>
+        <span>Maps</span>
       </StyledLink>
-      <StyledLink to="/">
-        <img src={currentSchoolImg}></img>
-        <span>school</span>
+      <StyledLink to="/school">
+        <img src={currentSchoolImg} alt="navigationpoint - school"></img>
+        <span>Schule</span>
       </StyledLink>
-      <StyledLink to="/card">
-        <img src={meetpointFlag}></img>meetpoint
+      <StyledLink to="/meetpoint">
+        <img src={meetpointFlag} alt="navigationpoint - meetpoints"></img>
+        Treffpunkt
       </StyledLink>
       <StyledLink to="/runninglist">
-        <img src={group}></img>
-        <div>runninglist</div>
+        <img src={group} alt="navigationpoint - runninglist"></img>
+        <div>Laufliste</div>
       </StyledLink>
     </StyledNavbar>
   )

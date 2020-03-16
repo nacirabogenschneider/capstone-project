@@ -5,7 +5,6 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import back from '../img/solid-sm/sm-arrow-left.svg'
 import uuid from 'react-uuid'
 
 export default function Meetpoint({
@@ -89,12 +88,7 @@ export default function Meetpoint({
         </PlacesAutocomplete>
       </div>
       <ButtonWrapper>
-        <NavLink to="/">
-          <AddPointButton aria-label="back" onClick={handleClick}>
-            <img src={back} alt="back button"></img>
-          </AddPointButton>
-        </NavLink>
-        <NavLink to="/card">
+        <NavLink to="/meetpoint">
           <AddPointButton aria-label="check" onClick={handleClick}>
             erstellen
           </AddPointButton>

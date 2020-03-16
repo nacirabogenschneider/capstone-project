@@ -3,6 +3,7 @@ import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
 import mapStyles from './utils/mapStyles'
+import uuid from 'react-uuid'
 
 export default function Map({
   cardSchoolObject,
@@ -50,7 +51,7 @@ export default function Map({
           .filter(school => school.state === selectedState)
           .map(sortedSchool => (
             <Marker
-              key={sortedSchool.name}
+              key={uuid()}
               position={{
                 lat: +sortedSchool.lat,
                 lng: +sortedSchool.lon,
@@ -60,7 +61,7 @@ export default function Map({
           ))}
 
       <Marker
-        key={selectedSchoolCoordinates}
+        key={uuid()}
         position={{
           lat: +schoolCoordinates.lat,
           lng: +schoolCoordinates.lng,
