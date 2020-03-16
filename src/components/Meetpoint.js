@@ -5,14 +5,9 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import next from '../img/solid-sm/sm-arrow-right.svg'
 import back from '../img/solid-sm/sm-arrow-left.svg'
 
-export default function Meetpoint({
-  cardSchoolObject,
-  setMeetpoint,
-  meetpoint,
-}) {
+export default function Meetpoint({ cardSchoolObject, setMeetpoint }) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
   const handleSelect = async value => {
@@ -84,9 +79,7 @@ export default function Meetpoint({
           </AddPointButton>
         </NavLink>
         <NavLink to="/runninglist">
-          <AddPointButton aria-label="check">
-            <img src={next} alt="next button"></img>
-          </AddPointButton>
+          <AddPointButton aria-label="check">zu den Lauflisten</AddPointButton>
         </NavLink>
       </ButtonWrapper>
     </>

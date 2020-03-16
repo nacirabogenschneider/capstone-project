@@ -177,7 +177,7 @@ const StyledForm = styled.section`
   right: 4px;
   display: block;
   border-radius: 12px;
-  font-family: Raleway;
+  font-family: Raleway, sans-serif;
   box-sizing: inline-block;
   height: auto;
   padding: 10px;
