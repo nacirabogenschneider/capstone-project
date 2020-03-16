@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
@@ -13,7 +13,7 @@ export default function Map({
   const schoolName = cardSchoolObject.name
   const [schoolCoordinates, setSchoolCoordinates] = useState({})
 
-  function filterSchoolsByPrimaryState() {
+  const filterSchoolsByPrimaryState = useCallback(() => {
     return primeSchools
       .filter(school => school.state === selectedState)
       .map(school => ({
@@ -22,8 +22,9 @@ export default function Map({
         lat: school.lat,
         lng: school.lon,
       }))
-  }
-  function setLatLonOfSelectedSchool() {
+  }, [selectedState, primeSchools])
+
+  useEffect(() => {
     const schools = filterSchoolsByPrimaryState().filter(
       school => school.name === schoolName
     )
@@ -33,10 +34,7 @@ export default function Map({
         lng: schools[0].lng,
       })
     }
-  }
-  useEffect(() => {
-    setLatLonOfSelectedSchool()
-  }, [])
+  }, [filterSchoolsByPrimaryState, schoolName])
 
   return (
     <GoogleMap

@@ -5,54 +5,53 @@ import styled from 'styled-components'
 export default function Filter({
   setSelectedState,
   schoolStates,
-  selectedPrimarySchool,
   primarySchools,
   setCardSchoolObject,
 }) {
-  const [isSelectedState, setIsSelectedState] = useState()
-  const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
-    'Wähle deine Schule'
-  )
-  const [
-    isSelectedPrimarySchoolName,
-    setIsSelectedPrimarySchoolName,
-  ] = useState('')
-  const [
-    isSelectedPrimarySchoolAddress,
-    setIsSelectedPrimarySchoolAddress,
-  ] = useState('')
+  const [stateOfChoice, setStateOfChoice] = useState()
+  const [schoolOfChoice, setSchoolOfChoice] = useState('Wähle deine Schule')
+  const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
+  const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
 
-  const [isSelectedSchoolCoordinates] = useState([])
+  const [schoolOfChoiceCoordinates] = useState([])
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
-      .filter(school => school.state === isSelectedState)
+      .filter(school => school.state === stateOfChoice)
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
-  }, [isSelectedState, primarySchools])
+  }, [stateOfChoice, primarySchools])
 
   useEffect(() => {
-    setSelectedState(isSelectedState)
+    setSelectedState(stateOfChoice)
     filterSchoolsByPrimaryState()
-  }, [isSelectedState, filterSchoolsByPrimaryState, setSelectedState])
+  }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
-    getAddressOfSelectedSchool()
-    getNameOfSelectedSchool()
-  }, [isSelectedPrimarySchool, primarySchools])
+    const schoolAddressOfSelectedSchool = schoolOfChoice.split(',')
+    const selectedSchoolAddress =
+      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 2] +
+      ',' +
+      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 1]
+
+    setSchoolOfChoiceAddress(selectedSchoolAddress)
+
+    const selectedSchoolName = schoolAddressOfSelectedSchool[0]
+    setSchoolOfChoiceName(selectedSchoolName)
+  }, [schoolOfChoice, primarySchools])
 
   useEffect(() => {
     setCardSchoolObject({
-      name: isSelectedPrimarySchoolName,
-      address: isSelectedPrimarySchoolAddress,
-      lat: isSelectedSchoolCoordinates.lat,
-      lng: isSelectedSchoolCoordinates.lng,
+      name: schoolOfChoiceName,
+      address: schoolOfChoiceAddress,
+      lat: schoolOfChoiceCoordinates.lat,
+      lng: schoolOfChoiceCoordinates.lng,
     })
   }, [
-    isSelectedPrimarySchoolName,
-    isSelectedPrimarySchoolAddress,
-    isSelectedSchoolCoordinates,
+    schoolOfChoiceName,
+    schoolOfChoiceAddress,
+    schoolOfChoiceCoordinates,
     setCardSchoolObject,
   ])
 
@@ -62,39 +61,24 @@ export default function Filter({
     ))
   }
 
-  function getNameOfSelectedSchool() {
-    const schoolValues = isSelectedPrimarySchool.split(',')
-    const selectedValueName = schoolValues[0]
-    setIsSelectedPrimarySchoolName(selectedValueName)
-  }
-
-  function getAddressOfSelectedSchool() {
-    const schoolAddress = isSelectedPrimarySchool.split(',')
-    const selectedSchoolAddress =
-      schoolAddress[schoolAddress.length - 2] +
-      ',' +
-      schoolAddress[schoolAddress.length - 1]
-    setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
-  }
-
   function handleStateChange(event) {
-    setIsSelectedState(event.target.value)
+    setStateOfChoice(event.target.value)
   }
   function handleSchoolChange(event) {
-    setIsSelectedPrimarySchool(event.target.value)
+    setSchoolOfChoice(event.target.value)
   }
   return (
     <>
       <SelectSection key="Filter">
         <Select key="State-Filter" onChange={handleStateChange}>
-          <Option key={isSelectedState}>Wähle dein Bundesland</Option>
+          <Option key={stateOfChoice}>Wähle dein Bundesland</Option>
           {setStateSelector()}
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
-          <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
-          {isSelectedState &&
-            isSelectedState !== 'Wähle dein Bundesland' &&
+          <Option key={schoolOfChoice}>Wähle deine Schule</Option>
+          {stateOfChoice &&
+            stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/card">
