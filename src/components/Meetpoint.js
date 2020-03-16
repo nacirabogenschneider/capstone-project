@@ -27,8 +27,6 @@ export default function Meetpoint({
     setMeetpointSelection([...meetpointSelection, meetpoint])
   }, [meetpoint])
 
-  console.log('Meetpoits', meetpointSelection)
-
   function renderMeetpointSelection() {
     return meetpointSelection.map(point => (
       <option key={uuid()}>{point.meetpoint}</option>
