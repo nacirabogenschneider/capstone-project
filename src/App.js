@@ -12,6 +12,7 @@ import plus from './img/solid-sm/sm-plus.svg'
 import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
+import Navigation from './components/Navigation'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -101,7 +102,7 @@ function App() {
             </Route>
           </Switch>
         </MapContainer>
-        <Footer></Footer>
+        <Navigation></Navigation>
       </AppGrid>
     </Router>
   )
@@ -112,7 +113,7 @@ export default App
 const AppGrid = styled.section`
   display: grid;
   height: 100vh;
-  grid-template-rows: 48px auto 48px;
+  grid-template-rows: 52px auto 52px;
   margin: 0;
   padding: 0;
   background: #bce1e3;
@@ -126,7 +127,7 @@ const Header = styled.header`
   background: #fbfbfb;
   border-bottom: 0.8px solid lightgray;
   z-index: 100;
-  box-shadow: 0 0 10px 3px grey;
+  box-shadow: 0 0 10px 3px #2b7380;
 `
 const MapContainer = styled.section`
   z-index: 0;

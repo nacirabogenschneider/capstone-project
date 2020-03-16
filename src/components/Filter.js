@@ -89,19 +89,13 @@ export default function Filter({
   )
 }
 
-const ContentWrapper = styled.main`
+const SelectSection = styled.main`
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  bottom: 54px;
-  width: 100%;
-`
-const SelectSection = styled(ContentWrapper)`
-  position: absolute;
-  display: flex;
-  bottom: 54px;
+  bottom: 66px;
   width: 100%;
 `
 const Option = styled.option`
@@ -117,7 +111,7 @@ const Select = styled.select`
   font-size: 1.1rem;
   background: white;
   opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
   &:focus {
     box-shadow: 0 0 10px 2px #ee7600;
   }
@@ -136,7 +130,7 @@ const AddPointButton = styled.button`
   font-size: 1.1rem;
   text-decoration: none;
   border-radius: 12px;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
   background: white;
   &:focus {
     box-shadow: 0 0 10px 2px #ee7600;
