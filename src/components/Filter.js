@@ -38,8 +38,16 @@ export default function Filter({
   }, [isSelectedState, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
-    getAddressOfSelectedSchool()
-    getNameOfSelectedSchool()
+    const schoolAddress = isSelectedPrimarySchool.split(',')
+    const selectedSchoolAddress =
+      schoolAddress[schoolAddress.length - 2] +
+      ',' +
+      schoolAddress[schoolAddress.length - 1]
+    setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
+
+    const schoolValues = isSelectedPrimarySchool.split(',')
+    const selectedValueName = schoolValues[0]
+    setIsSelectedPrimarySchoolName(selectedValueName)
   }, [isSelectedPrimarySchool, primarySchools])
 
   useEffect(() => {
@@ -60,21 +68,6 @@ export default function Filter({
     return schoolStates.map(state => (
       <option key={state.name}>{state.name}</option>
     ))
-  }
-
-  function getNameOfSelectedSchool() {
-    const schoolValues = isSelectedPrimarySchool.split(',')
-    const selectedValueName = schoolValues[0]
-    setIsSelectedPrimarySchoolName(selectedValueName)
-  }
-
-  function getAddressOfSelectedSchool() {
-    const schoolAddress = isSelectedPrimarySchool.split(',')
-    const selectedSchoolAddress =
-      schoolAddress[schoolAddress.length - 2] +
-      ',' +
-      schoolAddress[schoolAddress.length - 1]
-    setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
   }
 
   function handleStateChange(event) {
