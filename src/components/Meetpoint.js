@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -6,15 +6,33 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import back from '../img/solid-sm/sm-arrow-left.svg'
+import uuid from 'react-uuid'
 
-export default function Meetpoint({ cardSchoolObject, setMeetpoint }) {
+export default function Meetpoint({
+  cardSchoolObject,
+  meetpoint,
+  setMeetpoint,
+}) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
+  const [meetpointSelection, setMeetpointSelection] = useState([])
   const handleSelect = async value => {
     const results = await geocodeByAddress(value)
     const latLng = await getLatLng(results[0])
     setAddress(value)
     setCoordinates(latLng)
+  }
+
+  useEffect(() => {
+    setMeetpointSelection([...meetpointSelection, meetpoint])
+  }, [meetpoint])
+
+  console.log('Meetpoits', meetpointSelection)
+
+  function renderMeetpointSelection() {
+    return meetpointSelection.map(point => (
+      <option key={uuid()}>{point.meetpoint}</option>
+    ))
   }
 
   function handleClick() {
@@ -25,8 +43,13 @@ export default function Meetpoint({ cardSchoolObject, setMeetpoint }) {
       meetpointLng: coordinates.lng,
     })
   }
+
   return (
     <>
+      <StyledMeetpoint>
+        <option key={uuid()}>Wähle einen Treffpunkt</option>
+        {renderMeetpointSelection()}
+      </StyledMeetpoint>
       <div>
         <PlacesAutocomplete
           value={address}
@@ -144,4 +167,20 @@ const AddPointButton = styled.button`
 `
 const ButtonWrapper = styled.div`
   display: flex;
+`
+const StyledMeetpoint = styled.select`
+  font-family: 'Raleway';
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1rem;
+  height: 45px;
+  width: 95vw;
+  padding: 4px;
+  margin: 8px;
+  background: white;
+  opacity: 0.94;
+  box-shadow: 0 0 10px 2px #a4b0af;
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
 `
