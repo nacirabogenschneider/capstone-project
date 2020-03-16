@@ -5,31 +5,28 @@ import styled from 'styled-components'
 export default function Filter({
   setSelectedState,
   schoolStates,
-  selectedPrimarySchool,
   primarySchools,
   setCardSchoolObject,
 }) {
-  const [isSelectedState, setIsSelectedState] = useState()
+  const [stateOfChoice, setStateOfChoice] = useState()
   const [schoolOfChoice, setSchoolOfChoice] = useState('Wähle deine Schule')
   const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
-  const [schoolOfChoiceAddress, setIsSelectedPrimarySchoolAddress] = useState(
-    ''
-  )
+  const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
 
   const [schoolOfChoiceCoordinates] = useState([])
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
-      .filter(school => school.state === isSelectedState)
+      .filter(school => school.state === stateOfChoice)
       .map(school => school.name + ', ' + school.address)
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
-  }, [isSelectedState, primarySchools])
+  }, [stateOfChoice, primarySchools])
 
   useEffect(() => {
-    setSelectedState(isSelectedState)
+    setSelectedState(stateOfChoice)
     filterSchoolsByPrimaryState()
-  }, [isSelectedState, filterSchoolsByPrimaryState, setSelectedState])
+  }, [stateOfChoice, filterSchoolsByPrimaryState, setStateOfChoice])
 
   useEffect(() => {
     const schoolAddressOfSelectedSchool = schoolOfChoice.split(',')
@@ -38,7 +35,7 @@ export default function Filter({
       ',' +
       schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 1]
 
-    setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
+    setSchoolOfChoiceAddress(selectedSchoolAddress)
 
     const selectedSchoolName = schoolAddressOfSelectedSchool[0]
     setSchoolOfChoiceName(selectedSchoolName)
@@ -65,7 +62,7 @@ export default function Filter({
   }
 
   function handleStateChange(event) {
-    setIsSelectedState(event.target.value)
+    setStateOfChoice(event.target.value)
   }
   function handleSchoolChange(event) {
     setSchoolOfChoice(event.target.value)
@@ -74,14 +71,14 @@ export default function Filter({
     <>
       <SelectSection key="Filter">
         <Select key="State-Filter" onChange={handleStateChange}>
-          <Option key={isSelectedState}>Wähle dein Bundesland</Option>
+          <Option key={stateOfChoice}>Wähle dein Bundesland</Option>
           {setStateSelector()}
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
           <Option key={schoolOfChoice}>Wähle deine Schule</Option>
-          {isSelectedState &&
-            isSelectedState !== 'Wähle dein Bundesland' &&
+          {stateOfChoice &&
+            stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/card">
