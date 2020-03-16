@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import currentSchoolImg from '../img/svg/_school.svg'
 import * as schoolsData from '../data/schools.json'

@@ -64,12 +64,6 @@ export default function Runninglist({ meetpoint, back, check }) {
     <>
       <StyledRunninglistSection>
         <StyledRow>
-          <StyledRunningHeader>
-            {(meetpoint.length === 0 && 'Dein Treffpunkt') ||
-              meetpoint.meetpoint}
-          </StyledRunningHeader>
-        </StyledRow>
-        <StyledRow>
           <StyledRunningTitle>
             <h1>Lauflisten</h1>
           </StyledRunningTitle>
@@ -104,13 +98,6 @@ export default function Runninglist({ meetpoint, back, check }) {
             </StyledTextWrapper>
           </StyledRow>
         </form>
-        <div>
-          <ButtonWrapper>
-            <AddPointButton as={NavLink} to="/card" aria-label="back">
-              <img src={back} alt="back button"></img>
-            </AddPointButton>
-          </ButtonWrapper>
-        </div>
       </StyledRunninglistSection>
     </>
   )
@@ -142,7 +129,7 @@ const StyledTextWrapper = styled.div`
   margin: 0 4px;
   padding: 0;
   opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
   &:active,
   &:focus {
     box-shadow: 0 0 10px 2px #ee7600;
@@ -156,7 +143,7 @@ const StyledRunninglistSection = styled.section`
   font-size: 1.1rem;
   display: flex;
   flex-direction: column;
-  top: 120px;
+  top: 100px;
 `
 const TimeInput = styled.input`
   display: flex;
@@ -169,7 +156,7 @@ const TimeInput = styled.input`
   border-radius: 12px;
   background: white;
   opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
   &:active,
   &:focus {
     box-shadow: 0 0 10px 2px #ee7600;
@@ -212,56 +199,18 @@ const StyledRunningTitle = styled.div`
   border-radius: 12px;
   border: none;
   padding-left: 10px;
-  margin: 0 4px;
+  margin: 8px 4px 0 4px;
   opacity: 0.94;
   font-size: 1.4rem;
-  box-shadow: 0 0 10px 2px #a4b0af;
-`
-
-const StyledRunningHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ee7600;
-  width: 100vw;
-  height: 48px;
-  border-radius: 12px;
-  border: none;
-  padding-left: 10px;
-  margin: 0 4px;
-  opacity: 0.94;
-  color: white;
-  font-size: 1.4rem;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
 `
 
 const StyledRow = styled.div`
+  margin: 6px 0;
   display: flex;
-  margin: 5px 0;
   width: 100vw;
 `
 
-const AddPointButton = styled.button`
-  display: flex;
-  text-decoration: none;
-  justify-content: center;
-  align-items: center;
-  height: 45px;
-  width: 45px;
-  margin: 4px;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 0 10px 2px #a4b0af;
-  background: white;
-  &:active,
-  &:focus {
-    box-shadow: 0 0 10px 2px #ee7600;
-  }
-`
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
 const CreateButton = styled.button`
   background: transparent;
   padding: 10px;

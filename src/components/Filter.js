@@ -77,7 +77,7 @@ export default function Filter({
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
-          <Option key={uuid()}>Wähle deine Schule</Option>
+          <Option key="selectYourSchool">Wähle deine Schule</Option>
           {stateOfChoice &&
             stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
