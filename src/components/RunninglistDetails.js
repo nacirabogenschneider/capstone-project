@@ -12,7 +12,7 @@ export default function RunninglistDetails({
   plus,
   minus,
 }) {
-  const [person, setPerson] = useState(staticProfilData)
+  const [persons, setPersons] = useState(staticProfilData)
   const [toNewRunninglist, setToNewRunninglist] = useState([])
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { handleSubmit, reset } = useForm()
@@ -25,12 +25,12 @@ export default function RunninglistDetails({
   }, [isClicked])
 
   function handleAddClick(event) {
-    let index = person.findIndex(item => item.name === event.target.id)
-    let reversIndex = person.filter(item => item.name !== event.target.id)
-    const selectedPerson = person.splice(index, 1)
+    let index = persons.findIndex(item => item.name === event.target.id)
+    let splittetElement = persons.filter(item => item.name !== event.target.id)
+    const selectedPerson = persons.splice(index, 1)
     const selectedSingle = selectedPerson[0]
 
-    setPerson(reversIndex)
+    setPersons(splittetElement)
     setToNewRunninglist([
       ...toNewRunninglist,
       {
@@ -52,18 +52,18 @@ export default function RunninglistDetails({
     event.preventDefault()
     reset()
   }
-  function handelRemoveClick(event) {
+  function handleRemoveClick(event) {
     let index = toNewRunninglist.findIndex(
       item => item.name === event.target.id
     )
 
     const selectedPerson = toNewRunninglist.splice(index, 1)
     const selectedSingle = selectedPerson[0]
-    setPerson([...person, selectedSingle])
+    setPersons([...persons, selectedSingle])
   }
 
   function peopleFromProfileInput() {
-    return person.map(person => (
+    return persons.map(person => (
       <StyledTextWrapper key={uuid()}>
         <StyledWrapper
           onClick={handleAddClick}
@@ -86,7 +86,7 @@ export default function RunninglistDetails({
         <StyledPersonEntry key={person.name} value={person.name}>
           <StyledSpan
             value={person.name}
-            onClick={handelRemoveClick}
+            onClick={handleRemoveClick}
             id={person.name}
           >
             {person.name}
@@ -118,7 +118,9 @@ export default function RunninglistDetails({
                 </StyledPersonEntry>
               )}
               {renderNewPersonOnList()}
-              {person.length > 0 && <div>Wähle Personen aus Deinem Profil</div>}
+              {persons.length > 0 && (
+                <div>Wähle Personen aus Deinem Profil</div>
+              )}
               {peopleFromProfileInput()}
             </div>
           </StyledForm>

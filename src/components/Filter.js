@@ -10,19 +10,13 @@ export default function Filter({
   setCardSchoolObject,
 }) {
   const [isSelectedState, setIsSelectedState] = useState()
-  const [isSelectedPrimarySchool, setIsSelectedPrimarySchool] = useState(
-    'Wähle deine Schule'
+  const [schoolOfChoice, setSchoolOfChoice] = useState('Wähle deine Schule')
+  const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
+  const [schoolOfChoiceAddress, setIsSelectedPrimarySchoolAddress] = useState(
+    ''
   )
-  const [
-    isSelectedPrimarySchoolName,
-    setIsSelectedPrimarySchoolName,
-  ] = useState('')
-  const [
-    isSelectedPrimarySchoolAddress,
-    setIsSelectedPrimarySchoolAddress,
-  ] = useState('')
 
-  const [isSelectedSchoolCoordinates] = useState([])
+  const [schoolOfChoiceCoordinates] = useState([])
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
@@ -38,29 +32,29 @@ export default function Filter({
   }, [isSelectedState, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
-    const schoolAddress = isSelectedPrimarySchool.split(',')
+    const schoolAddressOfSelectedSchool = schoolOfChoice.split(',')
     const selectedSchoolAddress =
-      schoolAddress[schoolAddress.length - 2] +
+      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 2] +
       ',' +
-      schoolAddress[schoolAddress.length - 1]
+      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 1]
+
     setIsSelectedPrimarySchoolAddress(selectedSchoolAddress)
 
-    const schoolValues = isSelectedPrimarySchool.split(',')
-    const selectedValueName = schoolValues[0]
-    setIsSelectedPrimarySchoolName(selectedValueName)
-  }, [isSelectedPrimarySchool, primarySchools])
+    const selectedSchoolName = schoolAddressOfSelectedSchool[0]
+    setSchoolOfChoiceName(selectedSchoolName)
+  }, [schoolOfChoice, primarySchools])
 
   useEffect(() => {
     setCardSchoolObject({
-      name: isSelectedPrimarySchoolName,
-      address: isSelectedPrimarySchoolAddress,
-      lat: isSelectedSchoolCoordinates.lat,
-      lng: isSelectedSchoolCoordinates.lng,
+      name: schoolOfChoiceName,
+      address: schoolOfChoiceAddress,
+      lat: schoolOfChoiceCoordinates.lat,
+      lng: schoolOfChoiceCoordinates.lng,
     })
   }, [
-    isSelectedPrimarySchoolName,
-    isSelectedPrimarySchoolAddress,
-    isSelectedSchoolCoordinates,
+    schoolOfChoiceName,
+    schoolOfChoiceAddress,
+    schoolOfChoiceCoordinates,
     setCardSchoolObject,
   ])
 
@@ -74,7 +68,7 @@ export default function Filter({
     setIsSelectedState(event.target.value)
   }
   function handleSchoolChange(event) {
-    setIsSelectedPrimarySchool(event.target.value)
+    setSchoolOfChoice(event.target.value)
   }
   return (
     <>
@@ -85,7 +79,7 @@ export default function Filter({
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
-          <Option key={selectedPrimarySchool}>Wähle deine Schule</Option>
+          <Option key={schoolOfChoice}>Wähle deine Schule</Option>
           {isSelectedState &&
             isSelectedState !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}
