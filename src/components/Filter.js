@@ -26,7 +26,7 @@ export default function Filter({
   useEffect(() => {
     setSelectedState(stateOfChoice)
     filterSchoolsByPrimaryState()
-  }, [stateOfChoice, filterSchoolsByPrimaryState, setStateOfChoice])
+  }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
     const schoolAddressOfSelectedSchool = schoolOfChoice.split(',')
