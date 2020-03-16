@@ -96,7 +96,7 @@ const SelectSection = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 120px;
+  top: 110px;
   width: 100%;
 `
 const Option = styled.option`
@@ -105,7 +105,7 @@ const Option = styled.option`
 const Select = styled.select`
   font-family: 'Arial';
   height: 48px;
-  width: 92vw;
+  width: 94vw;
   border-radius: 12px;
   border: none;
   margin: 5px 0;

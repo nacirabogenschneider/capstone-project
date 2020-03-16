@@ -41,7 +41,7 @@ const StyledContent = styled.div`
 const SchoolSection = styled.section`
   position: absolute;
   background: white;
-  top: 120px;
+  top: 110px;
   min-height: 240px;
   left: 10px;
   right: 10px;

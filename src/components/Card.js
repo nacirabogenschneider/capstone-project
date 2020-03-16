@@ -64,7 +64,7 @@ const InfoCards = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  top: 120px;
+  top: 110px;
   width: 100%;
 `
 const CardHeader = styled.section`
@@ -83,7 +83,7 @@ const MeetHeader = styled.section`
 `
 const SchoolCard = styled.section`
   display: flex;
-  width: 92vw;
+  width: 90vw;
   flex-direction: column;
   font-family: 'Raleway';
   border-radius: 12px;
