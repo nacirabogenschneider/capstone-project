@@ -87,11 +87,7 @@ function App() {
 
           <Switch>
             <Route path="/school">
-              <School
-                selectedSchoolsName={selectedSchoolsName}
-                primeSchools={primeSchools}
-                currentSchoolImg={currentSchoolImg}
-              />
+              <School primeSchools={primeSchools} />
             </Route>
           </Switch>
 

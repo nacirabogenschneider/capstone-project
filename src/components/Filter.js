@@ -65,9 +65,14 @@ export default function Filter({
   function handleStateChange(event) {
     setStateOfChoice(event.target.value)
   }
+
   function handleSchoolChange(event) {
     setSchoolOfChoice(event.target.value)
   }
+
+  localStorage.setItem('stateOfChoice', JSON.stringify(stateOfChoice))
+  localStorage.setItem('schoolOfChoice', JSON.stringify(schoolOfChoice))
+
   return (
     <>
       <SelectSection key="Filter">
@@ -139,3 +144,45 @@ const AddPointButton = styled.button`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
+
+////////////
+// .selectdiv:after {
+//   content: '\f078';
+//   font: normal normal normal 17px/1 FontAwesome;
+//   color: #0ebeff;
+//   right: 11px;
+//   top: 6px;
+//   height: 34px;
+//   padding: 15px 0px 0px 8px;
+//   border-left: 1px solid #0ebeff;
+//   position: absolute;
+//   pointer-events: none;
+// }
+
+// /* IE11 hide native button (thanks Matt!) */
+// select::-ms-expand {
+// display: none;
+// }
+
+// .selectdiv select {
+// -webkit-appearance: none;
+// -moz-appearance: none;
+// appearance: none;
+// /* Add some styling */
+
+// display: block;
+// width: 100%;
+// max-width: 320px;
+// height: 50px;
+// float: right;
+// margin: 5px 0px;
+// padding: 0px 24px;
+// font-size: 16px;
+// line-height: 1.75;
+// color: #333;
+// background-color: #ffffff;
+// background-image: none;
+// border: 1px solid #0ebeff;
+// -ms-word-break: normal;
+// word-break: normal;
+// }
