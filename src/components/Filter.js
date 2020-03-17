@@ -120,17 +120,17 @@ const Select = styled.select`
   }
 `
 const AddPointButton = styled.button`
+  font-family: 'Raleway';
   display: flex;
   left: 45vw;
   text-decoration: none;
   justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
   height: 45px;
   width: auto;
   border: none;
   margin: 4px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #2b7380;
