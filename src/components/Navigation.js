@@ -29,6 +29,9 @@ export default function Navigation() {
 }
 
 const StyledNavbar = styled.nav`
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
   background: white;
   height: 52px;
   display: flex;

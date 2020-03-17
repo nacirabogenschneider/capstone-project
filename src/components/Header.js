@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import currentSchoolImg from '../img/svg/_school.svg'
-import schoolway from '../img/svg/_children.svg'
+import schoolway from '../img/svg/_children-schoolway.svg'
 
 export default function Header() {
   return (
