@@ -14,6 +14,7 @@ import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
 import Navigation from './components/Navigation'
 import School from './components/School'
+import Header from './components/Header'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -132,17 +133,7 @@ const AppGrid = styled.section`
   padding: 0;
   background: #bce1e3;
 `
-const Header = styled.header`
-  width: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background: #fbfbfb;
-  border-bottom: 0.8px solid lightgray;
-  z-index: 100;
-  box-shadow: 0 0 10px 3px #2b7380;
-`
+
 const MapContainer = styled.section`
   z-index: 0;
   margin: 0;

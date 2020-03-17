@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import uuid from 'react-uuid'
 import plus from '../img/solid-sm/sm-plus.svg'
@@ -8,7 +7,7 @@ import RunninglistDetails from './RunninglistDetails'
 import circle from '../img/svg/_circle.svg'
 import minus from '../img/svg/_minus.svg'
 
-export default function Runninglist({ meetpoint, back, check }) {
+export default function Runninglist({ meetpoint }) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)
@@ -18,7 +17,13 @@ export default function Runninglist({ meetpoint, back, check }) {
   const onSubmit = data => {
     setRunningLists([
       ...runningLists,
-      { time: data.time, listname: data.listname, id: unique, key: unique },
+      {
+        time: data.time,
+        listname: data.listname,
+        meetpoint: meetpoint.name,
+        id: unique,
+        key: unique,
+      },
     ])
     reset()
   }
@@ -65,7 +70,7 @@ export default function Runninglist({ meetpoint, back, check }) {
       <StyledRunninglistSection>
         <StyledRow>
           <StyledRunningTitle>
-            <h1>Lauflisten</h1>
+            <div>Lauflisten</div>
           </StyledRunningTitle>
         </StyledRow>
         {createRunninglist()}
@@ -173,7 +178,7 @@ const StyledTime = styled.div`
   border-radius: 12px;
   background: white;
   opacity: 0.94;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
 `
 const RunningListName = styled.div`
   padding-left: 10px;
@@ -190,6 +195,7 @@ const RunningListName = styled.div`
   opacity: 0.94;
 `
 const StyledRunningTitle = styled.div`
+  font-family: Raleway;
   display: flex;
   align-items: center;
   justify-content: center;

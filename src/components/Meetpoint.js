@@ -47,7 +47,7 @@ export default function Meetpoint({
         <option key={uuid()}>Wähle einen Treffpunkt</option>
         {renderMeetpointSelection()}
       </StyledMeetpoint>
-      <div style={{ color: '#2b7380' }}>
+      <div>
         <PlacesAutocomplete
           value={address}
           onChange={setAddress}

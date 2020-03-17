@@ -100,15 +100,17 @@ const SelectSection = styled.main`
   width: 100%;
 `
 const Option = styled.option`
+  font-family: 'Raleway', 'sant serif';
   font-size: 20px;
 `
 const Select = styled.select`
-  font-family: 'Arial';
+  font-family: 'Raleway';
   height: 48px;
   width: 94vw;
   border-radius: 12px;
   border: none;
   margin: 5px 0;
+  padding-left: 8px;
   font-size: 1.1rem;
   background: white;
   opacity: 0.94;
