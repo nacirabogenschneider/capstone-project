@@ -10,9 +10,17 @@ export default function Filter({
   primarySchools,
   setCardSchoolObject,
 }) {
-  const [stateOfChoice, setStateOfChoice] = useState()
+  const [stateOfChoice, setStateOfChoice] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('stateOfChoice')) ||
+      'Wähle dein Bundesland'
+  )
 
-  const [schoolOfChoice, setSchoolOfChoice] = useState('')
+  const [schoolOfChoice, setSchoolOfChoice] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('schoolOfChoice')) || 'Wähle deine Schule'
+  )
+
   const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
   const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
   const [schoolOfChoiceCoordinates] = useState([])
@@ -79,12 +87,10 @@ export default function Filter({
     <>
       <SelectSection key="Filter">
         <Select key="State-Filter" onChange={handleStateChange}>
-          <Option key={stateOfChoice}>Wähle dein Bundesland</Option>
           {setStateSelector()}
         </Select>
 
         <Select key="School-Filter" onChange={handleSchoolChange}>
-          <Option key="selectYourSchool">Wähle deine Schule</Option>
           {stateOfChoice &&
             stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}

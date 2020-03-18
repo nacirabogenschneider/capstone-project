@@ -14,8 +14,19 @@ export default function Meetpoint({
   setMeetpoint,
 }) {
   const [address, setAddress] = useState('')
-  const [coordinates, setCoordinates] = useState({ lat: null, lgn: null })
-  const [meetpointSelection, setMeetpointSelection] = useState([])
+  const [coordinates, setCoordinates] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('coordinates')) || {
+        lat: null,
+        lgn: null,
+      }
+  )
+  const [meetpointSelection, setMeetpointSelection] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('meetpointSelection')) || [
+        'Wähle einen Treffpunkt',
+      ]
+  )
   const handleSelect = async value => {
     const results = await geocodeByAddress(value)
     const latLng = await getLatLng(results[0])
@@ -38,7 +49,6 @@ export default function Meetpoint({
 
   function handleClick() {
     setMeetpoint({
-      schoolname: cardSchoolObject.name,
       meetpoint: address,
       meetpointLat: coordinates.lat,
       meetpointLng: coordinates.lng,
@@ -48,7 +58,7 @@ export default function Meetpoint({
   return (
     <>
       <StyledMeetpoint>
-        <option key={uuid()}>Wähle einen Treffpunkt</option>
+        {/* <option key={uuid()}>Wähle einen Treffpunkt</option> */}
         {renderMeetpointSelection()}
       </StyledMeetpoint>
       <div>

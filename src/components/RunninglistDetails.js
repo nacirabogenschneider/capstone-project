@@ -13,8 +13,16 @@ export default function RunninglistDetails({
   plus,
   minus,
 }) {
-  const [persons, setPersons] = useState(staticProfilData)
-  const [toNewRunninglist, setToNewRunninglist] = useState([])
+  const [persons, setPersons] = useState(
+    () => JSON.parse(localStorage.getItem('persons')) || staticProfilData
+  )
+
+  // const [persons, setPersons] = useState(staticProfilData)
+
+  const [toNewRunninglist, setToNewRunninglist] = useState(
+    () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
+  )
+
   const [toogleSelectForm, setToggleSelectForm] = useState(false)
   const { handleSubmit, reset } = useForm()
   const clickedListElement = runninglists.find(
@@ -44,6 +52,7 @@ export default function RunninglistDetails({
     ])
   }
   saveToLocal('toNewRunninglist', toNewRunninglist)
+  saveToLocal('persons', persons)
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)

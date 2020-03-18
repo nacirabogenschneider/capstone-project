@@ -12,7 +12,11 @@ export default function Runninglist({ meetpoint }) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)
-  const [runningLists, setRunningLists] = useState([])
+
+  const [runningLists, setRunningLists] = useState(
+    () => JSON.parse(localStorage.getItem('runningLists')) || []
+  )
+
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = data => {
