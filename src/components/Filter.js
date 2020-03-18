@@ -86,11 +86,19 @@ export default function Filter({
   return (
     <>
       <SelectSection key="Filter">
-        <Select key="State-Filter" onChange={handleStateChange}>
+        <Select
+          key="State-Filter"
+          value={stateOfChoice}
+          onChange={handleStateChange}
+        >
           {setStateSelector()}
         </Select>
 
-        <Select key="School-Filter" onChange={handleSchoolChange}>
+        <Select
+          key="School-Filter"
+          value={schoolOfChoice}
+          onChange={handleSchoolChange}
+        >
           {stateOfChoice &&
             stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}

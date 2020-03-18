@@ -6,13 +6,9 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import uuid from 'react-uuid'
-import { saveToLocal, loadFromLocal } from './utils/localStorage'
+import { saveToLocal } from './utils/localStorage'
 
-export default function Meetpoint({
-  cardSchoolObject,
-  meetpoint,
-  setMeetpoint,
-}) {
+export default function Meetpoint({ meetpoint, setMeetpoint }) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState(
     () =>
@@ -36,11 +32,6 @@ export default function Meetpoint({
 
   saveToLocal('meetpointSelection', meetpointSelection)
 
-  useEffect(() => {
-    if (meetpointSelection.includes(meetpoint.meetpoint, 0)) {
-    } else setMeetpointSelection([...meetpointSelection, meetpoint])
-  }, [meetpoint])
-
   function renderMeetpointSelection() {
     return meetpointSelection.map(point => (
       <option key={uuid()}>{point.meetpoint}</option>
@@ -55,6 +46,10 @@ export default function Meetpoint({
     })
   }
   saveToLocal('meetpoint', meetpoint)
+  useEffect(() => {
+    setMeetpointSelection([...meetpointSelection, meetpoint])
+  }, [meetpoint])
+
   return (
     <>
       <StyledMeetpoint>{renderMeetpointSelection()}</StyledMeetpoint>
