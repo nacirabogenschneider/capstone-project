@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import saveToLocal from './utils/localStorage'
 import loadFromLocal from './utils/localStorage'
+import uuid from 'react-uuid'
 
 export default function Filter({
   setSelectedState,
@@ -91,6 +92,7 @@ export default function Filter({
           value={stateOfChoice}
           onChange={handleStateChange}
         >
+          <option key={uuid()}>Wähle dein Bundesland</option>
           {setStateSelector()}
         </Select>
 
@@ -99,6 +101,7 @@ export default function Filter({
           value={schoolOfChoice}
           onChange={handleSchoolChange}
         >
+          <option key={uuid()}>Wähle deine Schule</option>
           {stateOfChoice &&
             stateOfChoice !== 'Wähle dein Bundesland' &&
             filterSchoolsByPrimaryState()}

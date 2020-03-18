@@ -28,10 +28,6 @@ export default function Meetpoint({ meetpoint, setMeetpoint }) {
     setCoordinates(latLng)
   }
 
-  saveToLocal('meetpointCoordinates', coordinates)
-
-  saveToLocal('meetpointSelection', meetpointSelection)
-
   function renderMeetpointSelection() {
     return meetpointSelection.map(point => (
       <option key={uuid()}>{point.meetpoint}</option>
@@ -49,10 +45,14 @@ export default function Meetpoint({ meetpoint, setMeetpoint }) {
   useEffect(() => {
     setMeetpointSelection([...meetpointSelection, meetpoint])
   }, [meetpoint])
-
+  saveToLocal('meetpointCoordinates', coordinates)
+  saveToLocal('meetpointSelection', meetpointSelection)
   return (
     <>
-      <StyledMeetpoint>{renderMeetpointSelection()}</StyledMeetpoint>
+      <StyledMeetpoint value={meetpoint.meetpoint}>
+        <option key={uuid()}>Wähle einen Treffpunkt</option>
+        {renderMeetpointSelection()}
+      </StyledMeetpoint>
       <div>
         <PlacesAutocomplete
           value={address}
