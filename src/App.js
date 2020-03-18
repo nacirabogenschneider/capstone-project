@@ -46,7 +46,13 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Noch keine Schule ausgewählt',
   })
-  const [meetpoint, setMeetpoint] = useState([])
+
+  const [meetpoint, setMeetpoint] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('meetpoint')) || {
+        meetpoint: 'Wähle einen Treffpunkt',
+      }
+  )
 
   return (
     <Router>

@@ -17,8 +17,6 @@ export default function RunninglistDetails({
     () => JSON.parse(localStorage.getItem('persons')) || staticProfilData
   )
 
-  // const [persons, setPersons] = useState(staticProfilData)
-
   const [toNewRunninglist, setToNewRunninglist] = useState(
     () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
   )
