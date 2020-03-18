@@ -6,6 +6,7 @@ import PlacesAutocomplete, {
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import uuid from 'react-uuid'
+import saveToLocal from './utils/localStorage'
 
 export default function Meetpoint({
   cardSchoolObject,
@@ -21,6 +22,9 @@ export default function Meetpoint({
     setAddress(value)
     setCoordinates(latLng)
   }
+
+  saveToLocal('meetpointCoordinates', coordinates)
+  saveToLocal('meetpointSelection', meetpointSelection)
 
   useEffect(() => {
     setMeetpointSelection([...meetpointSelection, meetpoint])

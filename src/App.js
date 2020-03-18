@@ -47,7 +47,6 @@ function App() {
     name: 'Noch keine Schule ausgewählt',
   })
   const [meetpoint, setMeetpoint] = useState([])
-  const selectedSchoolsName = cardSchoolObject.name
 
   return (
     <Router>

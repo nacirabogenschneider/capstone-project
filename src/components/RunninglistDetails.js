@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import styled from 'styled-components'
+import saveToLocal from './utils/localStorage'
 
 export default function RunninglistDetails({
   runninglists,
@@ -42,6 +43,7 @@ export default function RunninglistDetails({
       },
     ])
   }
+  saveToLocal('toNewRunninglist', toNewRunninglist)
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)

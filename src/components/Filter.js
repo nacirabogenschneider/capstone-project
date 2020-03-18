@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import uuid from 'react-uuid'
+import saveToLocal from './utils/localStorage'
+import loadFromLocal from './utils/localStorage'
 
 export default function Filter({
   setSelectedState,
@@ -10,12 +11,11 @@ export default function Filter({
   setCardSchoolObject,
 }) {
   const [stateOfChoice, setStateOfChoice] = useState()
-  const [schoolOfChoice, setSchoolOfChoice] = useState('Wähle deine Schule')
+
+  const [schoolOfChoice, setSchoolOfChoice] = useState('')
   const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
   const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
-
   const [schoolOfChoiceCoordinates] = useState([])
-
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
       .filter(school => school.state === stateOfChoice)
@@ -23,6 +23,9 @@ export default function Filter({
       .sort()
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   }, [stateOfChoice, primarySchools])
+
+  saveToLocal('stateOfChoice', stateOfChoice)
+  saveToLocal('schoolOfChoice', schoolOfChoice)
 
   useEffect(() => {
     setSelectedState(stateOfChoice)
@@ -58,7 +61,9 @@ export default function Filter({
 
   function setStateSelector() {
     return schoolStates.map(state => (
-      <option key={state.name}>{state.name}</option>
+      <option key={state.name} value={schoolOfChoice.name}>
+        {state.name}
+      </option>
     ))
   }
 
@@ -69,9 +74,6 @@ export default function Filter({
   function handleSchoolChange(event) {
     setSchoolOfChoice(event.target.value)
   }
-
-  localStorage.setItem('stateOfChoice', JSON.stringify(stateOfChoice))
-  localStorage.setItem('schoolOfChoice', JSON.stringify(schoolOfChoice))
 
   return (
     <>

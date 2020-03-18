@@ -1,13 +1,15 @@
-function get(selector) {
+export function get(selector) {
   return document.querySelector(selector)
 }
 
-function saveToLocal(name, data) {
+export function saveToLocal(name, data) {
   localStorage.setItem(name, JSON.stringify(data))
 }
 
-function loadFromLocal(name) {
+export function loadFromLocal(name) {
   const jsonString = localStorage.getItem(name)
   const data = JSON.parse(jsonString)
   return data
 }
+
+export default saveToLocal

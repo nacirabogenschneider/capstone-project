@@ -6,6 +6,7 @@ import plus from '../img/solid-sm/sm-plus.svg'
 import RunninglistDetails from './RunninglistDetails'
 import circle from '../img/svg/_circle.svg'
 import minus from '../img/svg/_minus.svg'
+import saveToLocal from './utils/localStorage'
 
 export default function Runninglist({ meetpoint }) {
   const unique = uuid()
@@ -25,9 +26,9 @@ export default function Runninglist({ meetpoint }) {
         key: unique,
       },
     ])
-
     reset()
   }
+  saveToLocal('runningLists', runningLists)
 
   const staticProfilData = [
     { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },

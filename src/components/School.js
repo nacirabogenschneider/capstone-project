@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import currentSchoolImg from '../img/svg/_school.svg'
 import phone from '../img/svg/_phone.svg'
@@ -8,10 +8,8 @@ import uuid from 'react-uuid'
 export default function School({ primeSchools }) {
   const jsonString = localStorage.getItem('schoolOfChoice')
   const data = JSON.parse(jsonString)
-  console.log('SCHULE AUS DEM LOCAL STORAGE, ', data)
   const schoolData = data.split(',')
   const schoolName = schoolData[0]
-  console.log(schoolName)
 
   function renderSchoolInformation() {
     return primeSchools
@@ -32,6 +30,8 @@ export default function School({ primeSchools }) {
           <StyledContent key={uuid(school)}>
             <StyledImage src={phone} alt="phone"></StyledImage>
             <div>{school.phone}</div>
+            <div>{school.lat}</div>
+            <div>{school.lng}</div>
           </StyledContent>
         </React.Fragment>
       ))

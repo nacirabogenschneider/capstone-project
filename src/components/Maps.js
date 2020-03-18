@@ -4,6 +4,8 @@ import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
 import mapStyles from './utils/mapStyles'
 import uuid from 'react-uuid'
+import saveToLocal from './utils/localStorage'
+import loadFromLocal from './utils/localStorage'
 
 export default function Map({
   cardSchoolObject,
@@ -12,7 +14,14 @@ export default function Map({
   selectedSchoolCoordinates,
 }) {
   const schoolName = cardSchoolObject.name
-  const [schoolCoordinates, setSchoolCoordinates] = useState({})
+  const [schoolCoordinates, setSchoolCoordinates] = useState(
+    loadFromLocal('schoolCoordinates') === undefined
+      ? {}
+      : loadFromLocal('schoolCoordinates')
+  )
+
+  saveToLocal('schoolCoordinates', schoolCoordinates)
+  saveToLocal('primeSchools', primeSchools)
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primeSchools
