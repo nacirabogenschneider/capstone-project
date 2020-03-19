@@ -15,6 +15,10 @@ Card.propTypes = {
 
 export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
   const [card] = useState(cardSchoolObject)
+  const [selectedMeetpoint, setSelectedMeetpoint] = useState(
+    () => JSON.parse(localStorage.getItem('selectedMeetpoint')) || ''
+  )
+
   return (
     <>
       <Switch>
@@ -34,11 +38,16 @@ export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
                   alt="current meetpoint"
                 ></StyledSvg>
                 <StyledSpan key={meetpoint.meetpoint}>
-                  {meetpoint.meetpoint}
+                  {meetpoint.meetpoint || selectedMeetpoint}
                 </StyledSpan>
               </MeetHeader>
             </SchoolCard>
-            <Meetpoint setMeetpoint={setMeetpoint} meetpoint={meetpoint} />
+            <Meetpoint
+              selectedMeetpoint={selectedMeetpoint}
+              setSelectedMeetpoint={setSelectedMeetpoint}
+              setMeetpoint={setMeetpoint}
+              meetpoint={meetpoint}
+            />
           </InfoCards>
         </Route>
       </Switch>

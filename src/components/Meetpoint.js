@@ -8,7 +8,12 @@ import styled from 'styled-components'
 import uuid from 'react-uuid'
 import { saveToLocal } from './utils/localStorage'
 
-export default function Meetpoint({ meetpoint, setMeetpoint }) {
+export default function Meetpoint({
+  meetpoint,
+  setMeetpoint,
+  selectedMeetpoint,
+  setSelectedMeetpoint,
+}) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState(
     () =>
@@ -35,26 +40,34 @@ export default function Meetpoint({ meetpoint, setMeetpoint }) {
   }
 
   function handleClick() {
-    meetpointSelection.includes(meetpoint.meetpoint, 0) ||
-      setMeetpoint({
-        meetpoint: address,
-        meetpointLat: coordinates.lat,
-        meetpointLng: coordinates.lng,
-      })
+    setMeetpoint({
+      meetpoint: address,
+      meetpointLat: coordinates.lat,
+      meetpointLng: coordinates.lng,
+    })
   }
 
+  function handelMeetPointChange(event) {
+    setSelectedMeetpoint(event.target.value)
+    setMeetpoint(event.target.value)
+  }
+  saveToLocal('selectedMeetpoint', selectedMeetpoint)
+
   useEffect(() => {
-    meetpoint !== 'Wähle einen Treffpunkt' &&
-      setMeetpointSelection([...meetpointSelection, meetpoint])
+    setMeetpointSelection([...meetpointSelection, meetpoint])
   }, [meetpoint])
   saveToLocal('meetpoint', meetpoint)
   saveToLocal('meetpointCoordinates', coordinates)
   saveToLocal('meetpointSelection', meetpointSelection)
   return (
     <>
-      <StyledMeetpoint>
-        {meetpoint ? renderMeetpointSelection() : ''}
+      <StyledMeetpoint
+        value={selectedMeetpoint}
+        onChange={handelMeetPointChange}
+      >
+        {renderMeetpointSelection()}
       </StyledMeetpoint>
+
       <div>
         <PlacesAutocomplete
           value={address}
@@ -103,9 +116,6 @@ export default function Meetpoint({ meetpoint, setMeetpoint }) {
           <AddPointButton aria-label="check" onClick={handleClick}>
             erstellen
           </AddPointButton>
-        </NavLink>
-        <NavLink to="/runninglist">
-          <AddPointButton aria-label="check">zu den Lauflisten</AddPointButton>
         </NavLink>
       </ButtonWrapper>
     </>
