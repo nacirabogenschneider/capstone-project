@@ -31,6 +31,7 @@ export default function Meetpoint({
     const latLng = await getLatLng(results[0])
     setAddress(value)
     setCoordinates(latLng)
+    saveToLocal('meetpointCoordinates', coordinates)
   }
 
   function renderMeetpointSelection() {
@@ -54,12 +55,11 @@ export default function Meetpoint({
 
   useEffect(() => {
     setMeetpointSelection([...meetpointSelection, meetpoint])
+    saveToLocal('meetpoint', meetpoint)
+    saveToLocal('meetpointSelection', meetpointSelection)
+    saveToLocal('selectedMeetpoint', selectedMeetpoint)
   }, [meetpoint])
 
-  saveToLocal('selectedMeetpoint', selectedMeetpoint)
-  saveToLocal('meetpoint', meetpoint)
-  saveToLocal('meetpointCoordinates', coordinates)
-  saveToLocal('meetpointSelection', meetpointSelection)
   return (
     <>
       <StyledMeetpoint

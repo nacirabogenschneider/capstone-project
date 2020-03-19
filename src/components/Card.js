@@ -14,7 +14,10 @@ Card.propTypes = {
 }
 
 export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
-  const [card] = useState(cardSchoolObject)
+  const [card] = useState(
+    () => JSON.parse(localStorage.getItem('card')) || 'Wähle deine Schule aus'
+  )
+
   const [selectedMeetpoint, setSelectedMeetpoint] = useState(
     () => JSON.parse(localStorage.getItem('selectedMeetpoint')) || ''
   )
