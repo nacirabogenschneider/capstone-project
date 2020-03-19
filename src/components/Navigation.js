@@ -5,6 +5,7 @@ import currentSchoolImg from '../img/svg/_school.svg'
 import pin from '../img/svg/_location.svg'
 import group from '../img/svg/_group.svg'
 import { NavLink } from 'react-router-dom'
+
 export default function Navigation() {
   return (
     <StyledNavbar>

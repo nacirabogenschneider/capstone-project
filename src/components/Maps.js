@@ -7,21 +7,13 @@ import uuid from 'react-uuid'
 import saveToLocal from './utils/localStorage'
 import loadFromLocal from './utils/localStorage'
 
-export default function Map({
-  cardSchoolObject,
-  primeSchools,
-  selectedState,
-  selectedSchoolCoordinates,
-}) {
+export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
   const schoolName = cardSchoolObject.name
   const [schoolCoordinates, setSchoolCoordinates] = useState(
     loadFromLocal('schoolCoordinates') === undefined
       ? {}
       : loadFromLocal('schoolCoordinates')
   )
-
-  saveToLocal('schoolCoordinates', schoolCoordinates)
-  saveToLocal('primeSchools', primeSchools)
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primeSchools
@@ -46,6 +38,8 @@ export default function Map({
     }
   }, [filterSchoolsByPrimaryState, schoolName])
 
+  saveToLocal('schoolCoordinates', schoolCoordinates)
+  saveToLocal('primeSchools', primeSchools)
   return (
     <GoogleMap
       defaultZoom={11}

@@ -51,11 +51,12 @@ export default function Meetpoint({
     setSelectedMeetpoint(event.target.value)
     setMeetpoint(event.target.value)
   }
-  saveToLocal('selectedMeetpoint', selectedMeetpoint)
 
   useEffect(() => {
     setMeetpointSelection([...meetpointSelection, meetpoint])
   }, [meetpoint])
+
+  saveToLocal('selectedMeetpoint', selectedMeetpoint)
   saveToLocal('meetpoint', meetpoint)
   saveToLocal('meetpointCoordinates', coordinates)
   saveToLocal('meetpointSelection', meetpointSelection)

@@ -133,7 +133,6 @@ const AppGrid = styled.section`
   padding: 0;
   background: #bce1e3;
 `
-
 const MapContainer = styled.section`
   z-index: 0;
   margin: 0;

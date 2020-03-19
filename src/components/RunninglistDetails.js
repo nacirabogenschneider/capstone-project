@@ -143,7 +143,6 @@ export default function RunninglistDetails({
 const StyledSpan = styled.span`
   margin: 0 4px;
 `
-
 const StyledPersonEntry = styled.div`
   display: flex;
   justify-content: space-between;
