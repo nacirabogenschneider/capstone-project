@@ -15,6 +15,8 @@ import Runninglist from './components/Runninglist'
 import Navigation from './components/Navigation'
 import School from './components/School'
 import Header from './components/Header'
+import { SchoolSection } from './components/School.styles'
+import uuid from 'react-uuid'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -91,7 +93,9 @@ function App() {
 
           <Switch>
             <Route path="/school">
-              <School primeSchools={primeSchools} />
+              <SchoolSection key={uuid()}>
+                <School primeSchools={primeSchools} />
+              </SchoolSection>
             </Route>
           </Switch>
 
