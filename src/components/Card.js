@@ -38,12 +38,7 @@ export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
                 </StyledSpan>
               </MeetHeader>
             </SchoolCard>
-
-            <Meetpoint
-              cardSchoolObject={cardSchoolObject}
-              setMeetpoint={setMeetpoint}
-              meetpoint={meetpoint}
-            />
+            <Meetpoint setMeetpoint={setMeetpoint} meetpoint={meetpoint} />
           </InfoCards>
         </Route>
       </Switch>
