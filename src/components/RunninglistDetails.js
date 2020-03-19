@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import saveToLocal from './utils/localStorage'
+import RenderNewPersonOnList from './RenderNewPersonOnList'
 
 import {
   StyledPersonToAdd,
@@ -73,15 +74,7 @@ export default function RunninglistDetails({
     event.preventDefault()
     reset()
   }
-  function handleRemoveClick(event) {
-    let index = toNewRunninglist.findIndex(
-      item => item.name === event.target.id
-    )
 
-    const selectedPerson = toNewRunninglist.splice(index, 1)
-    const selectedSingle = selectedPerson[0]
-    setPersons([...persons, selectedSingle])
-  }
   useEffect(() => {
     saveToLocal('persons', persons)
   }, [persons])
@@ -103,23 +96,7 @@ export default function RunninglistDetails({
       </StyledPersonToAdd>
     ))
   }
-  function renderNewPersonOnList() {
-    return toNewRunninglist
-      .filter(person => person.listid === clickedListId)
-      .map(person => (
-        <StyledPersonEntry key={person.name} value={person.name}>
-          <StyledSpan
-            value={person.name}
-            onClick={handleRemoveClick}
-            id={person.name}
-          >
-            {person.name}
-          </StyledSpan>
-          <StyledSpan value={person.class}> {person.class}</StyledSpan>
-          <img src={minus} alt="remove button"></img>
-        </StyledPersonEntry>
-      ))
-  }
+
   function runningListDetailsForm() {
     return (
       toogleSelectForm && (
@@ -141,7 +118,14 @@ export default function RunninglistDetails({
                   Deine Liste ist noch leer...
                 </StyledPersonEntry>
               )}
-              {renderNewPersonOnList()}
+
+              <RenderNewPersonOnList
+                toNewRunninglist={toNewRunninglist}
+                setPersons={setPersons}
+                persons={persons}
+                minus={minus}
+                clickedListId={clickedListId}
+              />
               {persons.length > 0 && (
                 <div>Wähle Personen aus Deinem Profil</div>
               )}
