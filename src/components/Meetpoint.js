@@ -35,23 +35,25 @@ export default function Meetpoint({ meetpoint, setMeetpoint }) {
   }
 
   function handleClick() {
-    setMeetpoint({
-      meetpoint: address,
-      meetpointLat: coordinates.lat,
-      meetpointLng: coordinates.lng,
-    })
+    meetpointSelection.includes(meetpoint.meetpoint, 0) ||
+      setMeetpoint({
+        meetpoint: address,
+        meetpointLat: coordinates.lat,
+        meetpointLng: coordinates.lng,
+      })
   }
-  saveToLocal('meetpoint', meetpoint)
+
   useEffect(() => {
-    setMeetpointSelection([...meetpointSelection, meetpoint])
+    meetpoint !== 'Wähle einen Treffpunkt' &&
+      setMeetpointSelection([...meetpointSelection, meetpoint])
   }, [meetpoint])
+  saveToLocal('meetpoint', meetpoint)
   saveToLocal('meetpointCoordinates', coordinates)
   saveToLocal('meetpointSelection', meetpointSelection)
   return (
     <>
-      <StyledMeetpoint value={meetpoint.meetpoint}>
-        <option key={uuid()}>Wähle einen Treffpunkt</option>
-        {renderMeetpointSelection()}
+      <StyledMeetpoint>
+        {meetpoint ? renderMeetpointSelection() : ''}
       </StyledMeetpoint>
       <div>
         <PlacesAutocomplete

@@ -50,7 +50,7 @@ function App() {
   const [meetpoint, setMeetpoint] = useState(
     () =>
       JSON.parse(localStorage.getItem('meetpoint')) || {
-        meetpoint: 'Erstelle einen neuen Treffpunkt',
+        meetpoint: 'Wähle einen Treffpunkt',
       }
   )
 
@@ -58,7 +58,6 @@ function App() {
     <Router>
       <AppGrid>
         <Header />
-
         <MapContainer key="mapcontainer">
           <MapWrapped
             meetpoint={meetpoint}
@@ -68,9 +67,9 @@ function App() {
             primeSchools={primarySchools}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
+            loadingElement={<div style={{ height: `100%` }}></div>}
+            containerElement={<div style={{ height: `100%` }}></div>}
+            mapElement={<div style={{ height: `100%` }}></div>}
           />
           <Switch>
             <Route exact path="/">
