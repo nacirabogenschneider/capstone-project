@@ -4,7 +4,7 @@ import meetpointFlag from '../img/svg/_flag.svg'
 import currentSchoolImg from '../img/svg/_school.svg'
 import pin from '../img/svg/_location.svg'
 import group from '../img/svg/_group.svg'
-import { BrowserRouter as NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 export default function Navigation() {
   return (
     <StyledNavbar>
@@ -14,7 +14,6 @@ export default function Navigation() {
           <div>Maps</div>
         </StyledIconWrapper>
       </StyledLink>
-
       <StyledLink to="/school">
         <StyledIconWrapper>
           <img src={currentSchoolImg} alt="navigationpoint - school"></img>
