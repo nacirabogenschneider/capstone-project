@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import saveToLocal from './utils/localStorage'
-import loadFromLocal from './utils/localStorage'
 import uuid from 'react-uuid'
 
 export default function Filter({

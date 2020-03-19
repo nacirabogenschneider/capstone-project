@@ -4,25 +4,34 @@ import meetpointFlag from '../img/svg/_flag.svg'
 import currentSchoolImg from '../img/svg/_school.svg'
 import pin from '../img/svg/_location.svg'
 import group from '../img/svg/_group.svg'
-import { BrowserRouter as Switch, NavLink } from 'react-router-dom'
+import { BrowserRouter as NavLink } from 'react-router-dom'
 export default function Navigation() {
   return (
     <StyledNavbar>
       <StyledLink exact to="/">
-        <img src={pin} alt="navigationpoint - home"></img>
-        <span>Maps</span>
+        <StyledIconWrapper>
+          <img src={pin} alt="navigationpoint - home"></img>
+          <div>Maps</div>
+        </StyledIconWrapper>
       </StyledLink>
+
       <StyledLink to="/school">
-        <img src={currentSchoolImg} alt="navigationpoint - school"></img>
-        <span>Schule</span>
+        <StyledIconWrapper>
+          <img src={currentSchoolImg} alt="navigationpoint - school"></img>
+          <div>Schule</div>
+        </StyledIconWrapper>
       </StyledLink>
       <StyledLink to="/meetpoint">
-        <img src={meetpointFlag} alt="navigationpoint - meetpoints"></img>
-        Treffpunkt
+        <StyledIconWrapper>
+          <img src={meetpointFlag} alt="navigationpoint - meetpoints"></img>
+          <div>Treffpunkt</div>
+        </StyledIconWrapper>
       </StyledLink>
       <StyledLink to="/runninglist">
-        <img src={group} alt="navigationpoint - runninglist"></img>
-        <div>Laufliste</div>
+        <StyledIconWrapper>
+          <img src={group} alt="navigationpoint - runninglist"></img>
+          <div>Laufliste</div>
+        </StyledIconWrapper>
       </StyledLink>
     </StyledNavbar>
   )
@@ -53,4 +62,9 @@ const StyledLink = styled(NavLink)`
   &.active {
     background: #5fc3c7;
   }
+`
+const StyledIconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
