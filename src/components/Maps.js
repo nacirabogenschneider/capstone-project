@@ -3,15 +3,17 @@ import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
 import mapStyles from './utils/mapStyles'
+import uuid from 'react-uuid'
+import saveToLocal from './utils/localStorage'
+import loadFromLocal from './utils/localStorage'
 
-export default function Map({
-  cardSchoolObject,
-  primeSchools,
-  selectedState,
-  selectedSchoolCoordinates,
-}) {
+export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
   const schoolName = cardSchoolObject.name
-  const [schoolCoordinates, setSchoolCoordinates] = useState({})
+  const [schoolCoordinates, setSchoolCoordinates] = useState(
+    loadFromLocal('schoolCoordinates') === undefined
+      ? {}
+      : loadFromLocal('schoolCoordinates')
+  )
 
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primeSchools
@@ -36,6 +38,8 @@ export default function Map({
     }
   }, [filterSchoolsByPrimaryState, schoolName])
 
+  saveToLocal('schoolCoordinates', schoolCoordinates)
+  saveToLocal('primeSchools', primeSchools)
   return (
     <GoogleMap
       defaultZoom={11}
@@ -50,7 +54,7 @@ export default function Map({
           .filter(school => school.state === selectedState)
           .map(sortedSchool => (
             <Marker
-              key={sortedSchool.name}
+              key={uuid()}
               position={{
                 lat: +sortedSchool.lat,
                 lng: +sortedSchool.lon,
@@ -60,7 +64,7 @@ export default function Map({
           ))}
 
       <Marker
-        key={selectedSchoolCoordinates}
+        key={uuid()}
         position={{
           lat: +schoolCoordinates.lat,
           lng: +schoolCoordinates.lng,

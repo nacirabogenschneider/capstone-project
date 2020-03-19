@@ -12,6 +12,9 @@ import plus from './img/solid-sm/sm-plus.svg'
 import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
 import Runninglist from './components/Runninglist'
+import Navigation from './components/Navigation'
+import School from './components/School'
+import Header from './components/Header'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -43,7 +46,13 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Noch keine Schule ausgewählt',
   })
-  const [meetpoint, setMeetpoint] = useState([])
+
+  const [meetpoint, setMeetpoint] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('meetpoint')) || {
+        meetpoint: 'Wähle einen Treffpunkt',
+      }
+  )
 
   return (
     <Router>
@@ -58,9 +67,9 @@ function App() {
             primeSchools={primarySchools}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
+            loadingElement={<div style={{ height: `100%` }}></div>}
+            containerElement={<div style={{ height: `100%` }}></div>}
+            mapElement={<div style={{ height: `100%` }}></div>}
           />
           <Switch>
             <Route exact path="/">
@@ -79,8 +88,15 @@ function App() {
               />
             </Route>
           </Switch>
+
           <Switch>
-            <Route path="/card">
+            <Route path="/school">
+              <School primeSchools={primeSchools} />
+            </Route>
+          </Switch>
+
+          <Switch>
+            <Route path="/meetpoint">
               <Card
                 meetpoint={meetpoint}
                 setMeetpoint={setMeetpoint}
@@ -101,7 +117,7 @@ function App() {
             </Route>
           </Switch>
         </MapContainer>
-        <Footer></Footer>
+        <Navigation></Navigation>
       </AppGrid>
     </Router>
   )
@@ -112,21 +128,10 @@ export default App
 const AppGrid = styled.section`
   display: grid;
   height: 100vh;
-  grid-template-rows: 48px auto 48px;
+  grid-template-rows: 52px auto 52px;
   margin: 0;
   padding: 0;
   background: #bce1e3;
-`
-const Header = styled.header`
-  width: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background: #fbfbfb;
-  border-bottom: 0.8px solid lightgray;
-  z-index: 100;
-  box-shadow: 0 0 10px 3px grey;
 `
 const MapContainer = styled.section`
   z-index: 0;
@@ -134,15 +139,4 @@ const MapContainer = styled.section`
   padding: 0;
   width: 100%;
   height: 100%;
-`
-
-const Footer = styled.header`
-  width: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  background: transparent;
-  border-bottom: 0.8px solid lightgray;
-  z-index: 100;
 `
