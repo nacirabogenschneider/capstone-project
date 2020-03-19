@@ -54,7 +54,8 @@ export default function Meetpoint({
   }
 
   useEffect(() => {
-    setMeetpointSelection([...meetpointSelection, meetpoint])
+    selectedMeetpoint &&
+      setMeetpointSelection([...meetpointSelection, meetpoint])
     saveToLocal('meetpoint', meetpoint)
     saveToLocal('meetpointSelection', meetpointSelection)
     saveToLocal('selectedMeetpoint', selectedMeetpoint)

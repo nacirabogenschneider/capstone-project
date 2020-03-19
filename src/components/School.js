@@ -57,7 +57,7 @@ const SchoolSection = styled.section`
   position: absolute;
   background: white;
   opacity: 0.94;
-  top: 110px;
+  top: 115px;
   min-height: 240px;
   left: 10px;
   right: 10px;
