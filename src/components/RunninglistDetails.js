@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import saveToLocal from './utils/localStorage'
+
 import {
-  StyledTextWrapper,
+  StyledPersonToAdd,
   CreateButton,
   StyledSpan,
   StyledPersonEntry,
   StyledWrap,
   StyledX,
   StyledForms,
+  StyledFormHeader,
 } from './Runninglist.styles'
 
 export default function RunninglistDetails({
@@ -57,8 +59,10 @@ export default function RunninglistDetails({
       },
     ])
   }
-  saveToLocal('toNewRunninglist', toNewRunninglist)
-  saveToLocal('persons', persons)
+
+  useEffect(() => {
+    saveToLocal('toNewRunninglist', toNewRunninglist)
+  }, [toNewRunninglist])
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
@@ -78,10 +82,13 @@ export default function RunninglistDetails({
     const selectedSingle = selectedPerson[0]
     setPersons([...persons, selectedSingle])
   }
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
 
   function peopleFromProfileInput() {
     return persons.map(person => (
-      <StyledTextWrapper key={uuid()}>
+      <StyledPersonToAdd key={uuid()}>
         <StyledWrap
           onClick={handleAddClick}
           value={person.name}
@@ -93,7 +100,7 @@ export default function RunninglistDetails({
         <CreateButton type="submit">
           <img src={plus} alt="create button"></img>
         </CreateButton>
-      </StyledTextWrapper>
+      </StyledPersonToAdd>
     ))
   }
   function renderNewPersonOnList() {
@@ -117,18 +124,18 @@ export default function RunninglistDetails({
     return (
       toogleSelectForm && (
         <>
-          <StyledX key={uuid()} onClick={toogle}>
-            x
-          </StyledX>
           <StyledForms
             key={clickedListElement.id}
             onSubmit={handleSubmit(onSubmit)}
             id={clickedListElement.id}
           >
+            <StyledX key={uuid()} onClick={toogle}>
+              x
+            </StyledX>
             <div>
-              <div>
+              <StyledFormHeader>
                 {clickedListElement.time} - {clickedListElement.listname}
-              </div>
+              </StyledFormHeader>
               {toNewRunninglist.length < 1 && (
                 <StyledPersonEntry>
                   Deine Liste ist noch leer...

@@ -21,6 +21,24 @@ const StyledTextWrapper = styled.div`
   width: 100%;
   height: 48px;
   background: white;
+  margin: 10px 10px 6px 4px;
+  padding: 0;
+  opacity: 0.94;
+  box-shadow: 0 0 6px 2px #2b7380;
+  &:active,
+  &:focus {
+    box-shadow: 0 0 10px 2px #ee7600;
+  }
+`
+const StyledPersonToAdd = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  border: none;
+  height: 48px;
+  background: white;
   margin: 10px 4px 6px 4px;
   padding: 0;
   opacity: 0.94;
@@ -30,10 +48,12 @@ const StyledTextWrapper = styled.div`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
+
 const StyledRunninglistSection = styled.section`
   position: absolute;
   font-family: Raleway;
-  height: auto;
+  height: 510px;
+  overflow-y: scroll;
   font-size: 1.1rem;
   display: flex;
   flex-direction: column;
@@ -47,7 +67,7 @@ const TimeInput = styled.input`
   height: 48px;
   width: 80px;
   min-width: 60px;
-  margin: 10px 4px;
+  margin: 10px 4px 10px 10px;
   border: none;
   border-radius: 12px;
   background: white;
@@ -64,7 +84,7 @@ const StyledTime = styled.div`
   justify-content: center;
   height: 48px;
   width: 80px;
-  margin: 10px 4px 6px 4px;
+  margin: 10px 4px 10px 10px;
   border: none;
   border-radius: 12px;
   background: white;
@@ -105,6 +125,8 @@ const StyledRow = styled.div`
   margin: 0;
   display: flex;
   width: 100vw;
+  height: 100%;
+  overflow-y: scroll;
 `
 
 const CreateButton = styled.button`
@@ -121,12 +143,12 @@ const StyledPersonEntry = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 48px;
-  margin: 8px 4px;
+  margin: 10px 4px;
   padding: 0 4px;
   color: white;
   background: transparent;
   border-radius: 12px;
-  box-shadow: 0 0 10px 2px #61390f;
+  box-shadow: 0 0 10px 2px #2b7380;
 `
 const StyledWrapper = styled.div`
   padding-left: 10px;
@@ -157,19 +179,17 @@ const StyledWrap = styled.div`
   opacity: 0.94;
 `
 const StyledX = styled.button`
-  display: flex;
+  position: absolute;
+  top: 4px;
+  right: 4px;
   border: none;
   background: none;
-  position: absolute;
-  font-size: 1.2rem;
-  top: 6px;
-  right: 6px;
-  z-index: 900;
+  font-size: 1.4rem;
   color: white;
 `
 const StyledForms = styled.section`
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 4px;
   right: 4px;
   display: block;
@@ -179,11 +199,15 @@ const StyledForms = styled.section`
   height: auto;
   padding: 10px;
   opacity: 0.99;
-  background: #ee7600;
+  background: #5fc3c7;
+  box-shadow: 0 0 10px 2px #2b7380;
   z-index: 300;
   opacity: 0.98;
 `
-
+const StyledFormHeader = styled.header`
+  font-size: 1.4rem;
+  padding: 8px;
+`
 export {
   RunningListInput,
   StyledTextWrapper,
@@ -200,4 +224,6 @@ export {
   StyledX,
   StyledForms,
   StyledWrap,
+  StyledPersonToAdd,
+  StyledFormHeader,
 }

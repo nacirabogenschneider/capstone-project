@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
 import plus from '../img/solid-sm/sm-plus.svg'
@@ -34,6 +34,10 @@ export default function Runninglist({ meetpoint }) {
 
   const { register, handleSubmit, reset } = useForm()
 
+  useEffect(() => {
+    saveToLocal('runningLists', runningLists)
+  }, [runningLists])
+
   const onSubmit = data => {
     setRunningLists([
       ...runningLists,
@@ -46,7 +50,6 @@ export default function Runninglist({ meetpoint }) {
       },
     ])
     reset()
-    saveToLocal('runningLists', runningLists)
   }
 
   return (
