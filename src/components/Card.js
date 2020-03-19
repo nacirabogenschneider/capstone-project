@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Meetpoint from './Meetpoint'
-import meetpointFlag from '../img/solid-sm/meetpoints-flag.svg'
+import meetpointFlag from '../img/svg/_flag.svg'
+import currentSchoolImg from '../img/svg/_school.svg'
 import { Route, Switch } from 'react-router-dom'
 
 Card.propTypes = {
@@ -12,12 +13,12 @@ Card.propTypes = {
   currentSchool: PropTypes.string,
 }
 
-export default function Card({
-  cardSchoolObject,
-  currentSchoolImg,
-  meetpoint,
-  setMeetpoint,
-}) {
+export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
+  const [card] = useState(cardSchoolObject)
+  const [selectedMeetpoint, setSelectedMeetpoint] = useState(
+    () => JSON.parse(localStorage.getItem('selectedMeetpoint')) || ''
+  )
+
   return (
     <>
       <Switch>
@@ -25,17 +26,25 @@ export default function Card({
           <InfoCards>
             <SchoolCard>
               <CardHeader>
-                <img src={currentSchoolImg} alt="current school"></img>
-                <span>{cardSchoolObject.name}</span>
+                <StyledSvg
+                  src={currentSchoolImg}
+                  alt="current school"
+                ></StyledSvg>
+                <StyledSpan>{card.name}</StyledSpan>
               </CardHeader>
               <MeetHeader>
-                <img src={meetpointFlag} alt="current meetpoint"></img>
-                <span key={meetpoint.meetpoint}>{meetpoint.meetpoint}</span>
+                <StyledSvg
+                  src={meetpointFlag}
+                  alt="current meetpoint"
+                ></StyledSvg>
+                <StyledSpan key={meetpoint.meetpoint}>
+                  {meetpoint.meetpoint || selectedMeetpoint}
+                </StyledSpan>
               </MeetHeader>
             </SchoolCard>
-
             <Meetpoint
-              cardSchoolObject={cardSchoolObject}
+              selectedMeetpoint={selectedMeetpoint}
+              setSelectedMeetpoint={setSelectedMeetpoint}
               setMeetpoint={setMeetpoint}
               meetpoint={meetpoint}
             />
@@ -45,6 +54,14 @@ export default function Card({
     </>
   )
 }
+
+const StyledSpan = styled.span`
+  margin-left: 8px;
+`
+const StyledSvg = styled.img`
+  width: 34px;
+  height: 34px;
+`
 const InfoCards = styled.section`
   position: absolute;
   display: flex;
@@ -56,19 +73,21 @@ const InfoCards = styled.section`
 `
 const CardHeader = styled.section`
   display: flex;
+  padding: 5px;
   justify-content: left;
   align-items: center;
   font-size: 20px;
 `
 const MeetHeader = styled.section`
   display: flex;
+  padding: 5px;
   justify-content: left;
   align-items: center;
   font-size: 20px;
 `
 const SchoolCard = styled.section`
   display: flex;
-  width: 92vw;
+  width: 90vw;
   flex-direction: column;
   font-family: 'Raleway';
   border-radius: 12px;
@@ -77,5 +96,5 @@ const SchoolCard = styled.section`
   font-size: 1.2rem;
   background: white;
   opacity: 0.95;
-  box-shadow: 0 0 10px 2px #a4b0af;
+  box-shadow: 0 0 10px 2px #2b7380;
 `

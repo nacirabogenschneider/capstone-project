@@ -40,28 +40,25 @@ export default function RunninglistDetails({
   }, [isClicked])
 
   function handleAddClick(event) {
-    let indexOfSelectedPerson = persons.findIndex(
-      item => item.name === event.target.id
-    )
-    let allPersonsExceptSelected = persons.filter(
-      item => item.name !== event.target.id
-    )
-    const selectedPersonArray = persons.splice(indexOfSelectedPerson, 1)
-    const selectedPerson = selectedPersonArray[0]
+    let index = persons.findIndex(item => item.name === event.target.id)
+    let splittetElement = persons.filter(item => item.name !== event.target.id)
+    const selectedPerson = persons.splice(index, 1)
+    const selectedSingle = selectedPerson[0]
 
-    setPersons(allPersonsExceptSelected)
+    setPersons(splittetElement)
     setToNewRunninglist([
       ...toNewRunninglist,
       {
-        name: selectedPerson.name,
-        state: selectedPerson.state,
-        key: selectedPerson.key,
+        name: selectedSingle.name,
+        state: selectedSingle.state,
+        key: selectedSingle.key,
         listid: clickedListId,
-        class: selectedPerson.class,
+        class: selectedSingle.class,
       },
     ])
-    saveToLocal('toNewRunninglist', toNewRunninglist)
   }
+  saveToLocal('toNewRunninglist', toNewRunninglist)
+  saveToLocal('persons', persons)
 
   function toogle() {
     setToggleSelectForm(!toogleSelectForm)
@@ -76,11 +73,10 @@ export default function RunninglistDetails({
     let index = toNewRunninglist.findIndex(
       item => item.name === event.target.id
     )
-    const selectedPersonArray = toNewRunninglist.splice(index, 1)
-    const selectedPerson = selectedPersonArray[0]
-    setPersons([...persons, selectedPerson])
 
-    saveToLocal('persons', persons)
+    const selectedPerson = toNewRunninglist.splice(index, 1)
+    const selectedSingle = selectedPerson[0]
+    setPersons([...persons, selectedSingle])
   }
 
   function peopleFromProfileInput() {
