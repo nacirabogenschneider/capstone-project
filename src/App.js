@@ -82,16 +82,10 @@ function App() {
             <Route exact path="/">
               <Filter
                 key="Filter-Component"
-                schoolStates={schoolStates}
-                schoolsData={schoolsData}
-                schoolsDataAll={schoolsDataAll}
-                currentSchoolImg={currentSchoolImg}
-                setCardSchoolObject={setCardSchoolObject}
-                cardSchoolObject={cardSchoolObject}
-                primarySchools={primarySchools}
-                setPrimaryschools={setPrimaryschools}
                 setSelectedState={setSelectedState}
-                setSelectedSchoolCoordinates={setSelectedSchoolCoordinates}
+                schoolStates={schoolStates}
+                primarySchools={primarySchools}
+                setCardSchoolObject={setCardSchoolObject}
               />
             </Route>
           </Switch>
