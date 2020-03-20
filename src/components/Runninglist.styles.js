@@ -122,11 +122,11 @@ const StyledRunningTitle = styled.div`
 `
 
 const StyledRow = styled.div`
-  margin: 0;
   display: flex;
+  justify-content: center;
   width: 100vw;
-  height: 100%;
-  overflow-y: scroll;
+  height: auto;
+  overflow-y: visible;
 `
 
 const CreateButton = styled.button`

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyledSpan, StyledPersonEntry } from './Runninglist.styles'
+import saveToLocal from './utils/localStorage'
 
 export default function RenderNewPersonOnList({
   toNewRunninglist,
@@ -17,6 +18,10 @@ export default function RenderNewPersonOnList({
     const selectedSingle = selectedPerson[0]
     setPersons([...persons, selectedSingle])
   }
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
+
   return toNewRunninglist
     .filter(person => person.listid === clickedListId)
     .map(person => (
