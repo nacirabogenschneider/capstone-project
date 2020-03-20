@@ -4,6 +4,7 @@ import { Select, Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'
 import uuid from 'react-uuid'
 import FilterButton from './FilterButton'
+import FilterSelect from './FilterSelect'
 
 export default function Filter({
   setSelectedState,
@@ -66,7 +67,6 @@ export default function Filter({
     schoolOfChoiceCoordinates,
     setCardSchoolObject,
   ])
-
   function setStateSelector() {
     return schoolStates.map(state => (
       <option key={state.name} value={schoolOfChoice.name}>
@@ -74,39 +74,34 @@ export default function Filter({
       </option>
     ))
   }
-
-  function handleStateChange(event) {
-    setStateOfChoice(event.target.value)
-  }
-
   function handleSchoolChange(event) {
     setSchoolOfChoice(event.target.value)
+  }
+  function handleStateChange(event) {
+    setStateOfChoice(event.target.value)
   }
 
   return (
     <>
       <SelectSection key="Filter">
-        <Select
-          key="State-Filter"
+        <FilterSelect
           value={stateOfChoice}
-          onChange={handleStateChange}
-        >
-          <option key={uuid()}>Wähle dein Bundesland</option>
-          {setStateSelector()}
-        </Select>
+          setSelectedOfChoice={stateOfChoice}
+          handleChange={handleStateChange}
+          initialText="Wähle dein Bundesland"
+          options={setStateSelector()}
+        />
 
-        <Select
-          key="School-Filter"
+        <FilterSelect
           value={schoolOfChoice}
-          onChange={handleSchoolChange}
-        >
-          <option key={uuid()}>Wähle deine Schule</option>
-          {stateOfChoice &&
-            stateOfChoice !== 'Wähle dein Bundesland' &&
-            filterSchoolsByPrimaryState()}
-        </Select>
+          setSelectedOfChoice={schoolOfChoice}
+          handleChange={handleSchoolChange}
+          initialText="Wähle deine Schule"
+          options={filterSchoolsByPrimaryState()}
+        />
+
         <NavLink to="/meetpoint">
-          <FilterButton label={'check'} />
+          <FilterButton label="check" />
         </NavLink>
       </SelectSection>
     </>
