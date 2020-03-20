@@ -31,8 +31,6 @@ export default function School({
         <StyledContent key={uuid()}>
           <StyledImage src={phone} alt="phone"></StyledImage>
           <div>{school.phone}</div>
-          <div>{school.lat}</div>
-          <div>{school.lng}</div>
         </StyledContent>
       </React.Fragment>
     ))

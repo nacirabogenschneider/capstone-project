@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Select, Option, SelectSection } from './Filter.styles'
+import { Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'
-import uuid from 'react-uuid'
 import FilterButton from './FilterButton'
 import FilterSelect from './FilterSelect'
 
@@ -86,16 +85,14 @@ export default function Filter({
       <SelectSection key="Filter">
         <FilterSelect
           value={stateOfChoice}
-          setSelectedOfChoice={stateOfChoice}
-          handleChange={handleStateChange}
+          onChange={handleStateChange}
           initialText="Wähle dein Bundesland"
           options={setStateSelector()}
         />
 
         <FilterSelect
           value={schoolOfChoice}
-          setSelectedOfChoice={schoolOfChoice}
-          handleChange={handleSchoolChange}
+          onChange={handleSchoolChange}
           initialText="Wähle deine Schule"
           options={filterSchoolsByPrimaryState()}
         />

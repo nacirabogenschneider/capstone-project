@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import Card from './components/pages/meetpoint/Card'
+import MeetpointCard from './components/pages/meetpoint/Card'
 import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
@@ -45,8 +45,8 @@ function App() {
     .sort()
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
-  const [primarySchools, setPrimaryschools] = useState(primeSchools)
-  const [selectedSchoolCoordinates, setSelectedSchoolCoordinates] = useState({
+  const [primarySchools] = useState(primeSchools)
+  const [selectedSchoolCoordinates] = useState({
     lat: 0,
     lon: 0,
   })
@@ -105,7 +105,7 @@ function App() {
 
           <Switch>
             <Route path="/meetpoint">
-              <Card
+              <MeetpointCard
                 meetpoint={meetpoint}
                 setMeetpoint={setMeetpoint}
                 cardSchoolObject={cardSchoolObject}

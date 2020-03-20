@@ -12,14 +12,14 @@ import Meetpoint from './Meetpoint'
 
 import { Route, Switch } from 'react-router-dom'
 
-Card.propTypes = {
+MeetpointCard.propTypes = {
   selectedSchoolName: PropTypes.string,
   selectedSchoolAddress: PropTypes.string,
   selectedSchoolMeetpoint: PropTypes.string,
   currentSchool: PropTypes.string,
 }
 
-export default function Card({
+export default function MeetpointCard({
   meetpointFlag,
   currentSchoolImg,
   cardSchoolObject,

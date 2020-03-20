@@ -4,12 +4,12 @@ import { Select } from './Filter.styles'
 
 export default function SelectFilter({
   value,
-  handleChange,
+  onChange,
   initialText,
   options,
 }) {
   return (
-    <Select key="State-Filter" value={value} onChange={handleChange}>
+    <Select key="State-Filter" value={value} onChange={onChange}>
       <option key={uuid()}>{initialText}</option>
       {options}
     </Select>
