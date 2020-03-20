@@ -75,6 +75,7 @@ export default function RunninglistDetails({
 
             <RenderNewPersonOnList
               toNewRunninglist={toNewRunninglist}
+              setToNewRunninglist={setToNewRunninglist}
               setPersons={setPersons}
               persons={persons}
               minus={minus}

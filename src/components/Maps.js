@@ -11,10 +11,13 @@ import {
 
 export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
   const schoolName = cardSchoolObject.name
+
   const [schoolCoordinates, setSchoolCoordinates] = useState(
-    loadFromLocal('schoolCoordinates') === undefined
-      ? {}
-      : loadFromLocal('schoolCoordinates')
+    () =>
+      JSON.parse(localStorage.getItem('schoolCoordinates')) || {
+        lat: 0,
+        lng: 0,
+      }
   )
 
   const filterSchoolsByPrimaryState = useCallback(() => {
