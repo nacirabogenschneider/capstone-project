@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AddPointButton, Select, Option, SelectSection } from './Filter.styles'
+import { Select, Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'
 import uuid from 'react-uuid'
+import FilterButton from './FilterButton'
 
 export default function Filter({
   setSelectedState,
@@ -32,11 +33,9 @@ export default function Filter({
       .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
   }, [stateOfChoice, primarySchools])
 
-  saveToLocal('stateOfChoice', stateOfChoice)
-  saveToLocal('schoolOfChoice', schoolOfChoice)
-
   useEffect(() => {
     setSelectedState(stateOfChoice)
+    saveToLocal('stateOfChoice', stateOfChoice)
     filterSchoolsByPrimaryState()
   }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
@@ -51,6 +50,7 @@ export default function Filter({
 
     const selectedSchoolName = schoolAddressOfSelectedSchool[0]
     setSchoolOfChoiceName(selectedSchoolName)
+    saveToLocal('schoolOfChoice', schoolOfChoice)
   }, [schoolOfChoice, primarySchools])
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function Filter({
             filterSchoolsByPrimaryState()}
         </Select>
         <NavLink to="/meetpoint">
-          <AddPointButton aria-label="check">auswählen</AddPointButton>
+          <FilterButton label={'check'} />
         </NavLink>
       </SelectSection>
     </>

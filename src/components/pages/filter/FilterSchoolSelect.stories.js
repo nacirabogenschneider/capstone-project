@@ -21,16 +21,16 @@ const selectStyle = {
   boxShadow: '0 0 10px 2px #2b7380',
 }
 
-export const stateFilter = () => (
+export const schoolFilter = () => (
   <select
     key="State-Filter"
     value={'stateOfChoice'}
     onChange={action('filter primary schools by state')}
     style={selectStyle}
   >
-    <option key="key">Wähle dein Bundesland</option>
-    <option key="key">Hamburg</option>
-    <option key="key">Berlin</option>
-    <option key="key">Bayern</option>
+    <option key="key">Wähle deine Schule</option>
+    <option key="key">Schule Heidacker</option>
+    <option key="key">Wolfgang-Borchert-Schule</option>
+    <option key="key">Schule Appelhoff</option>
   </select>
 )
