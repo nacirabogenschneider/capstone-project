@@ -18,12 +18,6 @@ import {
 } from './Runninglist.styles'
 
 export default function Runninglist({ meetpoint }) {
-  const staticProfilData = [
-    { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },
-    { name: 'Vincent', state: 'child', class: '2a', key: uuid() },
-    { name: 'Marlene', state: 'child', class: 'VSKb', key: uuid() },
-    { name: 'Bruno', state: 'child', key: uuid() },
-  ]
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)
@@ -70,7 +64,6 @@ export default function Runninglist({ meetpoint }) {
           clickedListId={clickedListId}
           setIsClicked={setIsClicked}
           isClicked={isClicked}
-          staticProfilData={staticProfilData}
           runninglists={runningLists}
           plus={plus}
           minus={minus}

@@ -13,17 +13,21 @@ import {
 
 export default function RunninglistDetails({
   runninglists,
-  staticProfilData,
   isClicked,
   clickedListId,
   setIsClicked,
   plus,
   minus,
 }) {
+  const staticProfilData = [
+    { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },
+    { name: 'Vincent', state: 'child', class: '2a', key: uuid() },
+    { name: 'Marlene', state: 'child', class: 'VSKb', key: uuid() },
+    { name: 'Bruno', state: 'child', key: uuid() },
+  ]
   const [persons, setPersons] = useState(
     () => JSON.parse(localStorage.getItem('persons')) || staticProfilData
   )
-
   const [toNewRunninglist, setToNewRunninglist] = useState(
     () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
   )
@@ -81,6 +85,7 @@ export default function RunninglistDetails({
             <RunninglistPeopleFromProfile
               toNewRunninglist={toNewRunninglist}
               setToNewRunninglist={setToNewRunninglist}
+              setPersons={setPersons}
               persons={persons}
               plus={plus}
               clickedListId={clickedListId}

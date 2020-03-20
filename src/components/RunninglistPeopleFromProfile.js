@@ -9,19 +9,19 @@ import saveToLocal from './utils/localStorage'
 
 export default function RunninglistPeopleFromProfile({
   plus,
-  setPersons,
-  persons,
   setToNewRunninglist,
   toNewRunninglist,
   clickedListId,
+  persons,
+  setPersons,
 }) {
   function handleAddClick(event) {
     const index = persons.findIndex(item => item.name === event.target.id)
     const splittetElement = persons.filter(
       item => item.name !== event.target.id
     )
-    // setPersons(splittetElement)
-
+    setPersons(splittetElement)
+    saveToLocal('persons', persons)
     const selectedPerson = persons.splice(index, 1)
     const selectedSingle = selectedPerson[0]
     setToNewRunninglist([
