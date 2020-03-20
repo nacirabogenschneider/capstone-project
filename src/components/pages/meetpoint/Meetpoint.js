@@ -13,7 +13,7 @@ import {
   StyledMeetpoint,
 } from './Meetpoint.styles'
 import uuid from 'react-uuid'
-import { saveToLocal } from './utils/localStorage'
+import { saveToLocal } from '../utils/localStorage'
 
 export default function Meetpoint({
   meetpoint,

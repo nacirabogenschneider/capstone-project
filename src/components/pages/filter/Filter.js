@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AddPointButton, Select, Option, SelectSection } from './Filter.styles'
-import saveToLocal from './utils/localStorage'
+import saveToLocal from '../utils/localStorage'
 import uuid from 'react-uuid'
 
 export default function Filter({

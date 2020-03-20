@@ -2,10 +2,12 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
 import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
-import mapStyles from './utils/mapStyles'
+import mapStyles from './mapStyles'
 import uuid from 'react-uuid'
-import saveToLocal from './utils/localStorage'
-import loadFromLocal from './utils/localStorage'
+import {
+  saveToLocal,
+  loadFromLocal,
+} from '../components/pages/utils/localStorage'
 
 export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
   const schoolName = cardSchoolObject.name

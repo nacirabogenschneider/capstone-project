@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyledImage, StyledContent, StyledHeader } from './School.styles'
-import currentSchoolImg from '../img/svg/_school.svg'
-import phone from '../img/svg/_phone.svg'
-import mail from '../img/svg/_mail.svg'
 import uuid from 'react-uuid'
 
-export default function School({ primeSchools }) {
+export default function School({
+  primeSchools,
+  currentSchoolImg,
+  phone,
+  mail,
+}) {
   const jsonString = localStorage.getItem('schoolOfChoice')
   const data = JSON.parse(jsonString)
   const schoolData = data.split(',')

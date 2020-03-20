@@ -3,19 +3,24 @@ import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import Card from './components/Card'
-import Filter from './components/Filter'
+import Card from './components/pages/meetpoint/Card'
+import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
 import currentSchoolImg from './img/svg/_school.svg'
 import plus from './img/solid-sm/sm-plus.svg'
+import minus from './img/svg/_minus.svg'
 import back from './img/solid-sm/sm-arrow-left.svg'
 import check from './img/solid-sm/sm-check.svg'
-import Runninglist from './components/Runninglist'
+import circle from './img/svg/_circle.svg'
+import meetpointFlag from './img/svg/_flag.svg'
+import phone from './img/svg/_phone.svg'
+import mail from './img/svg/_mail.svg'
+import Runninglist from './components/pages/runninglist/Runninglist'
 import Navigation from './components/Navigation'
-import School from './components/School'
+import School from './components/pages/school/School'
 import Header from './components/Header'
-import { SchoolSection } from './components/School.styles'
+import { SchoolSection } from './components/pages/school/School.styles'
 import uuid from 'react-uuid'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
@@ -94,7 +99,12 @@ function App() {
           <Switch>
             <Route path="/school">
               <SchoolSection key={uuid()}>
-                <School primeSchools={primeSchools} />
+                <School
+                  currentSchoolImg={currentSchoolImg}
+                  phone={phone}
+                  mail={mail}
+                  primeSchools={primeSchools}
+                />
               </SchoolSection>
             </Route>
           </Switch>
@@ -106,6 +116,7 @@ function App() {
                 setMeetpoint={setMeetpoint}
                 cardSchoolObject={cardSchoolObject}
                 currentSchoolImg={currentSchoolImg}
+                meetpointFlag={meetpointFlag}
               />
             </Route>
           </Switch>
@@ -117,6 +128,8 @@ function App() {
                 plus={plus}
                 back={back}
                 check={check}
+                minus={minus}
+                circle={circle}
               />
             </Route>
           </Switch>

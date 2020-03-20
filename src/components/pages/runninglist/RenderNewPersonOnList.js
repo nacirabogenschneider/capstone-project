@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { StyledSpan, StyledPersonEntry } from './Runninglist.styles'
-import saveToLocal from './utils/localStorage'
+import saveToLocal from '../utils/localStorage'
 
 export default function RenderNewPersonOnList({
   toNewRunninglist,

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import uuid from 'react-uuid'
-import plus from '../img/solid-sm/sm-plus.svg'
 import RunninglistDetails from './RunninglistDetails'
-import circle from '../img/svg/_circle.svg'
-import minus from '../img/svg/_minus.svg'
-import saveToLocal from './utils/localStorage'
+import saveToLocal from '../utils/localStorage'
 import CreateRunninglist from './CreateRunninglist'
 import {
   RunningListInput,
@@ -17,7 +14,7 @@ import {
   CreateButton,
 } from './Runninglist.styles'
 
-export default function Runninglist({ meetpoint }) {
+export default function Runninglist({ meetpoint, plus, minus, circle }) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)

@@ -5,7 +5,7 @@ import {
   CreateButton,
   StyledWrap,
 } from './Runninglist.styles'
-import saveToLocal from './utils/localStorage'
+import saveToLocal from '../utils/localStorage'
 
 export default function RunninglistPeopleFromProfile({
   plus,

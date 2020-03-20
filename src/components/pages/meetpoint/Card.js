@@ -9,8 +9,7 @@ import {
   StyledSpan,
 } from './Card.styles'
 import Meetpoint from './Meetpoint'
-import meetpointFlag from '../img/svg/_flag.svg'
-import currentSchoolImg from '../img/svg/_school.svg'
+
 import { Route, Switch } from 'react-router-dom'
 
 Card.propTypes = {
@@ -20,7 +19,13 @@ Card.propTypes = {
   currentSchool: PropTypes.string,
 }
 
-export default function Card({ cardSchoolObject, meetpoint, setMeetpoint }) {
+export default function Card({
+  meetpointFlag,
+  currentSchoolImg,
+  cardSchoolObject,
+  meetpoint,
+  setMeetpoint,
+}) {
   const [card] = useState(cardSchoolObject)
   const [selectedMeetpoint, setSelectedMeetpoint] = useState(
     () => JSON.parse(localStorage.getItem('selectedMeetpoint')) || ''
