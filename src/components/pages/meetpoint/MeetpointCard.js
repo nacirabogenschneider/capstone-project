@@ -7,7 +7,7 @@ import {
   InfoCards,
   StyledSvg,
   StyledSpan,
-} from './Card.styles'
+} from './MeetpointCard.styles'
 import Meetpoint from './Meetpoint'
 
 import { Route, Switch } from 'react-router-dom'

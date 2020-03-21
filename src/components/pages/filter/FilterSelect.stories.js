@@ -45,9 +45,9 @@ export const stateFilter = () => (
     style={selectStyle}
     value={'stateOfChoice'}
     onChange={action('filter primary schools by selected state')}
-    initialText={'Wähle dein Bundesland'}
     options={optionsStates}
   >
+    <option key={uuid()}>{'Wähle dein Bundesland'}</option>
     {renderselection(optionsStates)}
   </select>
 )
@@ -56,9 +56,9 @@ export const schoolFilter = () => (
     style={selectStyle}
     value={'schoolOfChoice'}
     onChange={action('set selected school as selected')}
-    initialText={'Wähle deine Schule'}
     options={optionsSchool}
   >
+    <option key={uuid()}>{'Wähle deine Schule'}</option>
     {renderselection(optionsSchool)}
   </select>
 )

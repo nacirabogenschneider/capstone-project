@@ -53,18 +53,18 @@ export default function Meetpoint({
       meetpointLat: coordinates.lat,
       meetpointLng: coordinates.lng,
     })
+    saveToLocal('meetpoint', meetpoint)
   }
 
   function handelMeetPointChange(event) {
     setSelectedMeetpoint(event.target.value)
     setMeetpoint(event.target.value)
+    saveToLocal('selectedMeetpoint', selectedMeetpoint)
   }
 
   useEffect(() => {
     setMeetpointSelection([...meetpointSelection, meetpoint])
-    saveToLocal('meetpoint', meetpoint)
     saveToLocal('meetpointSelection', meetpointSelection)
-    saveToLocal('selectedMeetpoint', selectedMeetpoint)
   }, [meetpoint])
 
   return (

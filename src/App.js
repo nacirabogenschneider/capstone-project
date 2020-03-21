@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import MeetpointCard from './components/pages/meetpoint/Card'
+import MeetpointCard from './components/pages/meetpoint/MeetpointCard'
 import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
@@ -45,7 +45,6 @@ function App() {
     .sort()
   const schoolStates = schoolsData.states
   const [selectedState, setSelectedState] = useState('')
-  const [primarySchools] = useState(primeSchools)
   const [selectedSchoolCoordinates] = useState({
     lat: 0,
     lon: 0,
@@ -71,7 +70,7 @@ function App() {
             cardSchoolObject={cardSchoolObject}
             selectedState={selectedState}
             selectedSchoolCoordinates={selectedSchoolCoordinates}
-            primeSchools={primarySchools}
+            primeSchools={primeSchools}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
             loadingElement={<div style={{ height: `100%` }}></div>}
@@ -84,7 +83,7 @@ function App() {
                 key="Filter-Component"
                 setSelectedState={setSelectedState}
                 schoolStates={schoolStates}
-                primarySchools={primarySchools}
+                primarySchools={primeSchools}
                 setCardSchoolObject={setCardSchoolObject}
               />
             </Route>
