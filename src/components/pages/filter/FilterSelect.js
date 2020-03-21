@@ -1,6 +1,6 @@
-import React from 'react'
-import uuid from 'react-uuid'
-import { Select } from './Filter.styles'
+import React from "react"
+import uuid from "react-uuid"
+import { Select } from "./Filter.styles"
 
 export default function SelectFilter({
   value,

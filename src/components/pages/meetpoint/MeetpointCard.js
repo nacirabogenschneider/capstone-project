@@ -35,7 +35,7 @@ export default function MeetpointCard({
       JSON.parse(localStorage.getItem('selectedMeetpoints')) ||
       createdMeetpoints[createdMeetpoints.length - 1]
   )
-  console.log('Schule - ', chosenSchool)
+  console.log('MEETPOINTCARD-', createdMeetpoints)
   return (
     <>
       <Switch>
@@ -47,15 +47,15 @@ export default function MeetpointCard({
                   src={currentSchoolImg}
                   alt="current school"
                 ></StyledSvg>
-                {/* {chosenSchool[0].name} */}
-                <StyledSpan></StyledSpan>
+
+                <StyledSpan> {chosenSchool.name}</StyledSpan>
               </CardHeader>
               <MeetHeader>
                 <StyledSvg
                   src={meetpointFlag}
                   alt="current meetpoint"
                 ></StyledSvg>
-                <StyledSpan key={uuid()}>{selectedMeetpoints}</StyledSpan>
+                <StyledSpan key={uuid()}>{chosenSchool.name}</StyledSpan>
               </MeetHeader>
             </SchoolCard>
             <Meetpoint

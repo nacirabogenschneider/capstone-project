@@ -8,21 +8,13 @@ import FilterSelect from './FilterSelect'
 export default function Filter({
   setSelectedSchool,
   selectedSchool,
+  chosenSchool,
   setSelectedState,
   schoolStates,
   primarySchools,
-  setCardSchoolObject,
+  stateOfChoice,
+  setStateOfChoice,
 }) {
-  const [stateOfChoice, setStateOfChoice] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('stateOfChoice')) ||
-      'Wähle dein Bundesland'
-  )
-
-  const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
-  const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
-  const [schoolOfChoiceCoordinates] = useState([])
-
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
       .filter(school => school.state === stateOfChoice)
@@ -32,47 +24,25 @@ export default function Filter({
   }, [stateOfChoice, primarySchools])
 
   useEffect(() => {
-    setSelectedState(stateOfChoice)
     saveToLocal('stateOfChoice', stateOfChoice)
     filterSchoolsByPrimaryState()
   }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
-  useEffect(() => {
-    const schoolAddressOfSelectedSchool = selectedSchool.split(',')
-    const selectedSchoolAddress =
-      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 2] +
-      ',' +
-      schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 1]
+  // useEffect(() => {
+  //   saveToLocal('selectedSchool', selectedSchool)
+  // }, [selectedSchool])
 
-    setSchoolOfChoiceAddress(selectedSchoolAddress)
-
-    const selectedSchoolName = schoolAddressOfSelectedSchool[0]
-    setSchoolOfChoiceName(selectedSchoolName)
-    saveToLocal('selectedSchool', selectedSchool)
-  }, [selectedSchool, primarySchools])
-
-  useEffect(() => {
-    setCardSchoolObject({
-      name: schoolOfChoiceName,
-      address: schoolOfChoiceAddress,
-      lat: schoolOfChoiceCoordinates.lat,
-      lng: schoolOfChoiceCoordinates.lng,
-    })
-  }, [
-    schoolOfChoiceName,
-    schoolOfChoiceAddress,
-    schoolOfChoiceCoordinates,
-    setCardSchoolObject,
-  ])
   function setStateSelector() {
     return schoolStates.map(state => (
-      <option key={state.name} value={selectedSchool.name}>
+      <option key={state.name} value={state.name}>
         {state.name}
       </option>
     ))
   }
   function handleSchoolChange(event) {
     setSelectedSchool(event.target.value)
+    console.log(event.target.value)
+    saveToLocal('selectedSchool', event.target.value)
   }
   function handleStateChange(event) {
     setStateOfChoice(event.target.value)
@@ -92,7 +62,7 @@ export default function Filter({
         initialText="Wähle deine Schule"
         options={filterSchoolsByPrimaryState()}
       />
-      <NavLink to="/meetpoint">
+      <NavLink to="/school">
         <FilterButton label="check" />
       </NavLink>
     </SelectSection>

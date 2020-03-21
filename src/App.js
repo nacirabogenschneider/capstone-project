@@ -22,6 +22,7 @@ import School from './components/pages/school/School'
 import Header from './components/Header'
 import { SchoolSection } from './components/pages/school/School.styles'
 import uuid from 'react-uuid'
+import { loadFromLocal } from './components/pages/utils/localStorage'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -44,18 +45,6 @@ function App() {
     .filter(school => school.school_type === 'Grundschule')
     .sort()
   const schoolStates = schoolsData.states
-  const [selectedState, setSelectedState] = useState('')
-  const [selectedSchoolCoordinates] = useState({
-    lat: 0,
-    lon: 0,
-  })
-  const [cardSchoolObject, setCardSchoolObject] = useState({
-    name: 'Noch keine Schule ausgewählt',
-  })
-  const [selectedSchool, setSelectedSchool] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('selectedSchool')) || 'Wähle deine Schule'
-  )
 
   const [createdMeetpoints, setCreatedMeetpoints] = useState(
     () =>
@@ -65,7 +54,23 @@ function App() {
         },
       ]
   )
-  const [chosenSchool, setChosenSchool] = useState()
+  const [chosenSchool, setChosenSchool] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('chosenSchool')) || [
+        { name: 'Wähle deine Schule' },
+      ]
+  )
+
+  const [stateOfChoice, setStateOfChoice] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('stateOfChoice')) ||
+      'Wähle dein Bundesland'
+  )
+  const [selectedSchool, setSelectedSchool] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('selectedSchool')) || 'Wähle deine Schule'
+  )
+
   console.log('APP.JS-', chosenSchool)
   return (
     <Router>
@@ -74,10 +79,10 @@ function App() {
         <MapContainer key="mapcontainer">
           <MapWrapped
             createdMeetpoints={createdMeetpoints}
-            cardSchoolObject={cardSchoolObject}
-            selectedState={selectedState}
-            selectedSchoolCoordinates={selectedSchoolCoordinates}
+            stateOfChoice={stateOfChoice}
+            setStateOfChoice={setStateOfChoice}
             primeSchools={primeSchools}
+            chosenSchool={chosenSchool}
             key={Math.random()}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
             loadingElement={<div style={{ height: `100%` }}></div>}
@@ -88,12 +93,11 @@ function App() {
             <Route exact path="/">
               <Filter
                 key="Filter-Component"
-                setSelectedState={setSelectedState}
-                setSelectedSchool={setSelectedSchool}
-                selectedSchool={selectedSchool}
                 schoolStates={schoolStates}
                 primarySchools={primeSchools}
-                setCardSchoolObject={setCardSchoolObject}
+                stateOfChoice={stateOfChoice}
+                setStateOfChoice={setStateOfChoice}
+                setSelectedSchool={setSelectedSchool}
               />
             </Route>
           </Switch>
@@ -107,6 +111,7 @@ function App() {
                   phone={phone}
                   mail={mail}
                   primeSchools={primeSchools}
+                  chosenSchool={chosenSchool}
                   setChosenSchool={setChosenSchool}
                 />
               </SchoolSection>

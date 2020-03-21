@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { StyledImage, StyledContent, StyledHeader } from './School.styles'
 import uuid from 'react-uuid'
+import saveToLocal from '../utils/localStorage'
 
 export default function School({
   primeSchools,
@@ -9,12 +10,12 @@ export default function School({
   phone,
   mail,
   setChosenSchool,
+  chosenSchool,
 }) {
   const selectedSchoolByChoice = findFullSchoolElement()
-  console.log('selectedSchool', selectedSchoolByChoice)
-
   useEffect(() => {
     setChosenSchool(selectedSchoolByChoice)
+    saveToLocal('chosenSchool', chosenSchool)
   }, [selectedSchoolByChoice])
 
   return (
