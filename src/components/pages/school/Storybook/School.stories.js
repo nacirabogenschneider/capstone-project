@@ -3,6 +3,7 @@ import School from '../School'
 import phone from './_phone.svg'
 import mail from './_mail.svg'
 import currentSchoolImg from './_school.svg'
+import styled from '@emotion/styled'
 
 export default {
   title: 'School/SchoolCard',
@@ -41,23 +42,20 @@ const primeSchools = [
     state: 'Hamburg',
   },
 ]
-
-const cardStyle = {
-  background: 'white',
-  opacity: 0.94,
-  top: 115,
-  minHeight: 240,
-  left: 10,
-  right: 10,
-  borderRadius: 12,
-  opacity: 0.94,
-  borderRadius: 12,
-  boxShadow: ' 0 0 10px 2px #2b7380',
-}
+const StyledSchoolCard = styled(School)`
+  position: absolute;
+  background: white;
+  opacity: 0.94;
+  top: 115px;
+  min-height: 240px;
+  left: 10px;
+  right: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 2px #2b7380;
+`
 
 export const schoolInfosCard = () => (
-  <School
-    style={cardStyle}
+  <StyledSchoolCard
     currentSchoolImg={currentSchoolImg}
     phone={phone}
     mail={mail}

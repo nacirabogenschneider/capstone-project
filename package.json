@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "10.0.28",
+    "@emotion/styled": "10.0.27",
     "@react-google-maps/api": "1.8.3",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.4.1",
@@ -56,6 +58,7 @@
     "@storybook/addons": "5.3.17",
     "@storybook/preset-create-react-app": "2.1.0",
     "@storybook/react": "5.3.17",
+    "babel-plugin-emotion": "10.0.29",
     "cypress": "4.1.0"
   }
 }
