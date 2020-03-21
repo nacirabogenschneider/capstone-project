@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import uuid from 'react-uuid'
+
 import {
   SchoolCard,
   MeetHeader,
@@ -22,15 +24,18 @@ MeetpointCard.propTypes = {
 export default function MeetpointCard({
   meetpointFlag,
   currentSchoolImg,
-  cardSchoolObject,
-  meetpoint,
-  setMeetpoint,
+  chosenSchool,
 }) {
-  const [card] = useState(cardSchoolObject)
-  const [selectedMeetpoint, setSelectedMeetpoint] = useState(
-    () => JSON.parse(localStorage.getItem('selectedMeetpoint')) || ''
+  const [createdMeetpoints, setCreatedMeetpoints] = useState(
+    () => JSON.parse(localStorage.getItem('createdMeetpoints')) || []
   )
 
+  const [selectedMeetpoints, setSelectedMeetpoints] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('selectedMeetpoints')) ||
+      createdMeetpoints[createdMeetpoints.length - 1]
+  )
+  console.log('Schule - ', chosenSchool)
   return (
     <>
       <Switch>
@@ -42,23 +47,22 @@ export default function MeetpointCard({
                   src={currentSchoolImg}
                   alt="current school"
                 ></StyledSvg>
-                <StyledSpan>{card.name}</StyledSpan>
+                {/* {chosenSchool[0].name} */}
+                <StyledSpan></StyledSpan>
               </CardHeader>
               <MeetHeader>
                 <StyledSvg
                   src={meetpointFlag}
                   alt="current meetpoint"
                 ></StyledSvg>
-                <StyledSpan key={meetpoint.meetpoint}>
-                  {meetpoint.meetpoint || selectedMeetpoint}
-                </StyledSpan>
+                <StyledSpan key={uuid()}>{selectedMeetpoints}</StyledSpan>
               </MeetHeader>
             </SchoolCard>
             <Meetpoint
-              selectedMeetpoint={selectedMeetpoint}
-              setSelectedMeetpoint={setSelectedMeetpoint}
-              setMeetpoint={setMeetpoint}
-              meetpoint={meetpoint}
+              selectedMeetpoints={selectedMeetpoints}
+              setSelectedMeetpoints={setSelectedMeetpoints}
+              createdMeetpoints={createdMeetpoints}
+              setCreatedMeetpoints={setCreatedMeetpoints}
             />
           </InfoCards>
         </Route>

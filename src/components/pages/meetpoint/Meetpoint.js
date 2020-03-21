@@ -4,12 +4,15 @@ import { AddPointButton, ButtonWrapper } from './Meetpoint.styles'
 import MeetpointSelect from './MeetpointSelect'
 import { saveToLocal } from '../utils/localStorage'
 import MeetpointPlacesAutocomplete from './MeetpointPlacesAutocomplete'
+import uuid from 'react-uuid'
 
 export default function Meetpoint({
-  meetpoint,
-  setMeetpoint,
-  selectedMeetpoint,
-  setSelectedMeetpoint,
+  createdMeetpoint,
+  setCreatedMeetpoint,
+  selectedMeetpoints,
+  setSelectedMeetpoints,
+  setCreatedMeetpoints,
+  createdMeetpoints,
 }) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState(
@@ -19,7 +22,6 @@ export default function Meetpoint({
         lgn: null,
       }
   )
-
   const [meetpointSelection, setMeetpointSelection] = useState(
     () =>
       JSON.parse(localStorage.getItem('meetpointSelection')) || [
@@ -28,27 +30,30 @@ export default function Meetpoint({
   )
 
   function handleClick() {
-    setMeetpoint({
-      meetpoint: address,
-      meetpointLat: coordinates.lat,
-      meetpointLng: coordinates.lng,
-    })
-    saveToLocal('meetpoint', meetpoint)
+    setCreatedMeetpoints([
+      ...createdMeetpoints,
+      {
+        meetpoint: address,
+        id: address,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+      },
+    ])
+    saveToLocal('createdMeetpoints', createdMeetpoints)
   }
 
   useEffect(() => {
-    meetpoint.meetpoint !== 'Neuen Treffpunkt erstellen' &&
-      setMeetpointSelection([...meetpointSelection, meetpoint])
+    setMeetpointSelection([...meetpointSelection, createdMeetpoints])
     saveToLocal('meetpointSelection', meetpointSelection)
-  }, [meetpoint])
+  }, [createdMeetpoint])
 
   return (
     <>
       <MeetpointSelect
-        selectedMeetpoint={selectedMeetpoint}
-        setSelectedMeetpoint={setSelectedMeetpoint}
+        selectedMeetpoints={selectedMeetpoints}
+        setSelectedMeetpoint={setSelectedMeetpoints}
         meetpointSelection={meetpointSelection}
-        setMeetpoint={setMeetpoint}
+        setCreatedMeetpoint={setCreatedMeetpoint}
       />
 
       <MeetpointPlacesAutocomplete
@@ -62,6 +67,11 @@ export default function Meetpoint({
         <NavLink to="/meetpoint">
           <AddPointButton aria-label="check" onClick={handleClick}>
             erstellen
+          </AddPointButton>
+        </NavLink>
+        <NavLink to="/runninglist">
+          <AddPointButton aria-label="check" onClick={handleClick}>
+            weiter
           </AddPointButton>
         </NavLink>
       </ButtonWrapper>

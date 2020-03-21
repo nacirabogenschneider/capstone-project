@@ -57,20 +57,23 @@ function App() {
       JSON.parse(localStorage.getItem('selectedSchool')) || 'Wähle deine Schule'
   )
 
-  const [meetpoint, setMeetpoint] = useState(
+  const [createdMeetpoints, setCreatedMeetpoints] = useState(
     () =>
-      JSON.parse(localStorage.getItem('meetpoint')) || {
-        meetpoint: 'Neuen Treffpunkt erstellen',
-      }
+      JSON.parse(localStorage.getItem('createdMeetpoints')) || [
+        {
+          meetpoint: 'Neuen Treffpunkt erstellen',
+        },
+      ]
   )
-
+  const [chosenSchool, setChosenSchool] = useState()
+  console.log('APP.JS-', chosenSchool)
   return (
     <Router>
       <AppGrid>
         <Header />
         <MapContainer key="mapcontainer">
           <MapWrapped
-            meetpoint={meetpoint}
+            createdMeetpoints={createdMeetpoints}
             cardSchoolObject={cardSchoolObject}
             selectedState={selectedState}
             selectedSchoolCoordinates={selectedSchoolCoordinates}
@@ -104,6 +107,7 @@ function App() {
                   phone={phone}
                   mail={mail}
                   primeSchools={primeSchools}
+                  setChosenSchool={setChosenSchool}
                 />
               </SchoolSection>
             </Route>
@@ -112,11 +116,12 @@ function App() {
           <Switch>
             <Route path="/meetpoint">
               <MeetpointCard
-                meetpoint={meetpoint}
-                setMeetpoint={setMeetpoint}
-                cardSchoolObject={cardSchoolObject}
+                createdMeetpoints={createdMeetpoints}
+                setCreatedMeetpoints={setCreatedMeetpoints}
+                selectedSchool={selectedSchool}
                 currentSchoolImg={currentSchoolImg}
                 meetpointFlag={meetpointFlag}
+                chosenSchool={chosenSchool}
               />
             </Route>
           </Switch>
@@ -124,7 +129,7 @@ function App() {
           <Switch>
             <Route path="/runninglist">
               <Runninglist
-                meetpoint={meetpoint}
+                createdMeetpoints={createdMeetpoints}
                 plus={plus}
                 back={back}
                 check={check}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyledImage, StyledContent, StyledHeader } from './School.styles'
 import uuid from 'react-uuid'
 
@@ -8,21 +8,28 @@ export default function School({
   currentSchoolImg,
   phone,
   mail,
+  setChosenSchool,
 }) {
-  const selectedSchoolByChoiceInArray = findFullSchoolElement()
+  const selectedSchoolByChoice = findFullSchoolElement()
+  console.log('selectedSchool', selectedSchoolByChoice)
+
+  useEffect(() => {
+    setChosenSchool(selectedSchoolByChoice)
+  }, [selectedSchoolByChoice])
+
   return (
     <React.Fragment key={uuid}>
       <StyledHeader key={uuid()}>
         <StyledImage src={currentSchoolImg} alt="current school"></StyledImage>
-        <div>{selectedSchoolByChoiceInArray[0].name}</div>
+        <div>{selectedSchoolByChoice.name}</div>
       </StyledHeader>
       <StyledContent key={uuid()}>
         <StyledImage src={mail} alt="mail"></StyledImage>
-        <div>{selectedSchoolByChoiceInArray[0].address}</div>
+        <div>{selectedSchoolByChoice.address}</div>
       </StyledContent>
       <StyledContent key={uuid()}>
         <StyledImage src={phone} alt="phone"></StyledImage>
-        <div>{selectedSchoolByChoiceInArray[0].phone}</div>
+        <div>{selectedSchoolByChoice.phone}</div>
       </StyledContent>
     </React.Fragment>
   )
@@ -33,6 +40,7 @@ export default function School({
     const selectedSchoolByChoiceInArray = primeSchools.filter(
       school => school.name === selectedSchoolName
     )
-    return selectedSchoolByChoiceInArray
+    const selectedSchoolByChoice = selectedSchoolByChoiceInArray[0]
+    return selectedSchoolByChoice
   }
 }

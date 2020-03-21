@@ -8,11 +8,9 @@ export default function MeetpointSelect({
   setMeetpointSelection,
   selectedMeetpoint,
   meetpointSelection,
-  setMeetpoint,
 }) {
   function handelMeetPointChange(event) {
     setSelectedMeetpoint(event.target.value)
-    setMeetpoint(event.target.value)
     saveToLocal('selectedMeetpoint', selectedMeetpoint)
   }
 

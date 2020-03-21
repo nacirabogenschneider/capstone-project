@@ -14,7 +14,12 @@ import {
   CreateButton,
 } from './Runninglist.styles'
 
-export default function Runninglist({ meetpoint, plus, minus, circle }) {
+export default function Runninglist({
+  createdMeetpoints,
+  plus,
+  minus,
+  circle,
+}) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)
@@ -35,7 +40,8 @@ export default function Runninglist({ meetpoint, plus, minus, circle }) {
       {
         time: data.time,
         listname: data.listname,
-        meetpoint: meetpoint.name,
+        // HIER muss noch der Meetpoint mit der Runningslist verknüpft werden
+        meetpoint: createdMeetpoints[0].meetpoint,
         id: unique,
         key: unique,
       },
@@ -52,6 +58,7 @@ export default function Runninglist({ meetpoint, plus, minus, circle }) {
           </StyledRunningTitle>
         </StyledRow>
         <CreateRunninglist
+          createdMeetpoints={createdMeetpoints}
           circle={circle}
           runningLists={runningLists}
           setClickedListID={setClickedListID}
