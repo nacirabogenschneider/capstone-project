@@ -1,10 +1,15 @@
 import React from 'react'
-import School from './School'
+import School from '../School'
+import phone from './_phone.svg'
+import mail from './_mail.svg'
+import currentSchoolImg from './_school.svg'
 
 export default {
   title: 'School/SchoolCard',
   component: School,
 }
+const selectedSchool =
+  'Katholische Schule Hammer Kirche, Bei der Hammer Kirche 10, 20535 Hamburg'
 
 const primeSchools = [
   {
@@ -37,8 +42,7 @@ const primeSchools = [
   },
 ]
 
-const styling = {
-  position: 'absolute',
+const cardStyle = {
   background: 'white',
   opacity: 0.94,
   top: 115,
@@ -46,15 +50,18 @@ const styling = {
   left: 10,
   right: 10,
   borderRadius: 12,
-  boxShadow: '0 0 10px 2px #2b7380',
+  opacity: 0.94,
+  borderRadius: 12,
+  boxShadow: ' 0 0 10px 2px #2b7380',
 }
 
 export const schoolInfosCard = () => (
   <School
-    styling={styling}
-    // currentSchoolImg={currentSchoolImg}
-    // phone={phone}
-    // mail={mail}
+    style={cardStyle}
+    currentSchoolImg={currentSchoolImg}
+    phone={phone}
+    mail={mail}
+    selectedSchool={selectedSchool}
     primeSchools={primeSchools}
   />
 )
