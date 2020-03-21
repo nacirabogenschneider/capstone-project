@@ -39,7 +39,6 @@ export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
     }
   }, [filterSchoolsByPrimaryState, schoolName])
 
-  // saveToLocal('primeSchools', primeSchools)
   return (
     <GoogleMap
       defaultZoom={11}
