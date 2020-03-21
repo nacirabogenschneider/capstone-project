@@ -6,6 +6,8 @@ import FilterButton from './FilterButton'
 import FilterSelect from './FilterSelect'
 
 export default function Filter({
+  setSelectedSchool,
+  selectedSchool,
   setSelectedState,
   schoolStates,
   primarySchools,
@@ -17,10 +19,10 @@ export default function Filter({
       'Wähle dein Bundesland'
   )
 
-  const [schoolOfChoice, setSchoolOfChoice] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('schoolOfChoice')) || 'Wähle deine Schule'
-  )
+  // const [schoolOfChoice, setSchoolOfChoice] = useState(
+  //   () =>
+  //     JSON.parse(localStorage.getItem('schoolOfChoice')) || 'Wähle deine Schule'
+  // )
 
   const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
   const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
@@ -40,7 +42,7 @@ export default function Filter({
   }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
   useEffect(() => {
-    const schoolAddressOfSelectedSchool = schoolOfChoice.split(',')
+    const schoolAddressOfSelectedSchool = selectedSchool.split(',')
     const selectedSchoolAddress =
       schoolAddressOfSelectedSchool[schoolAddressOfSelectedSchool.length - 2] +
       ',' +
@@ -50,8 +52,8 @@ export default function Filter({
 
     const selectedSchoolName = schoolAddressOfSelectedSchool[0]
     setSchoolOfChoiceName(selectedSchoolName)
-    saveToLocal('schoolOfChoice', schoolOfChoice)
-  }, [schoolOfChoice, primarySchools])
+    saveToLocal('selectedSchool', selectedSchool)
+  }, [selectedSchool, primarySchools])
 
   useEffect(() => {
     setCardSchoolObject({
@@ -68,13 +70,13 @@ export default function Filter({
   ])
   function setStateSelector() {
     return schoolStates.map(state => (
-      <option key={state.name} value={schoolOfChoice.name}>
+      <option key={state.name} value={selectedSchool.name}>
         {state.name}
       </option>
     ))
   }
   function handleSchoolChange(event) {
-    setSchoolOfChoice(event.target.value)
+    setSelectedSchool(event.target.value)
   }
   function handleStateChange(event) {
     setStateOfChoice(event.target.value)
@@ -91,7 +93,7 @@ export default function Filter({
         />
 
         <FilterSelect
-          value={schoolOfChoice}
+          value={selectedSchool}
           onChange={handleSchoolChange}
           initialText="Wähle deine Schule"
           options={filterSchoolsByPrimaryState()}

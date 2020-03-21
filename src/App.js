@@ -52,6 +52,10 @@ function App() {
   const [cardSchoolObject, setCardSchoolObject] = useState({
     name: 'Noch keine Schule ausgewählt',
   })
+  const [selectedSchool, setSelectedSchool] = useState(
+    () =>
+      JSON.parse(localStorage.getItem('selectedSchool')) || 'Wähle deine Schule'
+  )
 
   const [meetpoint, setMeetpoint] = useState(
     () =>
@@ -82,6 +86,8 @@ function App() {
               <Filter
                 key="Filter-Component"
                 setSelectedState={setSelectedState}
+                setSelectedSchool={setSelectedSchool}
+                selectedSchool={selectedSchool}
                 schoolStates={schoolStates}
                 primarySchools={primeSchools}
                 setCardSchoolObject={setCardSchoolObject}
@@ -93,6 +99,7 @@ function App() {
             <Route path="/school">
               <SchoolSection key={uuid()}>
                 <School
+                  selectedSchool={selectedSchool}
                   currentSchoolImg={currentSchoolImg}
                   phone={phone}
                   mail={mail}

@@ -4,34 +4,41 @@ import uuid from 'react-uuid'
 
 export default function School({
   primeSchools,
+  selectedSchool,
   currentSchoolImg,
   phone,
   mail,
 }) {
-  const jsonString = localStorage.getItem('schoolOfChoice')
-  const data = JSON.parse(jsonString)
-  const schoolData = data.split(',')
-  const schoolName = schoolData[0]
+  const selectedSchoolByChoiceInArray = findFullSchoolElement()
 
-  return primeSchools
-    .filter(school => school.name === schoolName)
-    .map(school => (
-      <React.Fragment key={uuid}>
-        <StyledHeader key={uuid()}>
-          <StyledImage
-            src={currentSchoolImg}
-            alt="current school"
-          ></StyledImage>
-          <div>{school.name}</div>
-        </StyledHeader>
-        <StyledContent key={uuid()}>
-          <StyledImage src={mail} alt="mail"></StyledImage>
-          <div>{school.address}</div>
-        </StyledContent>
-        <StyledContent key={uuid()}>
-          <StyledImage src={phone} alt="phone"></StyledImage>
-          <div>{school.phone}</div>
-        </StyledContent>
-      </React.Fragment>
-    ))
+  console.log('primeSchools', primeSchools)
+  console.log('selectedSchool', selectedSchool)
+
+  console.log('selectedSchoolByChoiceInArray', selectedSchoolByChoiceInArray)
+
+  return (
+    <React.Fragment key={uuid}>
+      <StyledHeader key={uuid()}>
+        <StyledImage src={currentSchoolImg} alt="current school"></StyledImage>
+        <div>{selectedSchoolByChoiceInArray[0].name}</div>
+      </StyledHeader>
+      <StyledContent key={uuid()}>
+        <StyledImage src={mail} alt="mail"></StyledImage>
+        <div>{selectedSchoolByChoiceInArray[0].address}</div>
+      </StyledContent>
+      <StyledContent key={uuid()}>
+        <StyledImage src={phone} alt="phone"></StyledImage>
+        <div>{selectedSchoolByChoiceInArray[0].phone}</div>
+      </StyledContent>
+    </React.Fragment>
+  )
+
+  function findFullSchoolElement() {
+    const selectedSchoolNameAndAddress = selectedSchool.split(',')
+    const selectedSchoolName = selectedSchoolNameAndAddress[0]
+    const selectedSchoolByChoiceInArray = primeSchools.filter(
+      school => school.name === selectedSchoolName
+    )
+    return selectedSchoolByChoiceInArray
+  }
 }
