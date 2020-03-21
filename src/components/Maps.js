@@ -4,7 +4,6 @@ import schoolsImg from '../img/solid-sm/school-all.svg'
 import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
 import mapStyles from './mapStyles'
 import uuid from 'react-uuid'
-import { saveToLocal } from '../components/pages/utils/localStorage'
 
 export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
   const schoolName = cardSchoolObject.name
@@ -40,8 +39,7 @@ export default function Map({ cardSchoolObject, primeSchools, selectedState }) {
     }
   }, [filterSchoolsByPrimaryState, schoolName])
 
-  saveToLocal('schoolCoordinates', schoolCoordinates)
-  saveToLocal('primeSchools', primeSchools)
+  // saveToLocal('primeSchools', primeSchools)
   return (
     <GoogleMap
       defaultZoom={11}

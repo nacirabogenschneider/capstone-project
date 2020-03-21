@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete'
 import { NavLink } from 'react-router-dom'
-import {
-  StyledInput,
-  StyledSuggestion,
-  StyledSuggestionWrapper,
-  AddPointButton,
-  ButtonWrapper,
-  StyledMeetpoint,
-} from './Meetpoint.styles'
-import uuid from 'react-uuid'
+import { AddPointButton, ButtonWrapper } from './Meetpoint.styles'
+import MeetpointSelect from './MeetpointSelect'
 import { saveToLocal } from '../utils/localStorage'
+import MeetpointPlacesAutocomplete from './MeetpointPlacesAutocomplete'
 
 export default function Meetpoint({
   meetpoint,
@@ -31,21 +21,11 @@ export default function Meetpoint({
   )
 
   const [meetpointSelection, setMeetpointSelection] = useState(
-    () => JSON.parse(localStorage.getItem('meetpointSelection')) || [meetpoint]
+    () =>
+      JSON.parse(localStorage.getItem('meetpointSelection')) || [
+        { meetpoint: 'Erstelle den ersten Treffpunkt' },
+      ]
   )
-  const handleSelect = async value => {
-    const results = await geocodeByAddress(value)
-    const latLng = await getLatLng(results[0])
-    setAddress(value)
-    setCoordinates(latLng)
-    saveToLocal('meetpointCoordinates', coordinates)
-  }
-
-  function renderMeetpointSelection() {
-    return meetpointSelection.map(point => (
-      <option key={uuid()}>{point.meetpoint}</option>
-    ))
-  }
 
   function handleClick() {
     setMeetpoint({
@@ -56,69 +36,28 @@ export default function Meetpoint({
     saveToLocal('meetpoint', meetpoint)
   }
 
-  function handelMeetPointChange(event) {
-    setSelectedMeetpoint(event.target.value)
-    setMeetpoint(event.target.value)
-    saveToLocal('selectedMeetpoint', selectedMeetpoint)
-  }
-
   useEffect(() => {
-    setMeetpointSelection([...meetpointSelection, meetpoint])
+    meetpoint.meetpoint !== 'Neuen Treffpunkt erstellen' &&
+      setMeetpointSelection([...meetpointSelection, meetpoint])
     saveToLocal('meetpointSelection', meetpointSelection)
   }, [meetpoint])
 
   return (
     <>
-      <StyledMeetpoint
-        value={selectedMeetpoint}
-        onChange={handelMeetPointChange}
-      >
-        {renderMeetpointSelection()}
-      </StyledMeetpoint>
+      <MeetpointSelect
+        selectedMeetpoint={selectedMeetpoint}
+        setSelectedMeetpoint={setSelectedMeetpoint}
+        meetpointSelection={meetpointSelection}
+        setMeetpoint={setMeetpoint}
+      />
 
-      <div>
-        <PlacesAutocomplete
-          value={address}
-          onChange={setAddress}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <StyledInput
-                style={{ height: 45, width: '94vw', padding: 3, margin: 4 }}
-                {...getInputProps({
-                  placeholder: 'Neuen Treffpunkt erstellen',
-                })}
-              ></StyledInput>
+      <MeetpointPlacesAutocomplete
+        address={address}
+        setAddress={setAddress}
+        coordinates={coordinates}
+        setCoordinates={setCoordinates}
+      />
 
-              <StyledSuggestionWrapper>
-                {loading ? <div>...loading</div> : null}
-                {suggestions.map(suggestion => {
-                  const style = {
-                    backgroundColor: suggestion.active ? '#EE7600' : '#fff',
-                    borderRadius: 12,
-                    margin: 4,
-                    display: 'flex',
-                    alignItems: 'center',
-                  }
-                  return (
-                    <StyledSuggestion
-                      {...getSuggestionItemProps(suggestion, { style })}
-                    >
-                      {suggestion.description}
-                    </StyledSuggestion>
-                  )
-                })}
-              </StyledSuggestionWrapper>
-            </div>
-          )}
-        </PlacesAutocomplete>
-      </div>
       <ButtonWrapper>
         <NavLink to="/meetpoint">
           <AddPointButton aria-label="check" onClick={handleClick}>

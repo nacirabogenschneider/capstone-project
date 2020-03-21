@@ -60,7 +60,7 @@ function App() {
   const [meetpoint, setMeetpoint] = useState(
     () =>
       JSON.parse(localStorage.getItem('meetpoint')) || {
-        meetpoint: 'Wähle einen Treffpunkt',
+        meetpoint: 'Neuen Treffpunkt erstellen',
       }
   )
 

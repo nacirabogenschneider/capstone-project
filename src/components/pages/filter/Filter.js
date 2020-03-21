@@ -19,14 +19,10 @@ export default function Filter({
       'Wähle dein Bundesland'
   )
 
-  // const [schoolOfChoice, setSchoolOfChoice] = useState(
-  //   () =>
-  //     JSON.parse(localStorage.getItem('schoolOfChoice')) || 'Wähle deine Schule'
-  // )
-
   const [schoolOfChoiceName, setSchoolOfChoiceName] = useState('')
   const [schoolOfChoiceAddress, setSchoolOfChoiceAddress] = useState('')
   const [schoolOfChoiceCoordinates] = useState([])
+
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
       .filter(school => school.state === stateOfChoice)
@@ -83,26 +79,22 @@ export default function Filter({
   }
 
   return (
-    <>
-      <SelectSection key="Filter">
-        <FilterSelect
-          value={stateOfChoice}
-          onChange={handleStateChange}
-          initialText="Wähle dein Bundesland"
-          options={setStateSelector()}
-        />
-
-        <FilterSelect
-          value={selectedSchool}
-          onChange={handleSchoolChange}
-          initialText="Wähle deine Schule"
-          options={filterSchoolsByPrimaryState()}
-        />
-
-        <NavLink to="/meetpoint">
-          <FilterButton label="check" />
-        </NavLink>
-      </SelectSection>
-    </>
+    <SelectSection key="Filter">
+      <FilterSelect
+        value={stateOfChoice}
+        onChange={handleStateChange}
+        initialText="Wähle dein Bundesland"
+        options={setStateSelector()}
+      />
+      <FilterSelect
+        value={selectedSchool}
+        onChange={handleSchoolChange}
+        initialText="Wähle deine Schule"
+        options={filterSchoolsByPrimaryState()}
+      />
+      <NavLink to="/meetpoint">
+        <FilterButton label="check" />
+      </NavLink>
+    </SelectSection>
   )
 }

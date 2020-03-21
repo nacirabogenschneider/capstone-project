@@ -10,7 +10,6 @@ export default function School({
   mail,
 }) {
   const selectedSchoolByChoiceInArray = findFullSchoolElement()
-  console.log(selectedSchool)
   return (
     <React.Fragment key={uuid}>
       <StyledHeader key={uuid()}>
