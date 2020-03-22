@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'

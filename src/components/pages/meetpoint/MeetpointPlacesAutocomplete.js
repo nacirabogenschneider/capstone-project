@@ -22,6 +22,7 @@ export default function MeetpointPlacesAutocomplete({
     setAddress(value)
     setCoordinates(latLng)
     saveToLocal('coordinates', coordinates)
+    console.log('AUTOCOMPLETE-', address)
   }
   return (
     <PlacesAutocomplete

@@ -31,11 +31,16 @@ export default function MeetpointCard({
   )
 
   const [selectedMeetpoints, setSelectedMeetpoints] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('selectedMeetpoints')) ||
-      createdMeetpoints[createdMeetpoints.length - 1]
+    () => JSON.parse(localStorage.getItem('selectedMeetpoints')) || []
   )
+
+  const [selectedSingleMeetpoint, setSelectedSingleMeetpoint] = useState(
+    () => JSON.parse(localStorage.getItem('selectedSingleMeetpoin')) || ''
+  )
+
   console.log('MEETPOINTCARD-', createdMeetpoints)
+  console.log('SELECTED-SINGLE-MEETPOINT-', selectedSingleMeetpoint)
+
   return (
     <>
       <Switch>
@@ -55,14 +60,22 @@ export default function MeetpointCard({
                   src={meetpointFlag}
                   alt="current meetpoint"
                 ></StyledSvg>
-                <StyledSpan key={uuid()}>{chosenSchool.name}</StyledSpan>
+                <StyledSpan key={uuid()}>
+                  {(createdMeetpoints.length > 0 &&
+                    createdMeetpoints[createdMeetpoints.length - 1]
+                      .meetpoint) ||
+                    (selectedSingleMeetpoint !== 'DEFAULT' &&
+                      selectedSingleMeetpoint)}
+                </StyledSpan>
               </MeetHeader>
             </SchoolCard>
             <Meetpoint
-              selectedMeetpoints={selectedMeetpoints}
-              setSelectedMeetpoints={setSelectedMeetpoints}
-              createdMeetpoints={createdMeetpoints}
               setCreatedMeetpoints={setCreatedMeetpoints}
+              setSelectedMeetpoints={setSelectedMeetpoints}
+              setSelectedSingleMeetpoint={setSelectedSingleMeetpoint}
+              createdMeetpoints={createdMeetpoints}
+              selectedMeetpoints={selectedMeetpoints}
+              selectedSingleMeetpoint={selectedSingleMeetpoint}
             />
           </InfoCards>
         </Route>

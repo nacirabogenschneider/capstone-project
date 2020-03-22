@@ -4,22 +4,23 @@ import { saveToLocal } from '../utils/localStorage'
 import MeetpointSelectOptions from './MeetpointSelectOptions'
 
 export default function MeetpointSelect({
-  setSelectedMeetpoint,
-  setMeetpointSelection,
-  selectedMeetpoint,
-  meetpointSelection,
+  setSelectedSingleMeetpoint,
+  selectedSingleMeetpoint,
+  selectedMeetpoints,
 }) {
   function handelMeetPointChange(event) {
-    setSelectedMeetpoint(event.target.value)
-    saveToLocal('selectedMeetpoint', selectedMeetpoint)
+    setSelectedSingleMeetpoint(event.target.value)
+    console.log('SINGLE-MEETPOINT-', selectedSingleMeetpoint)
+    saveToLocal('selectedSingleMeetpoint', selectedSingleMeetpoint)
   }
 
   return (
-    <StyledMeetpoint value={selectedMeetpoint} onChange={handelMeetPointChange}>
-      <MeetpointSelectOptions
-        setMeetpointSelection={setMeetpointSelection}
-        meetpointSelection={meetpointSelection}
-      />
+    <StyledMeetpoint
+      value={selectedSingleMeetpoint}
+      defaulvalue={'DEFAULT'}
+      onChange={handelMeetPointChange}
+    >
+      <MeetpointSelectOptions selectedMeetpoints={selectedMeetpoints} />
     </StyledMeetpoint>
   )
 }

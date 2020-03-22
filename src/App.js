@@ -62,13 +62,10 @@ function App() {
   )
 
   const [stateOfChoice, setStateOfChoice] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('stateOfChoice')) ||
-      'Wähle dein Bundesland'
+    () => loadFromLocal('stateOfChoice') || 'Wähle dein Bundesland'
   )
   const [selectedSchool, setSelectedSchool] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('selectedSchool')) || 'Wähle deine Schule'
+    () => loadFromLocal('selectedSchool') || 'Wähle deine Schule'
   )
 
   console.log('APP.JS-', chosenSchool)

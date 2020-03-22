@@ -16,7 +16,7 @@ export default function School({
   useEffect(() => {
     setChosenSchool(selectedSchoolByChoice)
     saveToLocal('chosenSchool', chosenSchool)
-  }, [selectedSchoolByChoice])
+  }, [selectedSchoolByChoice, setChosenSchool, chosenSchool])
 
   return (
     <React.Fragment key={uuid}>
