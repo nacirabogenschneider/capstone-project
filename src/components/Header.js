@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyledLogoText, HeaderSection, Logo } from './Header.styles'
-import schoolway from '../img/svg/_children-schoolway.svg'
+import schoolway from '../img/svg/children-schoolway.svg'
 
 export default function Header() {
   return (

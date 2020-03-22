@@ -7,14 +7,14 @@ import MeetpointCard from './components/pages/meetpoint/MeetpointCard'
 import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
-import currentSchoolImg from './img/svg/_school.svg'
-import plus from './img/svg/_plus.svg'
-import minus from './img/svg/_minus.svg'
-import check from './img/svg/_check.svg'
-import circle from './img/svg/_circle.svg'
-import meetpointFlag from './img/svg/_flag.svg'
-import phone from './img/svg/_phone.svg'
-import mail from './img/svg/_mail.svg'
+import currentSchoolImg from './img/svg/school.svg'
+import plus from './img/svg/plus.svg'
+import minus from './img/svg/minus.svg'
+import check from './img/svg/check.svg'
+import circle from './img/svg/circle.svg'
+import meetpointFlag from './img/svg/flag.svg'
+import phone from './img/svg/phone.svg'
+import mail from './img/svg/mail.svg'
 import Runninglist from './components/pages/runninglist/Runninglist'
 import Navigation from './components/Navigation'
 import School from './components/pages/school/School'
@@ -88,7 +88,7 @@ function App() {
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoogleMap, Marker } from 'react-google-maps'
-import schoolsImg from '../img/solid-sm/school-all.svg'
-import schoolsSelectedImg from '../img/solid-sm/school-selected.svg'
+import schoolsImg from '../img/svg/school-all.svg'
+import schoolsSelectedImg from '../img/svg/school-selected.svg'
 import mapStyles from './mapStyles'
 import uuid from 'react-uuid'
 

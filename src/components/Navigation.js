@@ -4,10 +4,10 @@ import {
   StyledLink,
   StyledNavbar,
 } from './Navigation.styles'
-import meetpointFlag from '../img/svg/_flag.svg'
-import currentSchoolImg from '../img/svg/_school.svg'
-import pin from '../img/svg/_location.svg'
-import group from '../img/svg/_group.svg'
+import meetpointFlag from '../img/svg/flag.svg'
+import currentSchoolImg from '../img/svg/school.svg'
+import pin from '../img/svg/location.svg'
+import group from '../img/svg/group.svg'
 
 export default function Navigation() {
   return (
