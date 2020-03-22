@@ -16,6 +16,7 @@ export default function Filter({
   setStateOfChoice,
 }) {
   const [disable, setDisable] = useState('#')
+  const [styling, setStyling] = useState({ color: 'lightgrey' })
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
       .filter(school => school.state === stateOfChoice)
@@ -36,7 +37,9 @@ export default function Filter({
       </option>
     ))
   }
-
+  useEffect(() => {
+    disable === '/school' && setStyling({ color: 'black' })
+  }, [disable])
   const handleSchoolChange = async event => {
     const school = await event.target.value
     if (selectedSchool !== 'Wähle deine Schule') {
@@ -64,7 +67,7 @@ export default function Filter({
         options={filterSchoolsByPrimaryState()}
       />
       <NavLink to={disable}>
-        <FilterButton value={'auswählen'} label="check" />
+        <FilterButton value={'auswählen'} styling={styling} label="check" />
       </NavLink>
     </SelectSection>
   )

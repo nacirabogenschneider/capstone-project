@@ -1,9 +1,9 @@
 import React from 'react'
 import { AddPointButton } from './Filter.styles'
 
-export default function FilterButton({ style, label, onClick, value }) {
+export default function FilterButton({ styling, label, onClick, value }) {
   return (
-    <AddPointButton style={style} onClick={onClick} aria-label={label}>
+    <AddPointButton style={styling} onClick={onClick} aria-label={label}>
       {value}
     </AddPointButton>
   )
