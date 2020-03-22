@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import School from '../School'
 import phone from './_phone.svg'
 import mail from './_mail.svg'
@@ -53,6 +53,7 @@ const StyledSchoolCard = styled(School)`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #2b7380;
 `
+const selectedSchoolByChoice = 'Wähle deine Schule'
 
 export const schoolInfosCard = () => (
   <StyledSchoolCard
@@ -61,5 +62,6 @@ export const schoolInfosCard = () => (
     mail={mail}
     selectedSchool={selectedSchool}
     primeSchools={primeSchools}
+    selectedSchoolByChoice={selectedSchoolByChoice}
   />
 )

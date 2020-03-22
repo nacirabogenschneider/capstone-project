@@ -1,6 +1,6 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
-import { Filter } from './Filter'
+import { Filter } from '../Filter'
 
 export default {
   title: 'Filter/Select',
