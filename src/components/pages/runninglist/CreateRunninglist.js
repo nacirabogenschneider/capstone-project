@@ -12,14 +12,14 @@ export default function CreateRunninglist({
   circle,
   setClickedListID,
   setIsClicked,
-  meetpoint,
+  displayedMeetpoint,
 }) {
   function handleListClick(event) {
     setClickedListID(event.target.id)
     setIsClicked(true)
   }
   return runningLists
-    .filter(list => list.meetpoint === meetpoint.meetpoint)
+    .filter(list => list.meetpoint === displayedMeetpoint)
     .map(list => (
       <label key={list.key} htmlFor={list.id}>
         <StyledRow>

@@ -48,10 +48,11 @@ function App() {
 
   const [createdMeetpoints, setCreatedMeetpoints] = useState(
     () =>
-      JSON.parse(localStorage.getItem('createdMeetpoints')) || [
-        {
-          meetpoint: 'Neuen Treffpunkt erstellen',
-        },
+      JSON.parse(localStorage.getItem('createdMeetpoints')) ||
+      [
+        // {
+        //   meetpoint: 'Neuen Treffpunkt erstellen',
+        // },
       ]
   )
   const [chosenSchool, setChosenSchool] = useState(
@@ -66,6 +67,18 @@ function App() {
   )
   const [selectedSchool, setSelectedSchool] = useState(
     () => loadFromLocal('selectedSchool') || 'Wähle deine Schule'
+  )
+
+  const [selectedMeetpoints, setSelectedMeetpoints] = useState(
+    () => JSON.parse(localStorage.getItem('selectedMeetpoints')) || []
+  )
+
+  const [selectedSingleMeetpoint, setSelectedSingleMeetpoint] = useState(
+    () => JSON.parse(localStorage.getItem('selectedSingleMeetpoin')) || ''
+  )
+
+  const [displayedMeetpoint, setDisplayedMeetpoint] = useState(
+    () => JSON.parse(localStorage.getItem('displayedMeetpoint')) || ''
   )
 
   console.log('APP.JS-', chosenSchool)
@@ -120,10 +133,16 @@ function App() {
               <MeetpointCard
                 createdMeetpoints={createdMeetpoints}
                 setCreatedMeetpoints={setCreatedMeetpoints}
+                selectedMeetpoints={selectedMeetpoints}
+                setSelectedMeetpoints={setSelectedMeetpoints}
+                selectedSingleMeetpoint={selectedSingleMeetpoint}
+                setSelectedSingleMeetpoint={setSelectedSingleMeetpoint}
                 selectedSchool={selectedSchool}
                 currentSchoolImg={currentSchoolImg}
                 meetpointFlag={meetpointFlag}
                 chosenSchool={chosenSchool}
+                displayedMeetpoint={displayedMeetpoint}
+                setDisplayedMeetpoint={setDisplayedMeetpoint}
               />
             </Route>
           </Switch>
@@ -132,6 +151,7 @@ function App() {
             <Route path="/runninglist">
               <Runninglist
                 createdMeetpoints={createdMeetpoints}
+                displayedMeetpoint={displayedMeetpoint}
                 plus={plus}
                 back={back}
                 check={check}

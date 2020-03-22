@@ -12,6 +12,7 @@ export default function Meetpoint({
   setSelectedSingleMeetpoint,
   setSelectedMeetpoints,
   setCreatedMeetpoints,
+  setDisplayedMeetpoint,
 }) {
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState(
@@ -21,6 +22,20 @@ export default function Meetpoint({
         lgn: null,
       }
   )
+
+  useEffect(() => {
+    const shownMeetpoint = displayedPoint()
+    setDisplayedMeetpoint(shownMeetpoint)
+    saveToLocal('displayedMeetpoint', shownMeetpoint)
+  }, [createdMeetpoints, selectedSingleMeetpoint])
+
+  function displayedPoint() {
+    return (
+      (createdMeetpoints.length > 0 &&
+        createdMeetpoints[createdMeetpoints.length - 1].meetpoint) ||
+      (selectedSingleMeetpoint !== 'DEFAULT' && selectedSingleMeetpoint)
+    )
+  }
 
   function handleClick() {
     setCreatedMeetpoints([

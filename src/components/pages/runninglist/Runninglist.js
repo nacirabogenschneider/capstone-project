@@ -16,6 +16,7 @@ import {
 
 export default function Runninglist({
   createdMeetpoints,
+  displayedMeetpoint,
   plus,
   minus,
   circle,
@@ -23,7 +24,6 @@ export default function Runninglist({
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
   const [isClicked, setIsClicked] = useState(null)
-
   const [runningLists, setRunningLists] = useState(
     () => JSON.parse(localStorage.getItem('runningLists')) || []
   )
@@ -40,24 +40,25 @@ export default function Runninglist({
       {
         time: data.time,
         listname: data.listname,
-        // HIER muss noch der Meetpoint mit der Runningslist verknüpft werden
-        meetpoint: createdMeetpoints[0].meetpoint,
+        meetpoint: displayedMeetpoint,
         id: unique,
         key: unique,
       },
     ])
     reset()
   }
-
+  const runninglistMeetpoint = displayedMeetpoint.split(',')
+  const runningListName = runninglistMeetpoint[0]
   return (
     <>
       <StyledRunninglistSection>
         <StyledRow>
           <StyledRunningTitle>
-            <div>Lauflisten</div>
+            <div>{runningListName} - Lauflisten</div>
           </StyledRunningTitle>
         </StyledRow>
         <CreateRunninglist
+          displayedMeetpoint={displayedMeetpoint}
           createdMeetpoints={createdMeetpoints}
           circle={circle}
           runningLists={runningLists}
