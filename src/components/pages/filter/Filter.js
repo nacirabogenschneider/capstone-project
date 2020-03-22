@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'
@@ -15,6 +15,7 @@ export default function Filter({
   stateOfChoice,
   setStateOfChoice,
 }) {
+  const [disable, setDisable] = useState('#')
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
       .filter(school => school.state === stateOfChoice)
@@ -28,10 +29,6 @@ export default function Filter({
     filterSchoolsByPrimaryState()
   }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
-  // useEffect(() => {
-  //   saveToLocal('selectedSchool', selectedSchool)
-  // }, [selectedSchool])
-
   function setStateSelector() {
     return schoolStates.map(state => (
       <option key={state.name} value={state.name}>
@@ -39,11 +36,15 @@ export default function Filter({
       </option>
     ))
   }
-  function handleSchoolChange(event) {
-    setSelectedSchool(event.target.value)
-    console.log(event.target.value)
-    saveToLocal('selectedSchool', event.target.value)
+
+  const handleSchoolChange = async event => {
+    const school = await event.target.value
+    if (selectedSchool !== 'Wähle deine Schule') {
+      setDisable('/school')
+    }
+    setSelectedSchool(school)
   }
+
   function handleStateChange(event) {
     setStateOfChoice(event.target.value)
   }
@@ -62,8 +63,8 @@ export default function Filter({
         initialText="Wähle deine Schule"
         options={filterSchoolsByPrimaryState()}
       />
-      <NavLink to="/school">
-        <FilterButton label="check" />
+      <NavLink to={disable}>
+        <FilterButton value={'auswählen'} label="check" />
       </NavLink>
     </SelectSection>
   )

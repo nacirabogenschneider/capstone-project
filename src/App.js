@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
@@ -22,7 +22,9 @@ import School from './components/pages/school/School'
 import Header from './components/Header'
 import { SchoolSection } from './components/pages/school/School.styles'
 import uuid from 'react-uuid'
-import { loadFromLocal } from './components/pages/utils/localStorage'
+import saveToLocal, {
+  loadFromLocal,
+} from './components/pages/utils/localStorage'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -47,19 +49,10 @@ function App() {
   const schoolStates = schoolsData.states
 
   const [createdMeetpoints, setCreatedMeetpoints] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('createdMeetpoints')) ||
-      [
-        // {
-        //   meetpoint: 'Neuen Treffpunkt erstellen',
-        // },
-      ]
+    () => loadFromLocal('createdMeetpoints') || []
   )
   const [chosenSchool, setChosenSchool] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('chosenSchool')) || [
-        { name: 'Wähle deine Schule' },
-      ]
+    () => loadFromLocal('chosenSchool') || 'Wähle deine Schule'
   )
 
   const [stateOfChoice, setStateOfChoice] = useState(
@@ -70,18 +63,20 @@ function App() {
   )
 
   const [selectedMeetpoints, setSelectedMeetpoints] = useState(
-    () => JSON.parse(localStorage.getItem('selectedMeetpoints')) || []
+    () => loadFromLocal('selectedMeetpoints') || []
   )
 
   const [selectedSingleMeetpoint, setSelectedSingleMeetpoint] = useState(
-    () => JSON.parse(localStorage.getItem('selectedSingleMeetpoin')) || ''
+    () => loadFromLocal('selectedSingleMeetpoin') || 'Erstelle einen Treffpunkt'
   )
 
   const [displayedMeetpoint, setDisplayedMeetpoint] = useState(
-    () => JSON.parse(localStorage.getItem('displayedMeetpoint')) || ''
+    () => loadFromLocal('displayedMeetpoint') || 'Wähle einen Treffpunkt'
   )
+  useEffect(() => {
+    saveToLocal('selectedSchool', selectedSchool)
+  }, [selectedSchool])
 
-  console.log('APP.JS-', chosenSchool)
   return (
     <Router>
       <AppGrid>
@@ -108,6 +103,7 @@ function App() {
                 stateOfChoice={stateOfChoice}
                 setStateOfChoice={setStateOfChoice}
                 setSelectedSchool={setSelectedSchool}
+                chosenSchool={chosenSchool}
               />
             </Route>
           </Switch>

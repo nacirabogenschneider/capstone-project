@@ -1,6 +1,10 @@
 import React from 'react'
 import { AddPointButton } from './Filter.styles'
 
-export default function FilterButton({ label }) {
-  return <AddPointButton aria-label={label}>auswählen</AddPointButton>
+export default function FilterButton({ style, label, onClick, value }) {
+  return (
+    <AddPointButton style={style} onClick={onClick} aria-label={label}>
+      {value}
+    </AddPointButton>
+  )
 }
