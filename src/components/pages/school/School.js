@@ -12,7 +12,8 @@ export default function School({
   setChosenSchool,
   chosenSchool,
 }) {
-  const selectedSchoolByChoice = findFullSchoolElement()
+  const selectedSchoolByChoice = findFullSchoolElement() || 'Wähle eine Schule'
+
   useEffect(() => {
     setChosenSchool(selectedSchoolByChoice)
     saveToLocal('chosenSchool', chosenSchool)
@@ -22,7 +23,7 @@ export default function School({
     <React.Fragment key={uuid}>
       <StyledHeader key={uuid()}>
         <StyledImage src={currentSchoolImg} alt="current school"></StyledImage>
-        <div>{selectedSchoolByChoice.name}</div>
+        <div>{selectedSchoolByChoice.name || 'Wähle eine Schule'}</div>
       </StyledHeader>
       <StyledContent key={uuid()}>
         <StyledImage src={mail} alt="mail"></StyledImage>
