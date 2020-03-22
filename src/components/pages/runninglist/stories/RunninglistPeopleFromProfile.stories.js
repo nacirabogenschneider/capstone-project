@@ -6,3 +6,6 @@ export default {
   title: 'Runninglist/RunninglistPeopleFromProfile',
   component: RunninglistPeopleFromProfile,
 }
+export const peopleFromProfile = () => (
+  <RunninglistPeopleFromProfile></RunninglistPeopleFromProfile>
+)

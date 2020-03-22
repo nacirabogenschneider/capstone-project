@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions'
 import { Filter } from '../Filter'
 
 export default {
-  title: 'Filter/Select',
+  title: 'Filter/Button',
   component: Filter,
 }
 

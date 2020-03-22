@@ -6,3 +6,6 @@ export default {
   title: 'Runninglist/RenderNewPersonOnList',
   component: RenderNewPersonOnList,
 }
+export const renderPersonToList = () => (
+  <RenderNewPersonOnList></RenderNewPersonOnList>
+)

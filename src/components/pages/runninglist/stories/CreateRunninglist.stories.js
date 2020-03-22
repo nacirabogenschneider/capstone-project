@@ -6,3 +6,5 @@ export default {
   title: 'Runninglist/CreateRunninglist',
   component: CreateRunninglist,
 }
+
+export const createARunninglist = () => <CreateRunninglist></CreateRunninglist>

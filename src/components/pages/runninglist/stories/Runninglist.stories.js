@@ -6,3 +6,4 @@ export default {
   title: 'Runninglist/Runninglist',
   component: Runninglist,
 }
+export const singleRunninglist = () => <Runninglist></Runninglist>

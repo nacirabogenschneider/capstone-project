@@ -8,10 +8,9 @@ import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
 import currentSchoolImg from './img/svg/_school.svg'
-import plus from './img/solid-sm/sm-plus.svg'
+import plus from './img/svg/_plus.svg'
 import minus from './img/svg/_minus.svg'
-import back from './img/solid-sm/sm-arrow-left.svg'
-import check from './img/solid-sm/sm-check.svg'
+import check from './img/svg/_check.svg'
 import circle from './img/svg/_circle.svg'
 import meetpointFlag from './img/svg/_flag.svg'
 import phone from './img/svg/_phone.svg'
@@ -149,7 +148,6 @@ function App() {
                 createdMeetpoints={createdMeetpoints}
                 displayedMeetpoint={displayedMeetpoint}
                 plus={plus}
-                back={back}
                 check={check}
                 minus={minus}
                 circle={circle}
