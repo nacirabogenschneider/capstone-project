@@ -167,6 +167,7 @@ export default App
 const AppGrid = styled.section`
   display: grid;
   height: 100vh;
+  width: 100vw;
   grid-template-rows: 52px auto 52px;
   margin: 0;
   padding: 0;

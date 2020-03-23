@@ -19,7 +19,10 @@ export default function Map({
       googleMapsApiKey="AIzaSyA2fRPt-VLqSstzSqHcMPuKUNClfVR-BBU"
     >
       <GoogleMap
-        mapContainerStyle={{ height: '100%', width: '100%' }}
+        mapContainerStyle={{
+          height: '100%',
+          width: '100%',
+        }}
         id="schools-map"
       >
         <Marker
@@ -32,37 +35,5 @@ export default function Map({
         />
       </GoogleMap>
     </LoadScript>
-
-    // <GoogleMap
-    //   defaultZoom={11}
-    //   defaultCenter={{
-    //     lat: 53.551086,
-    //     lng: 9.993682,
-    //   }}
-    //   defaultOptions={{ styles: mapStyles }}
-    // >
-    /* {stateOfChoice &&
-        primeSchools
-          .filter(school => school.state === stateOfChoice)
-          .map(sortedSchool => (
-            <Marker
-              key={uuid()}
-              position={{
-                lat: +sortedSchool.lat,
-                lng: +sortedSchool.lon,
-              }}
-              icon={schoolsImg}
-            />
-          ))}
-
-      <Marker
-        key={uuid()}
-        position={{
-          lat: +chosenSchool.lat,
-          lng: +chosenSchool.lon,
-        }}
-        icon={schoolsSelectedImg}
-      /> */
-    // </GoogleMap>
   )
 }
