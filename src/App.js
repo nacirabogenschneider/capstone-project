@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { withGoogleMap, withScriptjs } from 'react-google-maps'
+// import PropTypes from 'prop-types'
+// import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import MeetpointCard from './components/pages/meetpoint/MeetpointCard'
 import Filter from './components/pages/filter/Filter'
-import Map from './components/Maps'
+import Maps from './components/Maps'
 import * as schoolsData from './data/schools.json'
 import currentSchoolImg from './img/svg/school.svg'
 import plus from './img/svg/plus.svg'
@@ -25,20 +25,20 @@ import saveToLocal, {
   loadFromLocal,
 } from './components/pages/utils/localStorage'
 
-const MapWrapped = withScriptjs(withGoogleMap(Map))
+// const MapWrapped = withScriptjs(withGoogleMap(Map))
 
-MapWrapped.propTypes = {
-  defaultZoom: PropTypes.number,
-  defaultCenter: PropTypes.object,
-  defaultOptions: PropTypes.object,
-  selectedPrimary: PropTypes.string,
-  selectedSchoolMeetpoint: PropTypes.string,
-  schoolLatLon: PropTypes.object,
-  mapElement: PropTypes.object,
-  googleMapURL: PropTypes.string,
-  loadingElement: PropTypes.object,
-  containerElemen: PropTypes.object,
-}
+// MapWrapped.propTypes = {
+//   defaultZoom: PropTypes.number,
+//   defaultCenter: PropTypes.object,
+//   defaultOptions: PropTypes.object,
+//   selectedPrimary: PropTypes.string,
+//   selectedSchoolMeetpoint: PropTypes.string,
+//   schoolLatLon: PropTypes.object,
+//   mapElement: PropTypes.object,
+//   googleMapURL: PropTypes.string,
+//   loadingElement: PropTypes.object,
+//   containerElemen: PropTypes.object,
+// }
 
 function App() {
   const schoolsDataAll = schoolsData.schools
@@ -81,17 +81,18 @@ function App() {
       <AppGrid>
         <Header />
         <MapContainer key="mapcontainer">
-          <MapWrapped
-            createdMeetpoints={createdMeetpoints}
+          <Maps
+            style={{ width: '100%', heigth: '100%' }}
+            // createdMeetpoints={createdMeetpoints}
             stateOfChoice={stateOfChoice}
-            setStateOfChoice={setStateOfChoice}
+            // setStateOfChoice={setStateOfChoice}
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
-            key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=`}
-            loadingElement={<div style={{ height: `100%` }}></div>}
-            containerElement={<div style={{ height: `100%` }}></div>}
-            mapElement={<div style={{ height: `100%` }}></div>}
+            // key={Math.random()}
+            // googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=`}
+            // loadingElement={<div style={{ height: `100%` }}></div>}
+            // containerElement={<div style={{ height: `100%` }}></div>}
+            // mapElement={<div style={{ height: `100%` }}></div>}
           />
           <Switch>
             <Route exact path="/">
