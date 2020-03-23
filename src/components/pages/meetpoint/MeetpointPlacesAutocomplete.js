@@ -20,9 +20,9 @@ export default function MeetpointPlacesAutocomplete({
     const results = await geocodeByAddress(value)
     const latLng = await getLatLng(results[0])
     setAddress(value)
+    saveToLocal('address', address)
     setCoordinates(latLng)
     saveToLocal('coordinates', coordinates)
-    console.log('AUTOCOMPLETE-', address)
   }
   return (
     <PlacesAutocomplete

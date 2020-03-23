@@ -14,7 +14,10 @@ export default function Meetpoint({
   setCreatedMeetpoints,
   setDisplayedMeetpoint,
 }) {
-  const [address, setAddress] = useState('')
+  const [address, setAddress] = useState(
+    () => JSON.parse(localStorage.getItem('address')) || ''
+  )
+
   const [coordinates, setCoordinates] = useState(
     () =>
       JSON.parse(localStorage.getItem('coordinates')) || {
@@ -31,31 +34,37 @@ export default function Meetpoint({
 
   function displayedPoint() {
     return (
-      (createdMeetpoints.length > 0 &&
+      (address !== '' &&
+        createdMeetpoints.length > 0 &&
         createdMeetpoints[createdMeetpoints.length - 1].meetpoint) ||
-      (selectedSingleMeetpoint !== 'DEFAULT' && selectedSingleMeetpoint)
+      (address === '' && selectedSingleMeetpoint)
     )
   }
 
   function handleClick() {
-    setCreatedMeetpoints([
-      ...createdMeetpoints,
-      {
-        meetpoint: address,
-        id: address,
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-      },
-    ])
-    setSelectedMeetpoints([
-      {
-        meetpoint: address,
-        id: address,
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-      },
-      ...selectedMeetpoints,
-    ])
+    address !== '' &&
+      setCreatedMeetpoints([
+        ...createdMeetpoints,
+        {
+          meetpoint: address,
+          id: address,
+          lat: coordinates.lat,
+          lng: coordinates.lng,
+        },
+      ])
+
+    const doublette = selectedMeetpoints.some(point => point.id === address)
+    address !== '' &&
+      !doublette &&
+      setSelectedMeetpoints([
+        {
+          meetpoint: address,
+          id: address,
+          lat: coordinates.lat,
+          lng: coordinates.lng,
+        },
+        ...selectedMeetpoints,
+      ])
   }
 
   useEffect(() => {
