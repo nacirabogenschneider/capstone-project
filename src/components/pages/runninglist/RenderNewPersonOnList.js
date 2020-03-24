@@ -23,8 +23,6 @@ export default function RenderNewPersonOnList({
     const notClicktPersons = toNewRunninglist.filter(
       item => item.id !== event.target.id
     )
-    console.log('minus', event.target.id)
-    console.log('geclickte Person', selectedSingle)
 
     setToNewRunninglist(notClicktPersons)
 

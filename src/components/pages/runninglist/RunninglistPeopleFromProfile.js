@@ -19,9 +19,6 @@ export default function RunninglistPeopleFromProfile({
     const selectedSingle = persons.find(item => item.id === event.target.id)
     const notClickedPerson = persons.filter(item => item.id !== event.target.id)
     setPersons(notClickedPerson)
-
-    console.log('ADD CLICK - selectedSingle', selectedSingle)
-    console.log('notClickedPerson', notClickedPerson)
     saveToLocal('persons', persons)
 
     setToNewRunninglist([
@@ -40,11 +37,7 @@ export default function RunninglistPeopleFromProfile({
   }, [toNewRunninglist])
 
   return persons.map(person => (
-    <label
-      key={uuid()}
-      htmlFor={person.id}
-      onClick={() => handleLabelClick(person.name)}
-    >
+    <label key={uuid()} htmlFor={person.id}>
       <StyledPersonToAdd key={uuid()}>
         <StyledWrap
           value={person.name}
