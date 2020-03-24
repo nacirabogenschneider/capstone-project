@@ -8,12 +8,10 @@ import styled from '@emotion/styled'
 export default {
   title: 'School/SchoolCard',
   component: School,
-  decorator: 
 }
 const selectedSchool =
   'Katholische Schule Hammer Kirche, Bei der Hammer Kirche 10, 20535 Hamburg'
-const setChosenSchool = React.useState('')
-const chosenSchool = ''
+
 const primeSchools = [
   {
     address: 'Bei der Hammer Kirche 10, 20535 Hamburg',
@@ -63,7 +61,7 @@ export const schoolInfosCard = () => (
     mail={mail}
     selectedSchool={selectedSchool}
     primeSchools={primeSchools}
-    setChosenSchool={setChosenSchool}
-    chosenSchool={chosenSchool}
+    // setChosenSchool={setChosenSchool}
+    // chosenSchool={chosenSchool}
   />
 )
