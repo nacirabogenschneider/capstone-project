@@ -29,9 +29,11 @@ const Logo = styled.img`
   width: 45px;
   padding: 3px 8px 3px 12px;
 `
-export const headerSection = () => (
-  <HeaderSection>
-    <Logo src={schoolway} alt="two walking school-children"></Logo>
-    <StyledLogoText>Schulweg</StyledLogoText>
-  </HeaderSection>
-)
+export const headerSection = () => {
+  return (
+    <HeaderSection>
+      <Logo src={schoolway} alt="two walking school-children"></Logo>
+      <StyledLogoText>Schulweg</StyledLogoText>
+    </HeaderSection>
+  )
+}
