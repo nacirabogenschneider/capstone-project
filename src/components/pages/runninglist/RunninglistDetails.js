@@ -20,10 +20,10 @@ export default function RunninglistDetails({
   minus,
 }) {
   const staticProfilData = [
-    { name: 'Nacira Bogenschneider', state: 'parent', key: uuid() },
-    { name: 'Vincent', state: 'child', class: '2a', key: uuid() },
-    { name: 'Marlene', state: 'child', class: 'VSKb', key: uuid() },
-    { name: 'Bruno', state: 'child', key: uuid() },
+    { name: 'Nacira Bogenschneider', state: 'parent', id: uuid() },
+    { name: 'Vincent', state: 'child', class: '2a', id: uuid() },
+    { name: 'Marlene', state: 'child', class: 'VSKb', id: uuid() },
+    { name: 'Bruno', state: 'child', id: uuid() },
   ]
   const [persons, setPersons] = useState(
     () => JSON.parse(localStorage.getItem('persons')) || staticProfilData

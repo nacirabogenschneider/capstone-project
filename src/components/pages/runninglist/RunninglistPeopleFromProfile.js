@@ -16,20 +16,20 @@ export default function RunninglistPeopleFromProfile({
   setPersons,
 }) {
   function handleAddClick(event) {
-    const index = persons.findIndex(item => item.name === event.target.id)
-    const splittetElement = persons.filter(
-      item => item.name !== event.target.id
-    )
-    setPersons(splittetElement)
+    const selectedSingle = persons.find(item => item.id === event.target.id)
+    const notClickedPerson = persons.filter(item => item.id !== event.target.id)
+    setPersons(notClickedPerson)
+
+    console.log('ADD CLICK - selectedSingle', selectedSingle)
+    console.log('notClickedPerson', notClickedPerson)
     saveToLocal('persons', persons)
-    const selectedPerson = persons.splice(index, 1)
-    const selectedSingle = selectedPerson[0]
+
     setToNewRunninglist([
       ...toNewRunninglist,
       {
         name: selectedSingle.name,
         state: selectedSingle.state,
-        key: selectedSingle.key,
+        id: selectedSingle.id,
         listid: clickedListId,
         class: selectedSingle.class,
       },
@@ -40,18 +40,24 @@ export default function RunninglistPeopleFromProfile({
   }, [toNewRunninglist])
 
   return persons.map(person => (
-    <StyledPersonToAdd key={uuid()}>
-      <StyledWrap
-        onClick={handleAddClick}
-        value={person.name}
-        name={person.name}
-        id={person.name}
-      >
-        {person.name}
-      </StyledWrap>
-      <CreateButton type="submit">
-        <img src={plus} alt="create button"></img>
-      </CreateButton>
-    </StyledPersonToAdd>
+    <label
+      key={uuid()}
+      htmlFor={person.id}
+      onClick={() => handleLabelClick(person.name)}
+    >
+      <StyledPersonToAdd key={uuid()}>
+        <StyledWrap
+          value={person.name}
+          name={person.name}
+          id={person.id}
+          onClick={handleAddClick}
+        >
+          {person.name}
+        </StyledWrap>
+        <CreateButton type="submit">
+          <img src={plus} alt="add a person to running list"></img>
+        </CreateButton>
+      </StyledPersonToAdd>
+    </label>
   ))
 }

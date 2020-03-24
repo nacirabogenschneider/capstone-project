@@ -1,40 +1,55 @@
 import React, { useEffect } from 'react'
-import { StyledSpan, StyledPersonEntry } from './Runninglist.styles'
+import {
+  StyledSpan,
+  StyledPersonEntry,
+  CreateButton,
+} from './Runninglist.styles'
 import saveToLocal from '../utils/localStorage'
+import uuid from 'react-uuid'
 
 export default function RenderNewPersonOnList({
   toNewRunninglist,
+  setToNewRunninglist,
   minus,
   setPersons,
   persons,
   clickedListId,
 }) {
   function handleRemoveClick(event) {
-    let index = toNewRunninglist.findIndex(
-      item => item.name === event.target.id
+    const selectedSingle = toNewRunninglist.find(
+      item => item.id === event.target.id
     )
 
-    const selectedPerson = toNewRunninglist.splice(index, 1)
-    const selectedSingle = selectedPerson[0]
+    const notClicktPersons = toNewRunninglist.filter(
+      item => item.id !== event.target.id
+    )
+    console.log('minus', event.target.id)
+    console.log('geclickte Person', selectedSingle)
+
+    setToNewRunninglist(notClicktPersons)
+
     setPersons([...persons, selectedSingle])
   }
   useEffect(() => {
     saveToLocal('persons', persons)
   }, [persons])
 
-  return toNewRunninglist
-    .filter(person => person.listid === clickedListId)
-    .map(person => (
-      <StyledPersonEntry key={person.name} value={person.name}>
+  return toNewRunninglist.map(person => (
+    <label key={uuid()} htmlFor={person.id}>
+      <StyledPersonEntry key={person.id} value={person.name}>
         <StyledSpan
           value={person.name}
+          id={person.id}
+          name={person.name}
           onClick={handleRemoveClick}
-          id={person.name}
         >
           {person.name}
         </StyledSpan>
-        <StyledSpan value={person.class}> {person.class}</StyledSpan>
-        <img src={minus} alt="remove button"></img>
+        <StyledSpan value={person.class}>{person.class}</StyledSpan>
+        <CreateButton type="submit">
+          <img src={minus} alt="remove button"></img>
+        </CreateButton>
       </StyledPersonEntry>
-    ))
+    </label>
+  ))
 }
