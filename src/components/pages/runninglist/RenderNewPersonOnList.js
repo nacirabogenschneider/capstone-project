@@ -13,7 +13,6 @@ export default function RenderNewPersonOnList({
   minus,
   setPersons,
   persons,
-  clickedListId,
 }) {
   function handleRemoveClick(event) {
     const selectedSingle = toNewRunninglist.find(
