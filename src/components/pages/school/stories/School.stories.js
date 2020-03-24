@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import School from '../School'
 import phone from './_phone.svg'
 import mail from './_mail.svg'
@@ -8,10 +8,12 @@ import styled from '@emotion/styled'
 export default {
   title: 'School/SchoolCard',
   component: School,
+  decorator: 
 }
 const selectedSchool =
   'Katholische Schule Hammer Kirche, Bei der Hammer Kirche 10, 20535 Hamburg'
-
+const setChosenSchool = React.useState('')
+const chosenSchool = ''
 const primeSchools = [
   {
     address: 'Bei der Hammer Kirche 10, 20535 Hamburg',
@@ -53,7 +55,6 @@ const StyledSchoolCard = styled(School)`
   border-radius: 12px;
   box-shadow: 0 0 10px 2px #2b7380;
 `
-const selectedSchoolByChoice = 'Wähle deine Schule'
 
 export const schoolInfosCard = () => (
   <StyledSchoolCard
@@ -62,6 +63,7 @@ export const schoolInfosCard = () => (
     mail={mail}
     selectedSchool={selectedSchool}
     primeSchools={primeSchools}
-    selectedSchoolByChoice={selectedSchoolByChoice}
+    setChosenSchool={setChosenSchool}
+    chosenSchool={chosenSchool}
   />
 )

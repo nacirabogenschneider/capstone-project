@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AddPointButton, ButtonWrapper } from './Meetpoint.styles'
 import MeetpointSelect from './MeetpointSelect'
@@ -25,21 +25,25 @@ export default function Meetpoint({
         lgn: null,
       }
   )
-
-  useEffect(() => {
-    const shownMeetpoint = displayedPoint()
-    setDisplayedMeetpoint(shownMeetpoint)
-    saveToLocal('displayedMeetpoint', shownMeetpoint)
-  }, [createdMeetpoints, selectedSingleMeetpoint])
-
-  function displayedPoint() {
+  const displayedPoint = useCallback(() => {
     return (
       (address !== '' &&
         createdMeetpoints.length > 0 &&
         createdMeetpoints[createdMeetpoints.length - 1].meetpoint) ||
       (address === '' && selectedSingleMeetpoint)
     )
-  }
+  }, [address, createdMeetpoints, selectedSingleMeetpoint])
+
+  useEffect(() => {
+    const shownMeetpoint = displayedPoint()
+    setDisplayedMeetpoint(shownMeetpoint)
+    saveToLocal('displayedMeetpoint', shownMeetpoint)
+  }, [
+    createdMeetpoints,
+    selectedSingleMeetpoint,
+    displayedPoint,
+    setDisplayedMeetpoint,
+  ])
 
   function handleClick() {
     address !== '' &&
