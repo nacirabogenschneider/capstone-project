@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "10.0.28",
+    "@emotion/styled": "10.0.27",
     "@react-google-maps/api": "1.8.3",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.4.1",
     "@testing-library/user-event": "7.2.1",
+    "eslint-plugin-react-hooks": "0.0.0-235a6c4af",
     "firebase": "7.10.0",
     "prop-types": "15.7.2",
     "react": "^16.13.0",
@@ -28,7 +31,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +51,10 @@
     ]
   },
   "devDependencies": {
-    "cypress": "4.1.0"
+    "@storybook/addon-actions": "5.3.17",
+    "@storybook/addon-links": "5.3.17",
+    "@storybook/addons": "5.3.17",
+    "@storybook/preset-create-react-app": "2.1.0",
+    "@storybook/react": "5.3.17"
   }
 }

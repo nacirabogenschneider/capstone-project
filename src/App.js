@@ -1,20 +1,29 @@
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
 import { withGoogleMap, withScriptjs } from 'react-google-maps'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
-import Card from './components/Card'
-import Filter from './components/Filter'
+import MeetpointCard from './components/pages/meetpoint/MeetpointCard'
+import Filter from './components/pages/filter/Filter'
 import Map from './components/Maps'
 import * as schoolsData from './data/schools.json'
-import currentSchoolImg from './img/solid-sm/school-selected.svg'
-import plus from './img/solid-sm/sm-plus.svg'
-import back from './img/solid-sm/sm-arrow-left.svg'
-import check from './img/solid-sm/sm-check.svg'
-import Runninglist from './components/Runninglist'
+import currentSchoolImg from './img/svg/school.svg'
+import plus from './img/svg/plus.svg'
+import minus from './img/svg/minus.svg'
+import check from './img/svg/check.svg'
+import circle from './img/svg/circle.svg'
+import meetpointFlag from './img/svg/flag.svg'
+import phone from './img/svg/phone.svg'
+import mail from './img/svg/mail.svg'
+import Runninglist from './components/pages/runninglist/Runninglist'
 import Navigation from './components/Navigation'
-import School from './components/School'
+import School from './components/pages/school/School'
 import Header from './components/Header'
+import { SchoolSection } from './components/pages/school/School.styles'
+import uuid from 'react-uuid'
+import saveToLocal, {
+  loadFromLocal,
+} from './components/pages/utils/localStorage'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -37,22 +46,35 @@ function App() {
     .filter(school => school.school_type === 'Grundschule')
     .sort()
   const schoolStates = schoolsData.states
-  const [selectedState, setSelectedState] = useState('')
-  const [primarySchools, setPrimaryschools] = useState(primeSchools)
-  const [selectedSchoolCoordinates, setSelectedSchoolCoordinates] = useState({
-    lat: 0,
-    lon: 0,
-  })
-  const [cardSchoolObject, setCardSchoolObject] = useState({
-    name: 'Noch keine Schule ausgewählt',
-  })
 
-  const [meetpoint, setMeetpoint] = useState(
-    () =>
-      JSON.parse(localStorage.getItem('meetpoint')) || {
-        meetpoint: 'Wähle einen Treffpunkt',
-      }
+  const [createdMeetpoints, setCreatedMeetpoints] = useState(
+    () => loadFromLocal('createdMeetpoints') || []
   )
+  const [chosenSchool, setChosenSchool] = useState(
+    () => loadFromLocal('chosenSchool') || 'Wähle deine Schule'
+  )
+
+  const [stateOfChoice, setStateOfChoice] = useState(
+    () => loadFromLocal('stateOfChoice') || 'Wähle dein Bundesland'
+  )
+  const [selectedSchool, setSelectedSchool] = useState(
+    () => loadFromLocal('selectedSchool') || 'Wähle deine Schule'
+  )
+
+  const [selectedMeetpoints, setSelectedMeetpoints] = useState(
+    () => loadFromLocal('selectedMeetpoints') || []
+  )
+
+  const [selectedSingleMeetpoint, setSelectedSingleMeetpoint] = useState(
+    () => loadFromLocal('selectedSingleMeetpoin') || 'Erstelle einen Treffpunkt'
+  )
+
+  const [displayedMeetpoint, setDisplayedMeetpoint] = useState(
+    () => loadFromLocal('displayedMeetpoint') || 'Wähle einen Treffpunkt'
+  )
+  useEffect(() => {
+    saveToLocal('selectedSchool', selectedSchool)
+  }, [selectedSchool])
 
   return (
     <Router>
@@ -60,13 +82,13 @@ function App() {
         <Header />
         <MapContainer key="mapcontainer">
           <MapWrapped
-            meetpoint={meetpoint}
-            cardSchoolObject={cardSchoolObject}
-            selectedState={selectedState}
-            selectedSchoolCoordinates={selectedSchoolCoordinates}
-            primeSchools={primarySchools}
+            createdMeetpoints={createdMeetpoints}
+            stateOfChoice={stateOfChoice}
+            setStateOfChoice={setStateOfChoice}
+            primeSchools={primeSchools}
+            chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyB3RFneQMozLqGhE3z5I1UOBARqYw8xZbE`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDq6vDgLBmODDUX7Mnn1jShHhVsb__CdOg`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}
@@ -76,32 +98,46 @@ function App() {
               <Filter
                 key="Filter-Component"
                 schoolStates={schoolStates}
-                schoolsData={schoolsData}
-                schoolsDataAll={schoolsDataAll}
-                currentSchoolImg={currentSchoolImg}
-                setCardSchoolObject={setCardSchoolObject}
-                cardSchoolObject={cardSchoolObject}
-                primarySchools={primarySchools}
-                setPrimaryschools={setPrimaryschools}
-                setSelectedState={setSelectedState}
-                setSelectedSchoolCoordinates={setSelectedSchoolCoordinates}
+                primarySchools={primeSchools}
+                stateOfChoice={stateOfChoice}
+                setStateOfChoice={setStateOfChoice}
+                setSelectedSchool={setSelectedSchool}
+                chosenSchool={chosenSchool}
               />
             </Route>
           </Switch>
 
           <Switch>
             <Route path="/school">
-              <School primeSchools={primeSchools} />
+              <SchoolSection key={uuid()}>
+                <School
+                  selectedSchool={selectedSchool}
+                  currentSchoolImg={currentSchoolImg}
+                  phone={phone}
+                  mail={mail}
+                  primeSchools={primeSchools}
+                  chosenSchool={chosenSchool}
+                  setChosenSchool={setChosenSchool}
+                />
+              </SchoolSection>
             </Route>
           </Switch>
 
           <Switch>
             <Route path="/meetpoint">
-              <Card
-                meetpoint={meetpoint}
-                setMeetpoint={setMeetpoint}
-                cardSchoolObject={cardSchoolObject}
+              <MeetpointCard
+                createdMeetpoints={createdMeetpoints}
+                setCreatedMeetpoints={setCreatedMeetpoints}
+                selectedMeetpoints={selectedMeetpoints}
+                setSelectedMeetpoints={setSelectedMeetpoints}
+                selectedSingleMeetpoint={selectedSingleMeetpoint}
+                setSelectedSingleMeetpoint={setSelectedSingleMeetpoint}
+                selectedSchool={selectedSchool}
                 currentSchoolImg={currentSchoolImg}
+                meetpointFlag={meetpointFlag}
+                chosenSchool={chosenSchool}
+                displayedMeetpoint={displayedMeetpoint}
+                setDisplayedMeetpoint={setDisplayedMeetpoint}
               />
             </Route>
           </Switch>
@@ -109,10 +145,12 @@ function App() {
           <Switch>
             <Route path="/runninglist">
               <Runninglist
-                meetpoint={meetpoint}
+                createdMeetpoints={createdMeetpoints}
+                displayedMeetpoint={displayedMeetpoint}
                 plus={plus}
-                back={back}
                 check={check}
+                minus={minus}
+                circle={circle}
               />
             </Route>
           </Switch>
