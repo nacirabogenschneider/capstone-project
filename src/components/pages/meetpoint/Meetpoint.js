@@ -46,7 +46,7 @@ export default function Meetpoint({
   ])
 
   function handleClick() {
-    address !== '' &&
+    address &&
       setCreatedMeetpoints([
         ...createdMeetpoints,
         {

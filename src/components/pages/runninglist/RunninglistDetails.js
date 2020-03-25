@@ -39,7 +39,7 @@ export default function RunninglistDetails({
   )
 
   useEffect(() => {
-    isClicked && isClicked !== null && setToggleSelectForm(isClicked)
+    isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
 
   function toogle() {
