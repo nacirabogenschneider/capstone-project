@@ -1,0 +1,75 @@
+import React, { useState } from 'react'
+import styled from 'styled-components/macro'
+import Nacira from './nacirabogenschneider.jpg'
+import phone from './phone.svg'
+import mail from './mail.svg'
+import TextEditor from './TextEditor'
+import ProfilePeople from './ProfilePeople'
+
+export default function Profile() {
+  const [loginData, setloginData] = useState({
+    firstName: 'Nacira',
+    lastName: 'Bogenschneider',
+    phone: '0172 / 5287069',
+    email: 'mail@nacira.de',
+    state: 'adult',
+  })
+  return (
+    <ProfileSection>
+      <DescriptionSection>
+        <StyledImg src={Nacira} alt="profile"></StyledImg>
+        <DataSection>
+          <h3>
+            {loginData.firstName} {loginData.lastName}
+          </h3>
+          <StyledRow>
+            <img src={phone} alt="phone"></img>
+            <StyledSpan>{loginData.phone}</StyledSpan>
+          </StyledRow>
+          <StyledRow>
+            <img src={mail} alt="email"></img>
+            <StyledSpan>{loginData.email}</StyledSpan>
+          </StyledRow>
+        </DataSection>
+      </DescriptionSection>
+      <TextEditor />
+      <ProfilePeople loginData={loginData} />
+    </ProfileSection>
+  )
+}
+
+const ProfileSection = styled.section`
+  position: absolute;
+  top: 120px;
+  left: 12px;
+  right: 12px;
+  height: auto;
+  border-radius: 12px;
+  background: white;
+  opacity: 0.98;
+  box-shadow: 0 0 10px 2px #2b7380;
+  overflow-y: scroll;
+  max-height: 560px;
+`
+const DescriptionSection = styled.section`
+  display: flex;
+  align-items: center;
+`
+const StyledSpan = styled.span`
+  margin-left: 8px;
+`
+const DataSection = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const StyledRow = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+`
+const StyledImg = styled.img`
+  height: 150px;
+  border-radius: 50%;
+  margin: 20px;
+  box-shadow: 0 0 10px 2px #cfcfcf;
+`

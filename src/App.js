@@ -24,6 +24,7 @@ import uuid from 'react-uuid'
 import saveToLocal, {
   loadFromLocal,
 } from './components/pages/utils/localStorage'
+import Profile from './components/pages/profile/Profile'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -88,11 +89,16 @@ function App() {
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDq6vDgLBmODDUX7Mnn1jShHhVsb__CdOg`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}
           />
+          <Switch>
+            <Route path="/profile">
+              <Profile></Profile>
+            </Route>
+          </Switch>
           <Switch>
             <Route exact path="/">
               <Filter
