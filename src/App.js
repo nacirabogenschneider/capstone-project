@@ -89,7 +89,7 @@ function App() {
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDq6vDgLBmODDUX7Mnn1jShHhVsb__CdOg`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}
