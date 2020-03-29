@@ -9,7 +9,7 @@ import uuid from 'react-uuid'
 
 export default function Profile() {
   const [loginData, setloginData] = useState({
-    userId: uuid(),
+    familieId: uuid(),
     firstName: 'Nacira',
     lastName: 'Bogenschneider',
     phone: '0172 / 5287069',
@@ -61,6 +61,7 @@ const StyledSpan = styled.span`
   margin-left: 8px;
 `
 const DataSection = styled.div`
+  margin: 8px;
   display: flex;
   flex-direction: column;
 `
@@ -70,7 +71,7 @@ const StyledRow = styled.div`
   padding: 5px 0;
 `
 const StyledImg = styled.img`
-  height: 150px;
+  height: 100px;
   border-radius: 50%;
   margin: 20px;
   box-shadow: 0 0 10px 2px #cfcfcf;

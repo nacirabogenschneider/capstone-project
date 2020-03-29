@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-// import { Radio } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import ProfilePeople from './ProfilePeople'
 
 export default function ProfileAddPeople({
   setEditPeople,
@@ -12,22 +10,22 @@ export default function ProfileAddPeople({
   child,
   setProfilePeople,
   profilePeople,
+  loginData,
 }) {
-  function onRadioChange(event) {
-    console.log(event.target.value)
-  }
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-  //   console.log('SUBMIT')
-  //   setEditPeople('none')
-  // }
-  const { register, handleSubmit, watch, errors } = useForm()
+  const { register, handleSubmit, errors } = useForm()
+
   const onSubmit = data => {
-    console.log(data)
-    setProfilePeople(...profilePeople, data)
+    setProfilePeople([
+      ...profilePeople,
+      {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        class: data.class,
+        state: data.state,
+      },
+    ])
     setEditPeople('none')
   }
-  console.log(profilePeople)
 
   return (
     <AddPerson style={{ display: editPeople }}>
@@ -35,7 +33,6 @@ export default function ProfileAddPeople({
         <StyledRow>
           <StyledNameInput
             name="firstName"
-            // required={true}
             type="text"
             placeholder="Vorname"
             ref={register({ required: true })}
@@ -62,12 +59,10 @@ export default function ProfileAddPeople({
         </StyledRow>
         <StyledRowCenter>
           <input
-            onChange={onRadioChange}
             type="radio"
             id="woman"
             name="state"
             value="woman"
-            checked
             ref={register}
           ></input>
           <label htmlFor="woman">
@@ -78,9 +73,7 @@ export default function ProfileAddPeople({
             id="man"
             name="state"
             value="man"
-            checked
             ref={register}
-            onChange={onRadioChange}
           ></input>
           <label htmlFor="man">
             <StyledImg src={man}></StyledImg>
@@ -90,9 +83,7 @@ export default function ProfileAddPeople({
             id="child"
             name="state"
             value="child"
-            checked
             ref={register}
-            onChange={onRadioChange}
           ></input>
           <label htmlFor="child">
             <StyledImgChild src={child}></StyledImgChild>

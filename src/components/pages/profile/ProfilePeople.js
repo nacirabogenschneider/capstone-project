@@ -5,10 +5,12 @@ import man from './man.svg'
 import child from './child.svg'
 import ProfileAddPeople from './ProfileAddPeople'
 import pencil from './pencil-alt.svg'
+import RenderProfilePeople from './RenderProfilePeople'
 
 export default function ProfilePeople({ loginData }) {
   const [profilePeople, setProfilePeople] = useState([loginData])
   const [editPeople, setEditPeople] = useState('none')
+
   function handlePencilClick() {
     setEditPeople('block')
   }
@@ -23,12 +25,10 @@ export default function ProfilePeople({ loginData }) {
           onClick={handlePencilClick}
         ></StyledImage>
       </SyledWrapper>
-      <PersonWrapper>
-        <StyledImg src={woman} alt="woman"></StyledImg>
-        <span>
-          {loginData.firstName} {loginData.lastName}
-        </span>
-      </PersonWrapper>
+      <RenderProfilePeople
+        loginData={loginData}
+        profilePeople={profilePeople}
+      />
 
       <ProfileAddPeople
         setProfilePeople={setProfilePeople}
@@ -45,17 +45,7 @@ export default function ProfilePeople({ loginData }) {
 const PersonSection = styled.section`
   margin: 12px;
 `
-const StyledImg = styled.img`
-  height: 22px;
-`
-const PersonWrapper = styled.div`
-  display: flex;
-  height: 36px;
-  align-items: center;
-  padding: 4px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px 2px #cfcfcf;
-`
+
 const StyledImage = styled.img`
   padding: 8px;
 `

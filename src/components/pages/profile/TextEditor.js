@@ -44,9 +44,9 @@ export default function TextEditor() {
             init={{
               hidden_input: false,
               selector: 'textarea',
-              forced_root_block: '',
+              // forced_root_block: '',
               height: 240,
-              menubar: false,
+              menubar: true,
               plugins: [
                 'advlist autolink lists link image',
                 'charmap print preview anchor help',
@@ -54,9 +54,9 @@ export default function TextEditor() {
                 'insertdatetime media table paste wordcount',
               ],
               toolbar:
-                'undo redo | formatselect | bold italic | \
+                ' | formatselect | bold italic | \
         alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help',
+        bullist numlist outdent indent | ',
               paste_as_text: true,
               statusbar: false,
             }}
