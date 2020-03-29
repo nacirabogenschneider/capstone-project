@@ -148,6 +148,7 @@ const StyledRow = styled.div`
 const StyledRowCenter = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
 `
 const StyledRowRight = styled.div`

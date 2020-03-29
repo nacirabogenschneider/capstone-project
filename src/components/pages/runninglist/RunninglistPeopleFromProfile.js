@@ -16,11 +16,18 @@ export default function RunninglistPeopleFromProfile({
   persons,
   setPersons,
 }) {
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
+
+  useEffect(() => {
+    saveToLocal('toNewRunninglist', toNewRunninglist)
+  }, [toNewRunninglist])
+
   function handleAddClick(event) {
     const selectedSingle = persons.find(item => item.id === event.target.id)
     const notClickedPerson = persons.filter(item => item.id !== event.target.id)
     setPersons(notClickedPerson)
-    saveToLocal('persons', persons)
 
     setToNewRunninglist([
       ...toNewRunninglist,
@@ -34,12 +41,6 @@ export default function RunninglistPeopleFromProfile({
       },
     ])
   }
-
-  useEffect(() => {
-    saveToLocal('toNewRunninglist', toNewRunninglist)
-  }, [toNewRunninglist])
-
-  console.log('Person', persons)
 
   return persons.map(person => (
     <label key={uuid()} htmlFor={person.id}>

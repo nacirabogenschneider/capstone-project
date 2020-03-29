@@ -14,22 +14,25 @@ export default function RenderNewPersonOnList({
   setPersons,
   persons,
 }) {
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
+
+  useEffect(() => {
+    saveToLocal('toNewRunninglist', toNewRunninglist)
+  }, [toNewRunninglist])
+
   function handleRemoveClick(event) {
     const selectedSingle = toNewRunninglist.find(
       item => item.id === event.target.id
     )
-
     const notClicktPersons = toNewRunninglist.filter(
       item => item.id !== event.target.id
     )
 
     setToNewRunninglist(notClicktPersons)
-
     setPersons([...persons, selectedSingle])
   }
-  useEffect(() => {
-    saveToLocal('persons', persons)
-  }, [persons])
 
   return toNewRunninglist.map(person => (
     <label key={uuid()} htmlFor={person.id}>

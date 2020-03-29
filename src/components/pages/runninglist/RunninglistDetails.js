@@ -35,7 +35,8 @@ export default function RunninglistDetails({
   useEffect(() => {
     setPersons(profilePeople)
     setToNewRunninglist([])
-  }, [profilePeople, setPersons, setToNewRunninglist])
+  }, [profilePeople])
+
   useEffect(() => {
     isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
