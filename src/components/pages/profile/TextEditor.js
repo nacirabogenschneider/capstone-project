@@ -3,14 +3,18 @@ import { Editor } from '@tinymce/tinymce-react'
 import styled from 'styled-components/macro'
 import pencil from './pencil-alt.svg'
 import ReactHtmlParser from 'react-html-parser'
+import { saveToLocal, loadFromLocal } from '../utils/localStorage'
 
 export default function TextEditor() {
-  const [editorContent, setEditorContent] = useState('')
+  const [editorContent, setEditorContent] = useState(
+    () => loadFromLocal('editorContent') || ''
+  )
+
   const [editNote, setEditNote] = useState('none')
 
   function handleEditorChange(editorContent) {
     setEditorContent(editorContent)
-    console.log(editorContent)
+    saveToLocal('editorContent', editorContent)
   }
   function handlePencilClick() {
     setEditNote('block')

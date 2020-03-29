@@ -10,7 +10,6 @@ export default function ProfileAddPeople({
   child,
   setProfilePeople,
   profilePeople,
-  loginData,
 }) {
   const { register, handleSubmit, errors } = useForm()
 

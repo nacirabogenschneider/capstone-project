@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import woman from './woman.svg'
 import man from './man.svg'
@@ -6,14 +6,21 @@ import child from './child.svg'
 import ProfileAddPeople from './ProfileAddPeople'
 import pencil from './pencil-alt.svg'
 import RenderProfilePeople from './RenderProfilePeople'
+import { saveToLocal, loadFromLocal } from '../utils/localStorage'
 
 export default function ProfilePeople({ loginData }) {
-  const [profilePeople, setProfilePeople] = useState([loginData])
+  const [profilePeople, setProfilePeople] = useState(
+    () => loadFromLocal('profilePeople') || [loginData]
+  )
+
   const [editPeople, setEditPeople] = useState('none')
 
   function handlePencilClick() {
     setEditPeople('block')
   }
+  useEffect(() => {
+    saveToLocal('profilePeople', profilePeople)
+  }, [profilePeople])
 
   return (
     <PersonSection>
