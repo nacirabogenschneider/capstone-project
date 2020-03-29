@@ -5,17 +5,12 @@ import phone from './phone.svg'
 import mail from './mail.svg'
 import TextEditor from './TextEditor'
 import ProfilePeople from './ProfilePeople'
-import uuid from 'react-uuid'
 
-export default function Profile() {
-  const [loginData, setloginData] = useState({
-    familieId: uuid(),
-    firstName: 'Nacira',
-    lastName: 'Bogenschneider',
-    phone: '0172 / 5287069',
-    email: 'mail@nacira.de',
-    state: 'woman',
-  })
+export default function Profile({
+  setProfilePeople,
+  profilePeople,
+  loginData,
+}) {
   return (
     <ProfileSection>
       <DescriptionSection>
@@ -35,7 +30,11 @@ export default function Profile() {
         </DataSection>
       </DescriptionSection>
       <TextEditor />
-      <ProfilePeople loginData={loginData} />
+      <ProfilePeople
+        profilePeople={profilePeople}
+        setProfilePeople={setProfilePeople}
+        loginData={loginData}
+      />
     </ProfileSection>
   )
 }

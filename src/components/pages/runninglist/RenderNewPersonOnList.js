@@ -33,15 +33,16 @@ export default function RenderNewPersonOnList({
 
   return toNewRunninglist.map(person => (
     <label key={uuid()} htmlFor={person.id}>
-      <StyledPersonEntry key={person.id} value={person.name}>
+      <StyledPersonEntry key={person.id} value={person.firstName}>
         <StyledSpan
-          value={person.name}
+          value={person.firstName}
           id={person.id}
-          name={person.name}
+          name={person.firstName}
           onClick={handleRemoveClick}
         >
-          {person.name}
+          {person.firstName} {person.lastName}
         </StyledSpan>
+
         <StyledSpan value={person.class}>{person.class}</StyledSpan>
         <CreateButton type="submit">
           <img src={minus} alt="remove button"></img>

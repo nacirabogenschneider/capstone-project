@@ -15,6 +15,7 @@ import {
 } from './Runninglist.styles'
 
 export default function Runninglist({
+  profilePeople,
   createdMeetpoints,
   displayedMeetpoint,
   plus,
@@ -47,6 +48,7 @@ export default function Runninglist({
     ])
     reset()
   }
+
   const runninglistMeetpoint = displayedMeetpoint.split(',')
   const runningListName = runninglistMeetpoint[0]
   return (
@@ -66,6 +68,7 @@ export default function Runninglist({
           setIsClicked={setIsClicked}
         />
         <RunninglistDetails
+          profilePeople={profilePeople}
           clickedListId={clickedListId}
           setIsClicked={setIsClicked}
           isClicked={isClicked}

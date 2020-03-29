@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { useForm } from 'react-hook-form'
+import uuid from 'react-uuid'
 
 export default function ProfileAddPeople({
   setEditPeople,
@@ -21,6 +22,7 @@ export default function ProfileAddPeople({
         lastName: data.lastName,
         class: data.class,
         state: data.state,
+        id: uuid(),
       },
     ])
     setEditPeople('none')

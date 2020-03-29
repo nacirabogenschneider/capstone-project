@@ -18,15 +18,10 @@ export default function RunninglistDetails({
   setIsClicked,
   plus,
   minus,
+  profilePeople,
 }) {
-  const staticProfilData = [
-    { name: 'Nacira Bogenschneider', state: 'parent', id: uuid() },
-    { name: 'Vincent', state: 'child', class: '2a', id: uuid() },
-    { name: 'Marlene', state: 'child', class: 'VSKb', id: uuid() },
-    { name: 'Bruno', state: 'child', id: uuid() },
-  ]
   const [persons, setPersons] = useState(
-    () => JSON.parse(localStorage.getItem('persons')) || staticProfilData
+    () => JSON.parse(localStorage.getItem('persons')) || profilePeople
   )
   const [toNewRunninglist, setToNewRunninglist] = useState(
     () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
@@ -37,7 +32,10 @@ export default function RunninglistDetails({
   const clickedListElement = runninglists.find(
     list => list.id === clickedListId
   )
-
+  useEffect(() => {
+    setPersons(profilePeople)
+    setToNewRunninglist([])
+  }, [profilePeople, setPersons, setToNewRunninglist])
   useEffect(() => {
     isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])

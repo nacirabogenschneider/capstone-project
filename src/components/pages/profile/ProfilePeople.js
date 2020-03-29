@@ -8,11 +8,11 @@ import pencil from './pencil-alt.svg'
 import RenderProfilePeople from './RenderProfilePeople'
 import { saveToLocal, loadFromLocal } from '../utils/localStorage'
 
-export default function ProfilePeople({ loginData }) {
-  const [profilePeople, setProfilePeople] = useState(
-    () => loadFromLocal('profilePeople') || [loginData]
-  )
-
+export default function ProfilePeople({
+  loginData,
+  profilePeople,
+  setProfilePeople,
+}) {
   const [editPeople, setEditPeople] = useState('none')
 
   function handlePencilClick() {

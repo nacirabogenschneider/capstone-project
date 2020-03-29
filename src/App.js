@@ -73,6 +73,19 @@ function App() {
   const [displayedMeetpoint, setDisplayedMeetpoint] = useState(
     () => loadFromLocal('displayedMeetpoint') || 'Wähle einen Treffpunkt'
   )
+
+  const [loginData] = useState({
+    familieId: uuid(),
+    id: uuid(),
+    firstName: 'Nacira',
+    lastName: 'Bogenschneider',
+    phone: '0172 / 5287069',
+    email: 'mail@nacira.de',
+    state: 'woman',
+  })
+  const [profilePeople, setProfilePeople] = useState(
+    () => loadFromLocal('profilePeople') || [loginData]
+  )
   useEffect(() => {
     saveToLocal('selectedSchool', selectedSchool)
   }, [selectedSchool])
@@ -89,14 +102,18 @@ function App() {
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDq6vDgLBmODDUX7Mnn1jShHhVsb__CdOg`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDPBWWPVQbcNPwQG1ptmPPe1UbiKSbvd1I`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}
           />
           <Switch>
             <Route path="/profile">
-              <Profile></Profile>
+              <Profile
+                loginData={loginData}
+                profilePeople={profilePeople}
+                setProfilePeople={setProfilePeople}
+              ></Profile>
             </Route>
           </Switch>
           <Switch>
@@ -151,6 +168,7 @@ function App() {
           <Switch>
             <Route path="/runninglist">
               <Runninglist
+                profilePeople={profilePeople}
                 createdMeetpoints={createdMeetpoints}
                 displayedMeetpoint={displayedMeetpoint}
                 plus={plus}
