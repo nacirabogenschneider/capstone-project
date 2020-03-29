@@ -7,6 +7,7 @@ import ProfileAddPeople from './ProfileAddPeople'
 import pencil from './pencil-alt.svg'
 
 export default function ProfilePeople({ loginData }) {
+  const [profilePeople, setProfilePeople] = useState([loginData])
   const [editPeople, setEditPeople] = useState('none')
   function handlePencilClick() {
     setEditPeople('block')
@@ -23,16 +24,20 @@ export default function ProfilePeople({ loginData }) {
         ></StyledImage>
       </SyledWrapper>
       <PersonWrapper>
-        <StyledImg src={woman} alt="adult"></StyledImg>
+        <StyledImg src={woman} alt="woman"></StyledImg>
         <span>
           {loginData.firstName} {loginData.lastName}
         </span>
       </PersonWrapper>
+
       <ProfileAddPeople
+        setProfilePeople={setProfilePeople}
         editPeople={editPeople}
         woman={woman}
         man={man}
         child={child}
+        setEditPeople={setEditPeople}
+        profilePeople={profilePeople}
       />
     </PersonSection>
   )

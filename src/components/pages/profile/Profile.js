@@ -5,14 +5,16 @@ import phone from './phone.svg'
 import mail from './mail.svg'
 import TextEditor from './TextEditor'
 import ProfilePeople from './ProfilePeople'
+import uuid from 'react-uuid'
 
 export default function Profile() {
   const [loginData, setloginData] = useState({
+    userId: uuid(),
     firstName: 'Nacira',
     lastName: 'Bogenschneider',
     phone: '0172 / 5287069',
     email: 'mail@nacira.de',
-    state: 'adult',
+    state: 'woman',
   })
   return (
     <ProfileSection>
@@ -43,13 +45,13 @@ const ProfileSection = styled.section`
   top: 120px;
   left: 12px;
   right: 12px;
+  bottom: 110px;
   height: auto;
   border-radius: 12px;
   background: white;
   opacity: 0.98;
   box-shadow: 0 0 10px 2px #2b7380;
   overflow-y: scroll;
-  max-height: 560px;
 `
 const DescriptionSection = styled.section`
   display: flex;

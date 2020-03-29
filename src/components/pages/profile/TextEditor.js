@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import styled from 'styled-components/macro'
 import pencil from './pencil-alt.svg'
+import ReactHtmlParser from 'react-html-parser'
 
 export default function TextEditor() {
   const [editorContent, setEditorContent] = useState('')
@@ -30,7 +31,7 @@ export default function TextEditor() {
               onClick={handlePencilClick}
             ></StyledImage>
           </NoteTitel>
-          <div>{editorContent}</div>
+          <div>{ReactHtmlParser(editorContent)}</div>
         </Notes>
         <EditorWrapper style={{ display: editNote }}>
           <ButtonWrapper>
@@ -39,7 +40,6 @@ export default function TextEditor() {
           <Editor
             textareaName="content"
             onEditorChange={handleEditorChange}
-            value={editorContent}
             apiKey="mctspfsm9cpr8op1vg9gpgwgdf00uwm1x1vaagv64g2132uc"
             init={{
               hidden_input: false,
@@ -73,7 +73,7 @@ const EditorSection = styled.section`
   margin: 12px;
 `
 const Notes = styled.section`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 const NoteTitel = styled.div`
   width: 100%;
