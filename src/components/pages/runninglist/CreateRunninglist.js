@@ -18,6 +18,9 @@ export default function CreateRunninglist({
     setClickedListID(event.target.id)
     setIsClicked(true)
   }
+  console.log('runningLists', runningLists)
+  console.log('displayedMeetpoint', displayedMeetpoint)
+
   return runningLists
     .filter(list => list.meetpoint === displayedMeetpoint)
     .map(list => (
