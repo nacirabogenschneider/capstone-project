@@ -83,9 +83,11 @@ function App() {
     email: 'mail@nacira.de',
     state: 'woman',
   })
-  const [profilePeople, setProfilePeople] = useState(
-    () => loadFromLocal('profilePeople') || [loginData]
+
+  const [persons, setPersons] = useState(
+    () => loadFromLocal('persons') || [loginData]
   )
+
   useEffect(() => {
     saveToLocal('selectedSchool', selectedSchool)
   }, [selectedSchool])
@@ -110,9 +112,9 @@ function App() {
           <Switch>
             <Route path="/profile">
               <Profile
+                persons={persons}
+                setPersons={setPersons}
                 loginData={loginData}
-                profilePeople={profilePeople}
-                setProfilePeople={setProfilePeople}
               ></Profile>
             </Route>
           </Switch>
@@ -168,7 +170,8 @@ function App() {
           <Switch>
             <Route path="/runninglist">
               <Runninglist
-                profilePeople={profilePeople}
+                persons={persons}
+                setPersons={setPersons}
                 createdMeetpoints={createdMeetpoints}
                 displayedMeetpoint={displayedMeetpoint}
                 plus={plus}

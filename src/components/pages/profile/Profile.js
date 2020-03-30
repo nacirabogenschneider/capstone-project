@@ -5,12 +5,13 @@ import phone from './phone.svg'
 import mail from './mail.svg'
 import TextEditor from './TextEditor'
 import ProfilePeople from './ProfilePeople'
+import { loadFromLocal } from '../utils/localStorage'
 
-export default function Profile({
-  setProfilePeople,
-  profilePeople,
-  loginData,
-}) {
+export default function Profile({ persons, setPersons, loginData }) {
+  const [profilePeople, setProfilePeople] = useState(
+    () => loadFromLocal('profilePeople') || [loginData]
+  )
+
   return (
     <ProfileSection>
       <DescriptionSection>
@@ -31,6 +32,8 @@ export default function Profile({
       </DescriptionSection>
       <TextEditor />
       <ProfilePeople
+        persons={persons}
+        setPersons={setPersons}
         profilePeople={profilePeople}
         setProfilePeople={setProfilePeople}
         loginData={loginData}

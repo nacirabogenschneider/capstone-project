@@ -12,6 +12,8 @@ export default function ProfilePeople({
   loginData,
   profilePeople,
   setProfilePeople,
+  persons,
+  setPersons,
 }) {
   const [editPeople, setEditPeople] = useState('none')
 
@@ -21,6 +23,10 @@ export default function ProfilePeople({
   useEffect(() => {
     saveToLocal('profilePeople', profilePeople)
   }, [profilePeople])
+
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
 
   return (
     <PersonSection>
@@ -38,6 +44,8 @@ export default function ProfilePeople({
       />
 
       <ProfileAddPeople
+        persons={persons}
+        setPersons={setPersons}
         setProfilePeople={setProfilePeople}
         editPeople={editPeople}
         woman={woman}

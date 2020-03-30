@@ -18,11 +18,9 @@ export default function RunninglistDetails({
   setIsClicked,
   plus,
   minus,
-  profilePeople,
+  persons,
+  setPersons,
 }) {
-  const [persons, setPersons] = useState(
-    () => JSON.parse(localStorage.getItem('persons')) || profilePeople
-  )
   const [toNewRunninglist, setToNewRunninglist] = useState(
     () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
   )
@@ -32,10 +30,6 @@ export default function RunninglistDetails({
   const clickedListElement = runninglists.find(
     list => list.id === clickedListId
   )
-  useEffect(() => {
-    setPersons(profilePeople)
-    setToNewRunninglist([])
-  }, [profilePeople])
 
   useEffect(() => {
     isClicked !== null && setToggleSelectForm(isClicked)

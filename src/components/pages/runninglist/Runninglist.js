@@ -21,6 +21,8 @@ export default function Runninglist({
   plus,
   minus,
   circle,
+  persons,
+  setPersons,
 }) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
@@ -75,6 +77,8 @@ export default function Runninglist({
           runninglists={runningLists}
           plus={plus}
           minus={minus}
+          persons={persons}
+          setPersons={setPersons}
         />
         <form onSubmit={handleSubmit(onSubmit)}>
           <StyledRow>

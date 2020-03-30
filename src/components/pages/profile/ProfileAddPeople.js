@@ -11,12 +11,24 @@ export default function ProfileAddPeople({
   child,
   setProfilePeople,
   profilePeople,
+  persons,
+  setPersons,
 }) {
   const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = data => {
     setProfilePeople([
       ...profilePeople,
+      {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        class: data.class,
+        state: data.state,
+        id: uuid(),
+      },
+    ])
+    setPersons([
+      ...persons,
       {
         firstName: data.firstName,
         lastName: data.lastName,
