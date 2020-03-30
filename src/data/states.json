@@ -1,0 +1,18 @@
+{
+  "states": [
+    { "name": "Baden-Württemberg", "lat": 48.661709, "lng": 9.00354 },
+    { "name": "Bayern", "lat": 48.917431, "lng": 11.40798 },
+    { "name": "Berlin", "lat": 52.520008, "lng": 13.404954 },
+    { "name": "Brandenburg", "lat": 52.131393, "lng": 13.216249 },
+    { "name": "Bremen", "lat": 53.079296, "lng": 8.801694 },
+    { "name": "Hamburg", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Hessen", "lat": 50.526501, "lng": 9.00444 },
+    { "name": "Mecklenburg-Vorpommern", "lat": 53.612652, "lng": 12.429595 },
+    { "name": "Niedersachsen", "lat": 52.593342, "lng": 9.12621 },
+    { "name": "Rheinland-Pfalz", "lat": 50.118347, "lng": 7.308953 },
+    { "name": "Saarland", "lat": 49.37566, "lng": 6.88066 },
+    { "name": "Sachsen", "lat": 50.928089, "lng": 13.45705 },
+    { "name": "Schleswig-Holstein", "lat": 54.208321, "lng": 9.58903 },
+    { "name": "Thüringen", "lat": 51.01099, "lng": 10.845346 }
+  ]
+}
