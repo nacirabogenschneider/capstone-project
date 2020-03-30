@@ -24,6 +24,7 @@ import uuid from 'react-uuid'
 import saveToLocal, {
   loadFromLocal,
 } from './components/pages/utils/localStorage'
+import Profile from './components/pages/profile/Profile'
 
 const MapWrapped = withScriptjs(withGoogleMap(Map))
 
@@ -72,6 +73,21 @@ function App() {
   const [displayedMeetpoint, setDisplayedMeetpoint] = useState(
     () => loadFromLocal('displayedMeetpoint') || 'Wähle einen Treffpunkt'
   )
+
+  const [loginData] = useState({
+    familieId: uuid(),
+    id: uuid(),
+    firstName: 'Nacira',
+    lastName: 'Bogenschneider',
+    phone: '0172 / 5287069',
+    email: 'mail@nacira.de',
+    state: 'woman',
+  })
+
+  const [persons, setPersons] = useState(
+    () => loadFromLocal('persons') || [loginData]
+  )
+
   useEffect(() => {
     saveToLocal('selectedSchool', selectedSchool)
   }, [selectedSchool])
@@ -88,11 +104,20 @@ function App() {
             primeSchools={primeSchools}
             chosenSchool={chosenSchool}
             key={Math.random()}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDq6vDgLBmODDUX7Mnn1jShHhVsb__CdOg`}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDPBWWPVQbcNPwQG1ptmPPe1UbiKSbvd1I`}
             loadingElement={<div style={{ height: `100%` }}></div>}
             containerElement={<div style={{ height: `100%` }}></div>}
             mapElement={<div style={{ height: `100%` }}></div>}
           />
+          <Switch>
+            <Route path="/profile">
+              <Profile
+                persons={persons}
+                setPersons={setPersons}
+                loginData={loginData}
+              ></Profile>
+            </Route>
+          </Switch>
           <Switch>
             <Route exact path="/">
               <Filter
@@ -145,6 +170,8 @@ function App() {
           <Switch>
             <Route path="/runninglist">
               <Runninglist
+                persons={persons}
+                setPersons={setPersons}
                 createdMeetpoints={createdMeetpoints}
                 displayedMeetpoint={displayedMeetpoint}
                 plus={plus}

@@ -1,12 +1,12 @@
 import styled from 'styled-components/macro'
 
 const HeaderSection = styled.div`
+  padding: 0 8px;
   font-family: 'Crafty Girls';
   width: auto;
   font-size: 1.5rem;
   display: flex;
-  padding: 0 20px;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background: #fbfbfb;
   border-bottom: 0.8px solid lightgray;
@@ -15,11 +15,18 @@ const HeaderSection = styled.div`
 `
 
 const StyledLogoText = styled.div`
-  padding-left: 50px;
   color: #4a5568;
 `
 const Logo = styled.img`
   width: 45px;
-  padding: 3px 8px 3px 12px;
 `
-export { StyledLogoText, HeaderSection, Logo }
+
+const StyledProfileImg = styled.img`
+  margin: 10px 0 0 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid black;
+`
+
+export { StyledLogoText, HeaderSection, Logo, StyledProfileImg }

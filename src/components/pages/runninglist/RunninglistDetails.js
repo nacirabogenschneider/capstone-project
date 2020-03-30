@@ -18,16 +18,9 @@ export default function RunninglistDetails({
   setIsClicked,
   plus,
   minus,
+  persons,
+  setPersons,
 }) {
-  const staticProfilData = [
-    { name: 'Nacira Bogenschneider', state: 'parent', id: uuid() },
-    { name: 'Vincent', state: 'child', class: '2a', id: uuid() },
-    { name: 'Marlene', state: 'child', class: 'VSKb', id: uuid() },
-    { name: 'Bruno', state: 'child', id: uuid() },
-  ]
-  const [persons, setPersons] = useState(
-    () => JSON.parse(localStorage.getItem('persons')) || staticProfilData
-  )
   const [toNewRunninglist, setToNewRunninglist] = useState(
     () => JSON.parse(localStorage.getItem('toNewRunninglist')) || []
   )
@@ -39,7 +32,7 @@ export default function RunninglistDetails({
   )
 
   useEffect(() => {
-    isClicked && isClicked !== null && setToggleSelectForm(isClicked)
+    isClicked !== null && setToggleSelectForm(isClicked)
   }, [isClicked])
 
   function toogle() {

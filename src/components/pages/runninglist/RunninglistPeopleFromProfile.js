@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import uuid from 'react-uuid'
 import {
   StyledPersonToAdd,
+  StyledSpan,
   CreateButton,
   StyledWrap,
 } from './Runninglist.styles'
@@ -15,38 +16,44 @@ export default function RunninglistPeopleFromProfile({
   persons,
   setPersons,
 }) {
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
+
+  useEffect(() => {
+    saveToLocal('toNewRunninglist', toNewRunninglist)
+  }, [toNewRunninglist])
+
   function handleAddClick(event) {
     const selectedSingle = persons.find(item => item.id === event.target.id)
     const notClickedPerson = persons.filter(item => item.id !== event.target.id)
     setPersons(notClickedPerson)
-    saveToLocal('persons', persons)
 
     setToNewRunninglist([
       ...toNewRunninglist,
       {
-        name: selectedSingle.name,
+        firstName: selectedSingle.firstName,
+        lastName: selectedSingle.lastName,
         state: selectedSingle.state,
         id: selectedSingle.id,
-        listid: clickedListId,
         class: selectedSingle.class,
+        listid: clickedListId,
       },
     ])
   }
-  useEffect(() => {
-    saveToLocal('toNewRunninglist', toNewRunninglist)
-  }, [toNewRunninglist])
 
   return persons.map(person => (
     <label key={uuid()} htmlFor={person.id}>
       <StyledPersonToAdd key={uuid()}>
         <StyledWrap
-          value={person.name}
-          name={person.name}
+          value={person.firstName}
+          name={person.firstName}
           id={person.id}
           onClick={handleAddClick}
         >
-          {person.name}
+          {person.firstName} {person.lastName}
         </StyledWrap>
+        <StyledSpan value={person.class}>{person.class}</StyledSpan>
         <CreateButton type="submit">
           <img src={plus} alt="add a person to running list"></img>
         </CreateButton>

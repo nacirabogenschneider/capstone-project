@@ -14,34 +14,38 @@ export default function RenderNewPersonOnList({
   setPersons,
   persons,
 }) {
+  useEffect(() => {
+    saveToLocal('persons', persons)
+  }, [persons])
+
+  useEffect(() => {
+    saveToLocal('toNewRunninglist', toNewRunninglist)
+  }, [toNewRunninglist])
+
   function handleRemoveClick(event) {
     const selectedSingle = toNewRunninglist.find(
       item => item.id === event.target.id
     )
-
     const notClicktPersons = toNewRunninglist.filter(
       item => item.id !== event.target.id
     )
 
     setToNewRunninglist(notClicktPersons)
-
     setPersons([...persons, selectedSingle])
   }
-  useEffect(() => {
-    saveToLocal('persons', persons)
-  }, [persons])
 
   return toNewRunninglist.map(person => (
     <label key={uuid()} htmlFor={person.id}>
-      <StyledPersonEntry key={person.id} value={person.name}>
+      <StyledPersonEntry key={person.id} value={person.firstName}>
         <StyledSpan
-          value={person.name}
+          value={person.firstName}
           id={person.id}
-          name={person.name}
+          name={person.firstName}
           onClick={handleRemoveClick}
         >
-          {person.name}
+          {person.firstName} {person.lastName}
         </StyledSpan>
+
         <StyledSpan value={person.class}>{person.class}</StyledSpan>
         <CreateButton type="submit">
           <img src={minus} alt="remove button"></img>

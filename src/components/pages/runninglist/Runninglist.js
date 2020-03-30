@@ -15,11 +15,14 @@ import {
 } from './Runninglist.styles'
 
 export default function Runninglist({
+  profilePeople,
   createdMeetpoints,
   displayedMeetpoint,
   plus,
   minus,
   circle,
+  persons,
+  setPersons,
 }) {
   const unique = uuid()
   const [clickedListId, setClickedListID] = useState('')
@@ -47,6 +50,7 @@ export default function Runninglist({
     ])
     reset()
   }
+
   const runninglistMeetpoint = displayedMeetpoint.split(',')
   const runningListName = runninglistMeetpoint[0]
   return (
@@ -66,12 +70,15 @@ export default function Runninglist({
           setIsClicked={setIsClicked}
         />
         <RunninglistDetails
+          profilePeople={profilePeople}
           clickedListId={clickedListId}
           setIsClicked={setIsClicked}
           isClicked={isClicked}
           runninglists={runningLists}
           plus={plus}
           minus={minus}
+          persons={persons}
+          setPersons={setPersons}
         />
         <form onSubmit={handleSubmit(onSubmit)}>
           <StyledRow>
