@@ -31,7 +31,7 @@ export default function Map({ chosenSchool, stateOfChoice, primeSchools }) {
 
   return (
     <GoogleMap
-      defaultZoom={10}
+      defaultZoom={11}
       defaultCenter={{ lat: 51.165691, lng: 10.451526 }}
       defaultOptions={{ styles: mapStyles }}
       center={selectedStates}
