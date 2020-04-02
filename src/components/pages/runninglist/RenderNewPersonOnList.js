@@ -13,6 +13,7 @@ export default function RenderNewPersonOnList({
   minus,
   setPersons,
   persons,
+  clickedListId,
 }) {
   useEffect(() => {
     saveToLocal('persons', persons)
@@ -34,23 +35,25 @@ export default function RenderNewPersonOnList({
     setPersons([...persons, selectedSingle])
   }
 
-  return toNewRunninglist.map(person => (
-    <label key={uuid()} htmlFor={person.id}>
-      <StyledPersonEntry key={person.id} value={person.firstName}>
-        <StyledSpan
-          value={person.firstName}
-          id={person.id}
-          name={person.firstName}
-          onClick={handleRemoveClick}
-        >
-          {person.firstName} {person.lastName}
-        </StyledSpan>
+  return toNewRunninglist
+    .filter(person => person.listid === clickedListId)
+    .map(person => (
+      <label key={uuid()} htmlFor={person.id}>
+        <StyledPersonEntry key={person.id} value={person.firstName}>
+          <StyledSpan
+            value={person.firstName}
+            id={person.id}
+            name={person.firstName}
+            onClick={handleRemoveClick}
+          >
+            {person.firstName} {person.lastName}
+          </StyledSpan>
 
-        <StyledSpan value={person.class}>{person.class}</StyledSpan>
-        <CreateButton type="submit">
-          <img src={minus} alt="remove button"></img>
-        </CreateButton>
-      </StyledPersonEntry>
-    </label>
-  ))
+          <StyledSpan value={person.class}>{person.class}</StyledSpan>
+          <CreateButton type="submit">
+            <img src={minus} alt="remove button"></img>
+          </CreateButton>
+        </StyledPersonEntry>
+      </label>
+    ))
 }

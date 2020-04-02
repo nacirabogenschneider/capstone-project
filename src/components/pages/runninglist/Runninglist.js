@@ -63,7 +63,6 @@ export default function Runninglist({
         </StyledRow>
         <CreateRunninglist
           displayedMeetpoint={displayedMeetpoint}
-          createdMeetpoints={createdMeetpoints}
           circle={circle}
           runningLists={runningLists}
           setClickedListID={setClickedListID}

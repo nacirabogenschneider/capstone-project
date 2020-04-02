@@ -1,0 +1,20 @@
+{
+  "states": [
+    { "name": "Baden-Württemberg", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Bayern", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Berlin", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Brandenburg", "lat": 53.551086, "lon": 9.993682 },
+    { "name": "Bremen", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Hamburg", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Hessen", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Mecklenburg-Vorpommern", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Niedersachsen", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Nordrhein-Westfalen", "lat": 51.426998, "lng": 7.663980 },
+    { "name": "Rheinland-Pfalz", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Saarland", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Sachsen-Anhalt", "lat": 51.98975, "lng": 11.87384 },
+    { "name": "Sachsen", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Schleswig-Holstein", "lat": 53.551086, "lng": 9.993682 },
+    { "name": "Thüringen", "lat": 53.551086, "lng": 9.993682 }
+  ]
+}

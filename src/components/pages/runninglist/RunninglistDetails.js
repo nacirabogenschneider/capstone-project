@@ -72,6 +72,7 @@ export default function RunninglistDetails({
               setPersons={setPersons}
               persons={persons}
               minus={minus}
+              clickedListId={clickedListId}
             />
             {persons.length > 0 && <div>Wähle Personen aus Deinem Profil</div>}
 

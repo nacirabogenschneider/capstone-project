@@ -29,5 +29,12 @@ const SchoolSection = styled.section`
 const StyledImage = styled.img`
   height: 35px;
   padding-right: 10px;
+  fill: black;
 `
-export { StyledImage, SchoolSection, StyledContent, StyledHeader }
+const StyledLink = styled.a`
+  color: #2b7380;
+  &:hover {
+    color: #ee7600;
+  }
+`
+export { StyledImage, SchoolSection, StyledContent, StyledHeader, StyledLink }
