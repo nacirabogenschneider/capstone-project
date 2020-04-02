@@ -12,7 +12,7 @@ Going to school together in accompanied groups relieves both parents and traffic
 
 You find a demo version on [https://schulweg.nacira.de](https://schulweg.nacira.de)
 
-![homescreen](https://nacirabogenschneider.github.io/personal-website/schulweg-home.ddd81e2c.png)
+![homescreen](https://media.giphy.com/media/YqPz2a4mGVDfV6Eo1e/giphy.gif)
 
 ### Technologies
 
