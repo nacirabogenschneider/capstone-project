@@ -12,7 +12,6 @@ export default function Map({ chosenSchool, stateOfChoice, primeSchools }) {
     lat: 51.165691,
     lng: 10.451526,
   })
-  console.log('selectedStates', selectedStates)
 
   useEffect(() => {
     const selectedStatesCoord = states.find(
@@ -26,7 +25,6 @@ export default function Map({ chosenSchool, stateOfChoice, primeSchools }) {
       lat: selectedStatesCoord.lat,
       lng: selectedStatesCoord.lng,
     })
-    console.log('selectedStates', selectedStates)
   }, [stateOfChoice])
 
   return (
