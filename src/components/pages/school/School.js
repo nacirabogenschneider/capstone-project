@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
-import { Spring } from 'react-spring/renderprops'
 
 import {
   StyledImage,
