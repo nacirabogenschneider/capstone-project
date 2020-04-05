@@ -9,6 +9,7 @@ import {
   Counter,
   StyledCounter,
   CounterDiv,
+  StyledCounterVsk,
 } from './School.styles'
 import uuid from 'react-uuid'
 import saveToLocal from '../utils/localStorage'
@@ -60,7 +61,7 @@ export default function School({
         <StyledImage src={currentSchoolImg} alt="current school"></StyledImage>
         <div>{selectedSchoolByChoice.name || 'Wähle eine Schule'}</div>
       </StyledHeader>
-      <StyledCounter key={uuid()}>
+      <StyledCounterVsk key={uuid()}>
         <CounterDiv>
           <span>Vorschulklasse</span>
           <Counter>
@@ -69,7 +70,7 @@ export default function School({
             </animated.span>
           </Counter>
         </CounterDiv>
-      </StyledCounter>
+      </StyledCounterVsk>
       <StyledCounter key={uuid()}>
         <CounterDiv>
           <span>Klasse 1</span>

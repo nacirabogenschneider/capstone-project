@@ -17,15 +17,20 @@ const StyledContent = styled.div`
 `
 const StyledCounter = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   padding: 10px;
   align-items: center;
-  margin: 10px;
 `
 const CounterDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+const StyledCounterVsk = styled.div`
+  display: flex;
   justify-content: center;
+  padding: 10px;
   align-items: center;
 `
 const SchoolSection = styled.section`
@@ -52,17 +57,14 @@ const StyledLink = styled.a`
     color: #ee7600;
   }
 `
-
 const Counter = styled.span`
   color: #2b7380;
   display: flex;
   font-size: 1.6rem;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
   padding: 18px;
-  margin: 14px;
-  height: 30px;
-  width: 30px;
   border: 1px solid orange;
   border-radius: 50%;
 `
@@ -75,4 +77,5 @@ export {
   Counter,
   StyledCounter,
   CounterDiv,
+  StyledCounterVsk,
 }
