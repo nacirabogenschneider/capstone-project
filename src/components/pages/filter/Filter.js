@@ -4,6 +4,7 @@ import { Option, SelectSection } from './Filter.styles'
 import saveToLocal from '../utils/localStorage'
 import FilterButton from './FilterButton'
 import FilterSelect from './FilterSelect'
+import uuid from 'react-uuid'
 
 export default function Filter({
   setSelectedSchool,
@@ -22,7 +23,7 @@ export default function Filter({
       .filter(school => school.state === stateOfChoice)
       .map(school => school.name + ', ' + school.address)
       .sort()
-      .map(sortedSchool => <Option key={sortedSchool}>{sortedSchool}</Option>)
+      .map(sortedSchool => <Option key={uuid()}>{sortedSchool}</Option>)
   }, [stateOfChoice, primarySchools])
 
   useEffect(() => {

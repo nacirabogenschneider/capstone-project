@@ -15,11 +15,26 @@ const StyledContent = styled.div`
   align-items: center;
   margin: 10px;
 `
+const StyledCounter = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  align-items: center;
+  margin: 10px;
+`
+const CounterDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 const SchoolSection = styled.section`
   position: absolute;
   background: white;
   opacity: 0.94;
   top: 115px;
+  bottom: 100px;
+  overflow-y: scroll;
   min-height: 240px;
   left: 10px;
   right: 10px;
@@ -37,4 +52,27 @@ const StyledLink = styled.a`
     color: #ee7600;
   }
 `
-export { StyledImage, SchoolSection, StyledContent, StyledHeader, StyledLink }
+
+const Counter = styled.span`
+  color: #2b7380;
+  display: flex;
+  font-size: 1.6rem;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  margin: 14px;
+  height: 30px;
+  width: 30px;
+  border: 1px solid orange;
+  border-radius: 50%;
+`
+export {
+  StyledImage,
+  SchoolSection,
+  StyledContent,
+  StyledHeader,
+  StyledLink,
+  Counter,
+  StyledCounter,
+  CounterDiv,
+}
