@@ -67,6 +67,8 @@ const Counter = styled.span`
   padding: 18px;
   border: 1px solid orange;
   border-radius: 50%;
+  height: 30px;
+  width: 30px;
 `
 export {
   StyledImage,
