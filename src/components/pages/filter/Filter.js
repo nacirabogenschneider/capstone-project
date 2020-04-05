@@ -23,7 +23,11 @@ export default function Filter({
       .filter(school => school.state === stateOfChoice)
       .map(school => school.name + ', ' + school.address)
       .sort()
-      .map(sortedSchool => <Option key={uuid()}>{sortedSchool}</Option>)
+      .map(sortedSchool => (
+        <Option value={sortedSchool.name} key={sortedSchool.name}>
+          {sortedSchool}
+        </Option>
+      ))
   }, [stateOfChoice, primarySchools])
 
   useEffect(() => {
