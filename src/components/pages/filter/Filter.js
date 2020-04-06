@@ -20,11 +20,11 @@ export default function Filter({
   const [styling, setStyling] = useState({ color: 'lightgrey' })
   const filterSchoolsByPrimaryState = useCallback(() => {
     return primarySchools
-      .filter(school => school.state === stateOfChoice)
-      .map(school => school.name + ', ' + school.address)
+      .filter((school) => school.state === stateOfChoice)
+      .map((school) => school.name + ', ' + school.address)
       .sort()
-      .map(sortedSchool => (
-        <Option value={sortedSchool.name} key={sortedSchool.name}>
+      .map((sortedSchool) => (
+        <Option value={sortedSchool} key={sortedSchool}>
           {sortedSchool}
         </Option>
       ))
@@ -36,7 +36,7 @@ export default function Filter({
   }, [stateOfChoice, filterSchoolsByPrimaryState, setSelectedState])
 
   function setStateSelector() {
-    return schoolStates.map(state => (
+    return schoolStates.map((state) => (
       <option key={state.name} value={state.name}>
         {state.name}
       </option>
@@ -45,7 +45,7 @@ export default function Filter({
   useEffect(() => {
     disable === '/school' && setStyling({ color: 'black' })
   }, [disable])
-  const handleSchoolChange = async event => {
+  const handleSchoolChange = async (event) => {
     const school = await event.target.value
     if (selectedSchool !== 'Wähle deine Schule') {
       setDisable('/school')

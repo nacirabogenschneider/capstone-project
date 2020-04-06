@@ -44,8 +44,8 @@ MapWrapped.propTypes = {
 function App() {
   const schoolsDataAll = schoolsData.schools
   const primeSchools = schoolsDataAll
-    .filter(school => school.school_type === 'Grundschule')
-    .sort()
+  // .filter(school => school.school_type === 'Grundschule')
+  // .sort()
   const schoolStates = schoolsData.states
 
   const [createdMeetpoints, setCreatedMeetpoints] = useState(
