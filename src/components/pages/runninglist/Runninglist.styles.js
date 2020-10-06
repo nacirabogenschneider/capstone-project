@@ -124,7 +124,7 @@ const StyledRunningTitle = styled.div`
 const StyledRow = styled.div`
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 440px;
   height: auto;
   overflow-y: visible;
 `

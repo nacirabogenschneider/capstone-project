@@ -22,8 +22,8 @@ export default function CreateRunninglist({
   console.log('displayedMeetpoint', displayedMeetpoint)
 
   return runningLists
-    .filter(list => list.meetpoint === displayedMeetpoint)
-    .map(list => (
+    .filter((list) => list.meetpoint === displayedMeetpoint)
+    .map((list) => (
       <label key={list.key} htmlFor={list.id}>
         <StyledRow>
           <StyledTime>{list.time}</StyledTime>

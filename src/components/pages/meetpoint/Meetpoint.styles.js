@@ -4,7 +4,7 @@ const StyledInput = styled.input`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 94vw;
+  width: 420px;
   height: 40px;
   flex-direction: column;
   font-family: 'Raleway';
@@ -22,7 +22,6 @@ const StyledInput = styled.input`
     box-shadow: 0 0 10px 2px #ee7600;
   }
 `
-
 const StyledSuggestion = styled.div`
   display: flex;
   justify-content: left;
@@ -58,6 +57,7 @@ const AddPointButton = styled.button`
 const ButtonWrapper = styled.div`
   display: flex;
   font-family: 'Raleway';
+  width: 420px;
 `
 const StyledMeetpoint = styled.select`
   font-family: 'Raleway';
@@ -65,7 +65,7 @@ const StyledMeetpoint = styled.select`
   border: none;
   font-size: 1.1rem;
   height: 49px;
-  width: 96vw;
+  width: 420px;
   padding: 4px;
   margin: 8px 0;
   background: white;

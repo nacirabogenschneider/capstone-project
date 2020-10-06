@@ -7,6 +7,7 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   margin: 10px;
+  width: 420px;
 `
 const StyledContent = styled.div`
   font-size: 1.1rem;
@@ -14,27 +15,32 @@ const StyledContent = styled.div`
   padding: 10px;
   align-items: center;
   margin: 10px;
+  width: 420px;
+  overflow: 'hidden';
 `
 const StyledCounter = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  justify-content: space-around;
   align-items: center;
+  width: 420px;
 `
 const CounterDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width: 420px;
 `
 const StyledCounterVsk = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px;
   align-items: center;
+  width: 420px;
 `
 const SchoolSection = styled.section`
   position: absolute;
+  width: 420px;
   background: white;
   opacity: 0.94;
   top: 115px;

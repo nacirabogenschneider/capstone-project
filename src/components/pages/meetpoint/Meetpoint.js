@@ -57,7 +57,7 @@ export default function Meetpoint({
         },
       ])
 
-    const doublette = selectedMeetpoints.some(point => point.id === address)
+    const doublette = selectedMeetpoints.some((point) => point.id === address)
     address !== '' &&
       !doublette &&
       setSelectedMeetpoints([

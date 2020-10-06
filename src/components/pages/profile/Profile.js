@@ -13,7 +13,7 @@ export default function Profile({ persons, setPersons, loginData }) {
   )
 
   return (
-    <ProfileSection>
+    <ProfileSection style={{ width: 420, alignSelf: 'center' }}>
       <DescriptionSection>
         <StyledImg src={Nacira} alt="profile"></StyledImg>
         <DataSection>

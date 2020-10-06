@@ -10,11 +10,11 @@ const StyledSvg = styled.img`
 const InfoCards = styled.section`
   position: absolute;
   display: flex;
-  justify-content: center;
+  justify-content: 'center';
   align-items: center;
   flex-direction: column;
   top: 110px;
-  width: 100%;
+  width: 440px;
 `
 const CardHeader = styled.section`
   display: flex;
@@ -32,12 +32,12 @@ const MeetHeader = styled.section`
 `
 const SchoolCard = styled.section`
   display: flex;
-  width: 90vw;
+  width: 420px;
   flex-direction: column;
   font-family: 'Raleway';
   border-radius: 12px;
   padding: 10px;
-  margin: 5px 0;
+  margin: 5px 10px;
   font-size: 1.2rem;
   background: white;
   opacity: 0.95;

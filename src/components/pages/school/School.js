@@ -56,17 +56,17 @@ export default function School({
   }, [selectedSchoolByChoice, setChosenSchool, chosenSchool])
 
   return (
-    <React.Fragment key={uuid}>
-      <StyledHeader key={uuid()}>
+    <section key={uuid} style={{ width: 420, alignSelf: 'center' }}>
+      <StyledHeader key={uuid()} style={{ width: 420, alignSelf: 'center' }}>
         <StyledImage src={currentSchoolImg} alt="current school"></StyledImage>
         <div>{selectedSchoolByChoice.name || 'Wähle eine Schule'}</div>
       </StyledHeader>
       <StyledCounterVsk key={uuid()}>
-        <CounterDiv>
+        <CounterDiv style={{ width: 420, alignSelf: 'center' }}>
           <span>Vorschulklasse</span>
           <Counter>
             <animated.span>
-              {propsVsk.number.interpolate(num => Math.floor(num))}
+              {propsVsk.number.interpolate((num) => Math.floor(num))}
             </animated.span>
           </Counter>
         </CounterDiv>
@@ -76,7 +76,7 @@ export default function School({
           <span>Klasse 1</span>
           <Counter>
             <animated.span>
-              {propsCl1.number.interpolate(num => Math.floor(num))}
+              {propsCl1.number.interpolate((num) => Math.floor(num))}
             </animated.span>
           </Counter>
         </CounterDiv>
@@ -84,7 +84,7 @@ export default function School({
           <span>Klasse 2</span>
           <Counter>
             <animated.span>
-              {propsCl2.number.interpolate(num => Math.floor(num))}
+              {propsCl2.number.interpolate((num) => Math.floor(num))}
             </animated.span>
           </Counter>
         </CounterDiv>
@@ -92,7 +92,7 @@ export default function School({
           <span>Klasse 3</span>
           <Counter>
             <animated.span>
-              {propsCl3.number.interpolate(num => Math.floor(num))}
+              {propsCl3.number.interpolate((num) => Math.floor(num))}
             </animated.span>
           </Counter>
         </CounterDiv>
@@ -100,7 +100,7 @@ export default function School({
           <span>Klasse 4</span>
           <Counter>
             <animated.span>
-              {propsCl4.number.interpolate(num => Math.floor(num))}
+              {propsCl4.number.interpolate((num) => Math.floor(num))}
             </animated.span>
           </Counter>
         </CounterDiv>
@@ -130,14 +130,14 @@ export default function School({
           {selectedSchoolByChoice.website}
         </StyledLink>
       </StyledContent>
-    </React.Fragment>
+    </section>
   )
 
   function findFullSchoolElement() {
     const selectedSchoolNameAndAddress = selectedSchool.split(',')
     const selectedSchoolName = selectedSchoolNameAndAddress[0]
     const selectedSchoolByChoiceInArray = primeSchools.filter(
-      school => school.name === selectedSchoolName
+      (school) => school.name === selectedSchoolName
     )
     const selectedSchoolByChoice = selectedSchoolByChoiceInArray[0]
     return selectedSchoolByChoice

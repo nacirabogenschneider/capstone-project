@@ -16,7 +16,7 @@ export default function MeetpointPlacesAutocomplete({
   coordinates,
   setCoordinates,
 }) {
-  const handleSelect = async value => {
+  const handleSelect = async (value) => {
     const results = await geocodeByAddress(value)
     const latLng = await getLatLng(results[0])
     setAddress(value)
@@ -33,7 +33,7 @@ export default function MeetpointPlacesAutocomplete({
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
           <StyledInput
-            style={{ height: 45, width: '94vw', padding: 3, margin: 4 }}
+            style={{ height: 45, width: '410px', padding: 3, margin: 4 }}
             {...getInputProps({
               placeholder: 'Neuen Treffpunkt erstellen',
             })}
@@ -41,7 +41,7 @@ export default function MeetpointPlacesAutocomplete({
 
           <StyledSuggestionWrapper>
             {loading ? <div>...loading</div> : null}
-            {suggestions.map(suggestion => {
+            {suggestions.map((suggestion) => {
               const style = {
                 backgroundColor: suggestion.active ? '#EE7600' : '#fff',
                 borderRadius: 12,

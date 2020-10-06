@@ -5,7 +5,7 @@ export default createGlobalStyle`
     margin: 0;
     padding:0;
     height:100vh;
-    width: 100vw;
+    width: 440px;
     font-family:'Raleway';
     font-size: 16px;
   }

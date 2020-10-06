@@ -7,7 +7,7 @@ const SelectSection = styled.main`
   justify-content: center;
   align-items: center;
   top: 110px;
-  width: 100%;
+  width: 440;
 `
 const Option = styled.option`
   font-family: 'Raleway', 'sant serif';
@@ -16,10 +16,11 @@ const Option = styled.option`
 const Select = styled.select`
   font-family: 'Raleway';
   height: 48px;
-  width: 94vw;
+  width: 420px;
+
   border-radius: 12px;
   border: none;
-  margin: 5px 0;
+  margin: 5px 10px;
   padding-left: 8px;
   font-size: 1.1rem;
   background: white;
